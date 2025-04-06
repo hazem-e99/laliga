@@ -5,6 +5,13 @@ const Dashboard = () => {
         <div>
             <h1>Dashboard</h1>
             <h1>Dashboard</h1>
+            <h1>Dashboard</h1>
+            <h1>Dashboard</h1>
+            <h1>Dashboard</h1>
+            <h1>Dashboard</h1>
+            <h1>Dashboard</h1>
+            <h1>Dashboard</h1>
+            <h1>Dashboard</h1>
             <h1>Dashboardddddddddddddd </h1>
             <h1>Dashboardddddddddddddd </h1>
         </div>
