@@ -1,39 +1,15 @@
 {
   "users": [
     {
-      "id": "78c4",
-      "firstName": "Hazem",
+      "id": "5be4",
+      "firstName": "Hazemm",
       "lastName": "Essam",
       "phone": "01094575914",
       "email": "zoka.live2000@gmail.com",
-      "password": "123",
-      "birthDate": "1999-11-08",
+      "password": "321123",
+      "birthDate": "86666-11-09",
       "gender": "male",
-      "address": "",
-      "acceptTerms": true
-    },
-    {
-      "id": "c3d0",
-      "firstName": "Hazem",
-      "lastName": "Essam",
-      "phone": "01094575914",
-      "email": "hazemessam81999@gmail.com",
-      "password": "123",
-      "birthDate": "2025-04-11",
-      "gender": "male",
-      "address": "ي ",
-      "acceptTerms": true
-    },
-    {
-      "id": "fc2e",
-      "firstName": "Hazem e",
-      "lastName": "Essam",
-      "phone": "01094575914",
-      "email": "hazemessam8199@gmail.com",
-      "password": "112211",
-      "birthDate": "9999-11-08",
-      "gender": "male",
-      "address": "ha",
+      "address": "اسيوط",
       "acceptTerms": true
     }
   ],

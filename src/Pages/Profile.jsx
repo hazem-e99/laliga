@@ -22,8 +22,8 @@ import CloseIcon from '@mui/icons-material/Close';
 
 const Profile = () => {
   const user = JSON.parse(localStorage.getItem('user')) || {};
-  const [editMode, setEditMode] = useState(false);
-  const [passwordEditMode, setPasswordEditMode] = useState(false);
+  const [editMode, setEditMode] = useState(false); // to toggle edit mode
+  const [passwordEditMode, setPasswordEditMode] = useState(false); // to toggle password change mode
   const [form, setForm] = useState({
     firstName: user?.firstName || '',
     lastName: user?.lastName || '',
@@ -65,12 +65,34 @@ const Profile = () => {
     });
   };
 
-  const handleUpdate = () => {
-    localStorage.setItem('user', JSON.stringify(form));
+const handleUpdate = async () => {
+  try {
+    // دمج البيانات الجديدة مع البيانات القديمة
+    const updatedUser = { ...user, ...form };
+
+    const response = await fetch(`http://localhost:5000/users/${user.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedUser), // إرسال البيانات المدمجة
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update user data');
+    }
+
+    const updatedUserFromServer = await response.json();
+    localStorage.setItem('user', JSON.stringify(updatedUserFromServer));
+
     setSuccess('Profile updated successfully!');
     setTimeout(() => setSuccess(''), 3000);
     setEditMode(false);
-  };
+  } catch (error) {
+    setError('Error updating profile: ' + error.message);
+  }
+};
+
 
   const handleCancel = () => {
     setForm({
@@ -83,34 +105,53 @@ const Profile = () => {
     setEditMode(false);
   };
 
-  const handlePasswordUpdate = () => {
+  const handlePasswordUpdate = async () => {
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
       setError('New passwords do not match');
       return;
     }
-    
+  
     if (passwordForm.currentPassword !== user.password) {
       setError('Current password is incorrect');
       return;
     }
-    
+  
     if (passwordForm.newPassword.length < 6) {
       setError('Password must be at least 6 characters');
       return;
     }
-    
-    const updatedUser = { ...user, password: passwordForm.newPassword };
-    localStorage.setItem('user', JSON.stringify(updatedUser));
-    
-    setSuccess('Password updated successfully!');
-    setTimeout(() => setSuccess(''), 3000);
-    setPasswordForm({
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: ''
-    });
-    setPasswordEditMode(false);
+  
+    try {
+      // إرسال التحديث إلى السيرفر
+      const response = await fetch(`http://localhost:5000/users/${user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...user, password: passwordForm.newPassword }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to update password');
+      }
+  
+      // تحديث المستخدم في الـ localStorage بعد النجاح
+      const updatedUser = await response.json();
+      localStorage.setItem('user', JSON.stringify(updatedUser));
+  
+      setSuccess('Password updated successfully!');
+      setTimeout(() => setSuccess(''), 3000);
+      setPasswordForm({
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: '',
+      });
+      setPasswordEditMode(false);
+    } catch (error) {
+      setError('Error updating password: ' + error.message);
+    }
   };
+  
 
   const handlePasswordCancel = () => {
     setPasswordForm({
@@ -322,21 +363,8 @@ const Profile = () => {
                   value={passwordForm.currentPassword}
                   onChange={handlePasswordChange}
                   sx={{ mb: 3 }}
-                  InputProps={{
-                    style: {
-                      color: 'white',
-                      fontSize: '1.1rem'
-                    }
-                  }}
-                  InputLabelProps={{
-                    style: {
-                      color: '#a0a0a0'
-                    }
-                  }}
+                  InputProps={{ style: { color: '#ffffff' } }}
                 />
-              </Grid>
-              
-              <Grid item xs={12} md={6}>
                 <TextField
                   label="New Password"
                   name="newPassword"
@@ -345,21 +373,8 @@ const Profile = () => {
                   value={passwordForm.newPassword}
                   onChange={handlePasswordChange}
                   sx={{ mb: 3 }}
-                  InputProps={{
-                    style: {
-                      color: 'white',
-                      fontSize: '1.1rem'
-                    }
-                  }}
-                  InputLabelProps={{
-                    style: {
-                      color: '#a0a0a0'
-                    }
-                  }}
+                  InputProps={{ style: { color: '#ffffff' } }}
                 />
-              </Grid>
-              
-              <Grid item xs={12} md={6}>
                 <TextField
                   label="Confirm New Password"
                   name="confirmPassword"
@@ -368,208 +383,70 @@ const Profile = () => {
                   value={passwordForm.confirmPassword}
                   onChange={handlePasswordChange}
                   sx={{ mb: 3 }}
-                  InputProps={{
-                    style: {
-                      color: 'white',
-                      fontSize: '1.1rem'
-                    }
-                  }}
-                  InputLabelProps={{
-                    style: {
-                      color: '#a0a0a0'
-                    }
-                  }}
+                  InputProps={{ style: { color: '#ffffff' } }}
                 />
               </Grid>
             </Grid>
           ) : (
             <Grid container spacing={4}>
               <Grid item xs={12} md={6}>
-                {editMode ? (
-                  <TextField
-                    label="First Name"
-                    name="firstName"
-                    fullWidth
-                    value={form.firstName}
-                    onChange={handleChange}
-                    sx={{ mb: 3 }}
-                    InputProps={{
-                      style: {
-                        color: 'white',
-                        fontSize: '1.1rem'
-                      }
-                    }}
-                    InputLabelProps={{
-                      style: {
-                        color: '#a0a0a0'
-                      }
-                    }}
-                  />
-                ) : (
-                  <ProfileField 
-                    label="First Name" 
-                    value={user.firstName}
-                  />
-                )}
-              </Grid>
-              
-              <Grid item xs={12} md={6}>
-                {editMode ? (
-                  <TextField
-                    label="Last Name"
-                    name="lastName"
-                    fullWidth
-                    value={form.lastName}
-                    onChange={handleChange}
-                    sx={{ mb: 3 }}
-                    InputProps={{
-                      style: {
-                        color: 'white',
-                        fontSize: '1.1rem'
-                      }
-                    }}
-                    InputLabelProps={{
-                      style: {
-                        color: '#a0a0a0'
-                      }
-                    }}
-                  />
-                ) : (
-                  <ProfileField 
-                    label="Last Name" 
-                    value={user.lastName}
-                  />
-                )}
-              </Grid>
-              
-              <Grid item xs={12}>
-                <Divider sx={{ 
-                  my: 3,
-                  backgroundColor: '#3a3a5d'
-                }} />
-              </Grid>
-              
-              <Grid item xs={12} md={6}>
-                {editMode ? (
-                  <TextField
-                    label="Email"
-                    name="email"
-                    fullWidth
-                    value={form.email}
-                    onChange={handleChange}
-                    sx={{ mb: 3 }}
-                    InputProps={{
-                      style: {
-                        color: 'white',
-                        fontSize: '1.1rem'
-                      }
-                    }}
-                    InputLabelProps={{
-                      style: {
-                        color: '#a0a0a0'
-                      }
-                    }}
-                  />
-                ) : (
-                  <ProfileField 
-                    label="Email" 
-                    value={user.email}
-                  />
-                )}
-              </Grid>
-              
-              <Grid item xs={12} md={6}>
-                {editMode ? (
-                  <TextField
-                    label="Phone"
-                    name="phone"
-                    fullWidth
-                    value={form.phone}
-                    onChange={handleChange}
-                    sx={{ mb: 3 }}
-                    InputProps={{
-                      style: {
-                        color: 'white',
-                        fontSize: '1.1rem'
-                      }
-                    }}
-                    InputLabelProps={{
-                      style: {
-                        color: '#a0a0a0'
-                      }
-                    }}
-                  />
-                ) : (
-                  <ProfileField 
-                    label="Phone" 
-                    value={user.phone || 'Not specified'}
-                  />
-                )}
-              </Grid>
-              
-              <Grid item xs={12}>
-                {editMode ? (
-                  <TextField
-                    label="Address"
-                    name="address"
-                    fullWidth
-                    multiline
-                    rows={4}
-                    value={form.address}
-                    onChange={handleChange}
-                    sx={{ mb: 2 }}
-                    InputProps={{
-                      style: {
-                        color: 'white',
-                        fontSize: '1.1rem'
-                      }
-                    }}
-                    InputLabelProps={{
-                      style: {
-                        color: '#a0a0a0'
-                      }
-                    }}
-                  />
-                ) : (
-                  <ProfileField 
-                    label="Address" 
-                    value={user.address || 'Not specified'}
-                    multiline
-                  />
-                )}
+                <TextField
+                  label="First Name"
+                  name="firstName"
+                  fullWidth
+                  value={form.firstName}
+                  onChange={handleChange}
+                  sx={{ mb: 3 }}
+                  InputProps={{ style: { color: '#ffffff' } }}
+                  disabled={!editMode}
+                />
+                <TextField
+                  label="Last Name"
+                  name="lastName"
+                  fullWidth
+                  value={form.lastName}
+                  onChange={handleChange}
+                  sx={{ mb: 3 }}
+                  InputProps={{ style: { color: '#ffffff' } }}
+                  disabled={!editMode}
+                />
+                <TextField
+                  label="Email"
+                  name="email"
+                  type="email"
+                  fullWidth
+                  value={form.email}
+                  onChange={handleChange}
+                  sx={{ mb: 3 }}
+                  InputProps={{ style: { color: '#ffffff' } }}
+                  disabled={!editMode}
+                />
+                <TextField
+                  label="Phone"
+                  name="phone"
+                  fullWidth
+                  value={form.phone}
+                  onChange={handleChange}
+                  sx={{ mb: 3 }}
+                  InputProps={{ style: { color: '#ffffff' } }}
+                  disabled={!editMode}
+                />
+                <TextField
+                  label="Address"
+                  name="address"
+                  fullWidth
+                  value={form.address}
+                  onChange={handleChange}
+                  sx={{ mb: 3 }}
+                  InputProps={{ style: { color: '#ffffff' } }}
+                  disabled={!editMode}
+                />
               </Grid>
             </Grid>
           )}
         </CardContent>
       </Card>
     </Container>
-  );
-};
-
-const ProfileField = ({ label, value, multiline = false }) => {
-  return (
-    <Paper 
-      elevation={0} 
-      sx={{ 
-        p: 3, 
-        borderRadius: 2,
-        border: '1px solid',
-        borderColor: '#3a3a5d',
-        minHeight: multiline ? 100 : 'auto',
-        backgroundColor: '#2a2a3d'
-      }}
-    >
-      <Typography variant="caption" color="#a0a0a0" sx={{ mb: 2, display: 'block', fontSize: '0.9rem' }}>
-        {label}
-      </Typography>
-      <Typography variant="body1" sx={{ 
-        whiteSpace: 'pre-line',
-        color: 'white',
-        fontSize: '1.1rem'
-      }}>
-        {value}
-      </Typography>
-    </Paper>
   );
 };
 

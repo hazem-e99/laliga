@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { 
   AppBar, 
@@ -7,20 +7,38 @@ import {
   Button, 
   Avatar, 
   Menu, 
-  MenuItem 
+  MenuItem,
+  Divider,
+  Box,
+  ListItemIcon,
+  ListItemText,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  useMediaQuery,
+  useTheme
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LoginIcon from '@mui/icons-material/Login';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isLoggedIn = localStorage.getItem('isLoggedIn');
   const user = JSON.parse(localStorage.getItem('user')) || {};
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -42,20 +60,24 @@ const Navbar = () => {
     navigate('/login');
   };
 
-  return (
-    <AppBar position="sticky" sx={{ backgroundColor: '#1e1e2f', boxShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>
-      <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: 1, fontFamily: 'Roboto, sans-serif', fontWeight: 700, letterSpacing: 1, color: '#ffffff' }}>
-          My Shop
-        </Typography>
-        
-        <CustomNavButton to="/" icon={<HomeIcon />} text="Home" currentPath={location.pathname} />
-        <CustomNavButton to="/cart" icon={<ShoppingCartIcon />} text="Cart" currentPath={location.pathname} />
-        <CustomNavButton to="/dashboard" icon={<DashboardIcon />} text="Dashboard" currentPath={location.pathname} />
-        
-        {isLoggedIn ? (
-          <>
-            <CustomNavButton to="/wishlist" icon={<ShoppingCartIcon />} text="Wishlist" currentPath={location.pathname} />
+  const toggleDrawer = (open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+    setDrawerOpen(open);
+  };
+
+  const renderDesktopNav = () => (
+    <>
+      <CustomNavButton to="/" icon={<HomeIcon />} text="Home" currentPath={location.pathname} />
+      <CustomNavButton to="/cart" icon={<ShoppingCartIcon />} text="Cart" currentPath={location.pathname} />
+      <CustomNavButton to="/dashboard" icon={<DashboardIcon />} text="Dashboard" currentPath={location.pathname} />
+      
+      {isLoggedIn ? (
+        <>
+          <CustomNavButton to="/wishlist" icon={<FavoriteBorderIcon />} text="Wishlist" currentPath={location.pathname} />
+          
+          <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
             <Button
               onClick={handleMenuOpen}
               sx={{ 
@@ -63,7 +85,12 @@ const Navbar = () => {
                 textTransform: 'none',
                 display: 'flex',
                 alignItems: 'center',
-                gap: 1
+                gap: 1,
+                padding: '8px 12px',
+                borderRadius: '8px',
+                '&:hover': {
+                  backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                }
               }}
             >
               <Avatar 
@@ -73,7 +100,8 @@ const Navbar = () => {
                   height: 32,
                   bgcolor: '#90caf9',
                   color: '#1e1e2f',
-                  fontWeight: 'bold'
+                  fontWeight: 'bold',
+                  fontSize: '0.875rem'
                 }}
               >
                 {user.firstName?.charAt(0)?.toUpperCase() || 'U'}
@@ -96,19 +124,157 @@ const Navbar = () => {
                 vertical: 'top',
                 horizontal: 'right',
               }}
+              PaperProps={{
+                elevation: 0,
+                sx: {
+                  mt: 1,
+                  minWidth: 200,
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+                  overflow: 'visible',
+                  '&:before': {
+                    content: '""',
+                    display: 'block',
+                    position: 'absolute',
+                    top: 0,
+                    right: 14,
+                    width: 10,
+                    height: 10,
+                    bgcolor: 'background.paper',
+                    transform: 'translateY(-50%) rotate(45deg)',
+                    zIndex: 0,
+                  }
+                }
+              }}
             >
-              <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
-              <MenuItem onClick={handleLogout} sx={{ color: '#e57373' }}>Logout</MenuItem>
+              <MenuItem onClick={handleProfileClick} sx={{ py: 1.5 }}>
+                <ListItemIcon>
+                  <PersonOutlineIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>Profile</ListItemText>
+              </MenuItem>
+              
+              <Divider sx={{ my: 0.5 }} />
+              
+              <MenuItem onClick={handleLogout} sx={{ py: 1.5 }}>
+                <ListItemIcon>
+                  <ExitToAppIcon fontSize="small" color="error" />
+                </ListItemIcon>
+                <ListItemText primaryTypographyProps={{ color: 'error' }}>
+                  Logout
+                </ListItemText>
+              </MenuItem>
             </Menu>
-          </>
-        ) : (
-          <CustomNavButton to="/login" icon={<LoginIcon />} text="Login" currentPath={location.pathname} />
-        )}
+          </Box>
+        </>
+      ) : (
+        <CustomNavButton to="/login" icon={<LoginIcon />} text="Login" currentPath={location.pathname} />
+      )}
+    </>
+  );
+
+  const renderMobileNav = () => (
+    <>
+      <IconButton
+        edge="start"
+        color="inherit"
+        aria-label="menu"
+        onClick={toggleDrawer(true)}
+        sx={{ mr: 2 }}
+      >
+        {drawerOpen ? <CloseIcon /> : <MenuIcon />}
+      </IconButton>
+      
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={toggleDrawer(false)}
+        sx={{
+          '& .MuiDrawer-paper': {
+            width: 280,
+            backgroundColor: '#1e1e2f',
+            color: '#ffffff'
+          }
+        }}
+      >
+        <Box
+          sx={{ width: 280, height: '100%', display: 'flex', flexDirection: 'column' }}
+          role="presentation"
+        >
+          {/* Header with close button */}
+          <Box sx={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center', 
+            p: 2,
+            borderBottom: '1px solid rgba(255, 255, 255, 0.12)'
+          }}>
+            <Typography variant="h6" sx={{ fontFamily: 'Roboto, sans-serif', fontWeight: 700 }}>
+              My Shop
+            </Typography>
+            <IconButton onClick={toggleDrawer(false)} color="inherit">
+              <CloseIcon />
+            </IconButton>
+          </Box>
+          
+          {/* Navigation items */}
+          <List sx={{ flexGrow: 1 }}>
+            <NavItem to="/" icon={<HomeIcon />} text="Home" currentPath={location.pathname} onClick={toggleDrawer(false)} />
+            <NavItem to="/cart" icon={<ShoppingCartIcon />} text="Cart" currentPath={location.pathname} onClick={toggleDrawer(false)} />
+            <NavItem to="/dashboard" icon={<DashboardIcon />} text="Dashboard" currentPath={location.pathname} onClick={toggleDrawer(false)} />
+            
+            {isLoggedIn && (
+              <NavItem to="/wishlist" icon={<FavoriteBorderIcon />} text="Wishlist" currentPath={location.pathname} onClick={toggleDrawer(false)} />
+            )}
+          </List>
+          
+          {/* User section at bottom */}
+          <Box sx={{ p: 2, borderTop: '1px solid rgba(255, 255, 255, 0.12)' }}>
+            {isLoggedIn ? (
+              <>
+                <NavItem to="/profile" icon={<PersonOutlineIcon />} text="Profile" currentPath={location.pathname} onClick={toggleDrawer(false)} />
+                <ListItem 
+                  button 
+                  onClick={() => {
+                    handleLogout();
+                    toggleDrawer(false)();
+                  }}
+                  sx={{
+                    color: '#e57373',
+                    '&:hover': {
+                      backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                    }
+                  }}
+                >
+                  <ListItemIcon sx={{ color: 'inherit' }}>
+                    <ExitToAppIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Logout" />
+                </ListItem>
+              </>
+            ) : (
+              <NavItem to="/login" icon={<LoginIcon />} text="Login" currentPath={location.pathname} onClick={toggleDrawer(false)} />
+            )}
+          </Box>
+        </Box>
+      </Drawer>
+    </>
+  );
+
+  return (
+    <AppBar position="sticky" sx={{ backgroundColor: '#1e1e2f', boxShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>
+      <Toolbar>
+        <Typography variant="h6" sx={{ flexGrow: isMobile ? 0 : 1, fontFamily: 'Roboto, sans-serif', fontWeight: 700, letterSpacing: 1, color: '#ffffff' }}>
+          My Shop
+        </Typography>
+        
+        {isMobile ? renderMobileNav() : renderDesktopNav()}
       </Toolbar>
     </AppBar>
   );
 };
 
+// Component for desktop navigation buttons
 const CustomNavButton = ({ to, icon, text, currentPath }) => {
   const isActive = currentPath === to;
   return (
@@ -128,11 +294,40 @@ const CustomNavButton = ({ to, icon, text, currentPath }) => {
         '&:hover': { 
           backgroundColor: 'rgba(255, 255, 255, 0.1)', 
           color: '#90caf9' 
-        } 
+        },
+        '& .MuiButton-startIcon': {
+          marginRight: '6px'
+        }
       }}
     >
       {text}
     </Button>
+  );
+};
+
+// Component for mobile navigation items
+const NavItem = ({ to, icon, text, currentPath, onClick }) => {
+  const isActive = currentPath === to;
+  return (
+    <ListItem 
+      button 
+      component={Link} 
+      to={to}
+      onClick={onClick}
+      sx={{
+        color: isActive ? '#90caf9' : '#ffffff',
+        fontWeight: isActive ? 600 : 400,
+        '&:hover': {
+          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+          color: '#90caf9'
+        }
+      }}
+    >
+      <ListItemIcon sx={{ color: 'inherit' }}>
+        {icon}
+      </ListItemIcon>
+      <ListItemText primary={text} />
+    </ListItem>
   );
 };
 
