@@ -15,7 +15,6 @@
     "@mui/icons-material": "^7.0.1",
     "@mui/material": "^7.0.1",
     "@react-oauth/google": "^0.12.1",
-    "@tailwindcss/vite": "^4.1.3",
     "axios": "^1.8.4",
     "my-shop": "file:",
     "react": "^19.0.0",
@@ -25,6 +24,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@tailwindcss/vite": "^4.1.3",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
