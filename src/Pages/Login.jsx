@@ -57,15 +57,35 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLogin = (response) => {
+  const handleGoogleLogin = async (response) => {
     if (response.credential) {
-      console.log('Google Login Success:', response);
-      localStorage.setItem('isLoggedIn', 'true');
-      navigate('/');
+      const decodedToken = JSON.parse(atob(response.credential.split('.')[1]));
+      const googleEmail = decodedToken.email;
+      const googleName = decodedToken.name;
+  
+      try {
+        const res = await axios.get(`http://localhost:5000/googleUsers?email=${googleEmail}`);
+        
+        if (res.data.length > 0) {
+          // المستخدم موجود، سجله دخول
+          const user = res.data[0];
+          localStorage.setItem('isLoggedIn', 'true');
+          localStorage.setItem('user', JSON.stringify(user));
+          navigate('/');
+        } else {
+          // المستخدم مش موجود، خليه يكمّل بياناته
+          localStorage.setItem('googleTempUser', JSON.stringify({ email: googleEmail, name: googleName }));
+          navigate('/complete-google-profile');
+        }
+      } catch (err) {
+        console.error('Google Login Error:', err);
+        alert('Something went wrong with Google login');
+      }
     } else {
       console.log('Google Login Failed');
     }
   };
+  
 
   return (
     <Container maxWidth="sm">

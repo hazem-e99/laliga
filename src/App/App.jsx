@@ -12,6 +12,7 @@ import Wishlist from '../Pages/Wishlist';
 import Profile from '../Pages/Profile';
 import ProtectedRoute from '../Components/ProtectedRoute';
 import "../App/App.css"
+import CompleteGoogleProfile from '../Pages/CompleteGoogleProfile';
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
             <Route index element={<Home />} />
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
+            <Route path="/complete-google-profile" element={<CompleteGoogleProfile />} />
+{/* <CompleteGoogleProfile></CompleteGoogleProfile> */}
             <Route element={<ProtectedRoute />}>
               <Route path="cart" element={<Cart />} />
               <Route path="dashboard" element={<Dashboard />} />

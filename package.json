@@ -16,6 +16,7 @@
     "@mui/material": "^7.0.1",
     "@react-oauth/google": "^0.12.1",
     "axios": "^1.8.4",
+    "jwt-decode": "^4.0.0",
     "my-shop": "file:",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
