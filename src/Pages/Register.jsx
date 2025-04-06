@@ -17,7 +17,6 @@ import {
   Link
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import {
   Person,
   Email,
@@ -73,30 +72,6 @@ const Register = () => {
       console.error('Registration error:', error);
       alert('Registration failed. Please try again.');
     }
-  };
-
-  const handleGoogleSuccess = async (credentialResponse) => {
-    try {
-      const response = await axios.post('http://localhost:5000/auth/google', {
-        token: credentialResponse.credential,
-      });
-
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('user', JSON.stringify(response.data.user));
-      navigate('/');
-    } catch (error) {
-      console.error('Google login failed:', error);
-      if (error.response && error.response.status === 401) {
-        alert('Google authentication failed. Please try again or register manually.');
-      } else {
-        alert('Failed to login with Google. Please try again.');
-      }
-    }
-  };
-
-  const handleGoogleError = () => {
-    console.log('Google login failed');
-    alert('Google login failed. Please try again or register manually.');
   };
 
   return (
@@ -351,23 +326,9 @@ const Register = () => {
 
               <Divider sx={{ my: 2 }}>
                 <Typography variant="body2" color="text.secondary">
-                  OR REGISTER WITH
+                  Already have an account?{' '}
                 </Typography>
               </Divider>
-
-              <GoogleOAuthProvider clientId="YOUR_GOOGLE_CLIENT_ID">
-                <Box display="flex" justifyContent="center">
-                  <GoogleLogin
-                    onSuccess={handleGoogleSuccess}
-                    onError={handleGoogleError}
-                    text="signup_with"
-                    shape="pill"
-                    size="large"
-                    width="350"
-                    theme="filled_blue"
-                  />
-                </Box>
-              </GoogleOAuthProvider>
 
               <Typography variant="body2" align="center" sx={{ mt: 2 }}>
                 Already have an account?{' '}

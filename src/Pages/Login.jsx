@@ -230,20 +230,7 @@ const Login = () => {
             >
               Don't have an account? Register
             </Link>
-            <Link 
-              href="/forgot-password" 
-              underline="hover" 
-              variant="body2"
-              sx={{
-                color: '#4a5568',
-                '&:hover': {
-                  color: '#2d3748',
-                  fontWeight: 500
-                }
-              }}
-            >
-              Forgot password?
-            </Link>
+
           </Box>
         </Paper>
       </Box>

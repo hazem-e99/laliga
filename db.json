@@ -21,7 +21,19 @@
       "password": "123",
       "birthDate": "2025-04-11",
       "gender": "male",
-      "address": "اسيوط قبلي البلد",
+      "address": "ي ",
+      "acceptTerms": true
+    },
+    {
+      "id": "fc2e",
+      "firstName": "Hazem e",
+      "lastName": "Essam",
+      "phone": "01094575914",
+      "email": "hazemessam8199@gmail.com",
+      "password": "112211",
+      "birthDate": "9999-11-08",
+      "gender": "male",
+      "address": "ha",
       "acceptTerms": true
     }
   ],
