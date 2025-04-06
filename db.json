@@ -1,0 +1,17 @@
+{
+  "users": [
+    {
+      "id": "78c4",
+      "firstName": "Hazem",
+      "lastName": "Essam",
+      "phone": "01094575914",
+      "email": "zoka.live2000@gmail.com",
+      "password": "123",
+      "birthDate": "1999-11-08",
+      "gender": "male",
+      "address": "",
+      "acceptTerms": true
+    }
+  ],
+  "googleUsers": []
+}
