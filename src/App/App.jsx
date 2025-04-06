@@ -11,6 +11,7 @@ import Register from '../Pages/Register';
 import Wishlist from '../Pages/Wishlist';
 import Profile from '../Pages/Profile';
 import ProtectedRoute from '../Components/ProtectedRoute';
+import "../App/App.css"
 
 function App() {
   return (
