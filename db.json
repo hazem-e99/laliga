@@ -11,6 +11,18 @@
       "gender": "male",
       "address": "اسيوط جديده",
       "acceptTerms": true
+    },
+    {
+      "id": "69bf",
+      "firstName": "zeinab",
+      "lastName": "mahmoud",
+      "phone": "01156616224",
+      "email": "aboHatem12345@gmail.com",
+      "password": "aboHatem12345@",
+      "birthDate": "2002-05-07",
+      "gender": "female",
+      "address": "qena",
+      "acceptTerms": true
     }
   ],
   "googleUsers": [
