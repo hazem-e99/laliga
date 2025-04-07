@@ -11,6 +11,18 @@
       "gender": "male",
       "address": "اسيوط جديده",
       "acceptTerms": true
+    },
+    {
+      "id": "5cb0",
+      "firstName": "Hazem",
+      "lastName": "Essam",
+      "phone": "01094575914",
+      "email": "hazemessam8199@gmail.com",
+      "password": "123456789",
+      "birthDate": "94548-09-04",
+      "gender": "male",
+      "address": "",
+      "acceptTerms": true
     }
   ],
   "googleUsers": [
