@@ -13,6 +13,7 @@ import Profile from '../Pages/Profile';
 import ProtectedRoute from '../Components/ProtectedRoute';
 import "../App/App.css"
 import CompleteGoogleProfile from '../Pages/CompleteGoogleProfile';
+import Payment from '../Pages/Payment';
 
 function App() {
   return (
@@ -24,9 +25,9 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="login" element={<Login />} />
             <Route path="/complete-google-profile" element={<CompleteGoogleProfile />} />
-{/* <CompleteGoogleProfile></CompleteGoogleProfile> */}
             <Route element={<ProtectedRoute />}>
               <Route path="cart" element={<Cart />} />
+              <Route path="/payment" element={<Payment />} />
               <Route path="dashboard" element={<Dashboard />} />
               <Route path="wishlist" element={<Wishlist />} />
               <Route path="profile" element={<Profile />} />
