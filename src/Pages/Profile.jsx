@@ -3,7 +3,6 @@ import {
   Container, 
   Typography, 
   Box, 
-  Paper, 
   TextField, 
   Button, 
   Avatar, 
@@ -13,17 +12,33 @@ import {
   CardContent,
   Alert,
   Collapse,
-  IconButton
+  IconButton,
+  InputAdornment
 } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import SaveIcon from '@mui/icons-material/Save';
-import CancelIcon from '@mui/icons-material/Cancel';
-import CloseIcon from '@mui/icons-material/Close';
+import {
+  Edit as EditIcon,
+  Save as SaveIcon,
+  Cancel as CancelIcon,
+  Close as CloseIcon,
+  Lock as LockIcon,
+  Visibility,
+  VisibilityOff,
+  Person as PersonIcon,
+  Email as EmailIcon,
+  Phone as PhoneIcon,
+  Home as HomeIcon
+} from '@mui/icons-material';
 
 const Profile = () => {
   const user = JSON.parse(localStorage.getItem('user')) || {};
-  const [editMode, setEditMode] = useState(false); // to toggle edit mode
-  const [passwordEditMode, setPasswordEditMode] = useState(false); // to toggle password change mode
+  const [editMode, setEditMode] = useState(false);
+  const [passwordEditMode, setPasswordEditMode] = useState(false);
+  const [showPassword, setShowPassword] = useState({
+    current: false,
+    new: false,
+    confirm: false
+  });
+  
   const [form, setForm] = useState({
     firstName: user?.firstName || '',
     lastName: user?.lastName || '',
@@ -43,7 +58,7 @@ const Profile = () => {
 
   if (!user) {
     return (
-      <Typography variant="h6" align="center" sx={{ mt: 4, color: 'white' }}>
+      <Typography variant="h6" align="center" sx={{ mt: 4, color: 'text.primary' }}>
         Please log in first
       </Typography>
     );
@@ -65,34 +80,36 @@ const Profile = () => {
     });
   };
 
-const handleUpdate = async () => {
-  try {
-    // دمج البيانات الجديدة مع البيانات القديمة
-    const updatedUser = { ...user, ...form };
+  const handleClickShowPassword = (field) => {
+    setShowPassword({ ...showPassword, [field]: !showPassword[field] });
+  };
 
-    const response = await fetch(`http://localhost:5000/users/${user.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedUser), // إرسال البيانات المدمجة
-    });
+  const handleUpdate = async () => {
+    try {
+      const updatedUser = { ...user, ...form };
 
-    if (!response.ok) {
-      throw new Error('Failed to update user data');
+      const response = await fetch(`http://localhost:5000/users/${user.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedUser),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update user data');
+      }
+
+      const updatedUserFromServer = await response.json();
+      localStorage.setItem('user', JSON.stringify(updatedUserFromServer));
+
+      setSuccess('Profile updated successfully!');
+      setTimeout(() => setSuccess(''), 3000);
+      setEditMode(false);
+    } catch (error) {
+      setError('Error updating profile: ' + error.message);
     }
-
-    const updatedUserFromServer = await response.json();
-    localStorage.setItem('user', JSON.stringify(updatedUserFromServer));
-
-    setSuccess('Profile updated successfully!');
-    setTimeout(() => setSuccess(''), 3000);
-    setEditMode(false);
-  } catch (error) {
-    setError('Error updating profile: ' + error.message);
-  }
-};
-
+  };
 
   const handleCancel = () => {
     setForm({
@@ -122,7 +139,6 @@ const handleUpdate = async () => {
     }
   
     try {
-      // إرسال التحديث إلى السيرفر
       const response = await fetch(`http://localhost:5000/users/${user.id}`, {
         method: 'PUT',
         headers: {
@@ -135,7 +151,6 @@ const handleUpdate = async () => {
         throw new Error('Failed to update password');
       }
   
-      // تحديث المستخدم في الـ localStorage بعد النجاح
       const updatedUser = await response.json();
       localStorage.setItem('user', JSON.stringify(updatedUser));
   
@@ -151,7 +166,6 @@ const handleUpdate = async () => {
       setError('Error updating password: ' + error.message);
     }
   };
-  
 
   const handlePasswordCancel = () => {
     setPasswordForm({
@@ -164,7 +178,7 @@ const handleUpdate = async () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4, backgroundColor: '#1e1e2f', minHeight: '100vh' }}>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
       <Collapse in={!!error}>
         <Alert
           severity="error"
@@ -173,9 +187,7 @@ const handleUpdate = async () => {
               aria-label="close"
               color="inherit"
               size="small"
-              onClick={() => {
-                setError('');
-              }}
+              onClick={() => setError('')}
             >
               <CloseIcon fontSize="inherit" />
             </IconButton>
@@ -194,9 +206,7 @@ const handleUpdate = async () => {
               aria-label="close"
               color="inherit"
               size="small"
-              onClick={() => {
-                setSuccess('');
-              }}
+              onClick={() => setSuccess('')}
             >
               <CloseIcon fontSize="inherit" />
             </IconButton>
@@ -209,15 +219,14 @@ const handleUpdate = async () => {
 
       <Card sx={{ 
         borderRadius: 3, 
-        boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
-        backgroundColor: '#2a2a3d'
+        boxShadow: 3,
+        background: 'linear-gradient(to bottom, #f5f7fa 0%, #e4e8f0 100%)',
+        overflow: 'hidden'
       }}>
         <Box sx={{ 
           height: 180, 
-          backgroundColor: '#3a3a5d',
-          position: 'relative',
-          borderTopLeftRadius: 12,
-          borderTopRightRadius: 12
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          position: 'relative'
         }} />
         
         <Box sx={{ 
@@ -225,7 +234,7 @@ const handleUpdate = async () => {
           display: 'flex', 
           justifyContent: 'space-between',
           alignItems: 'flex-end',
-          px: 6,
+          px: { xs: 3, md: 6 },
           mt: -10,
           mb: 4
         }}>
@@ -233,42 +242,41 @@ const handleUpdate = async () => {
             sx={{ 
               width: 140, 
               height: 140, 
-              border: '4px solid #2a2a3d',
-              bgcolor: '#90caf9',
-              color: '#1e1e2f',
+              border: '4px solid white',
+              bgcolor: 'primary.main',
+              color: 'white',
               fontSize: '3.5rem',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              boxShadow: 3
             }}
           >
             {user.firstName?.charAt(0).toUpperCase()}
           </Avatar>
           
           {!editMode && !passwordEditMode ? (
-            <Box sx={{ display: 'flex', gap: 2, mb: 3 }}>
+            <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
               <Button
                 variant="contained"
                 startIcon={<EditIcon />}
                 onClick={() => setEditMode(true)}
                 sx={{ 
-                  backgroundColor: '#90caf9',
-                  color: '#1e1e2f',
-                  '&:hover': {
-                    backgroundColor: '#64b5f6'
-                  }
+                  textTransform: 'none',
+                  borderRadius: 2,
+                  px: 3,
+                  py: 1
                 }}
               >
                 Edit Profile
               </Button>
               <Button
                 variant="outlined"
-                startIcon={<EditIcon />}
+                startIcon={<LockIcon />}
                 onClick={() => setPasswordEditMode(true)}
                 sx={{ 
-                  color: '#90caf9',
-                  borderColor: '#90caf9',
-                  '&:hover': {
-                    borderColor: '#64b5f6'
-                  }
+                  textTransform: 'none',
+                  borderRadius: 2,
+                  px: 3,
+                  py: 1
                 }}
               >
                 Change Password
@@ -282,13 +290,13 @@ const handleUpdate = async () => {
                 startIcon={<SaveIcon />}
                 onClick={handleUpdate}
                 sx={{
-                  backgroundColor: '#81c784',
-                  '&:hover': {
-                    backgroundColor: '#66bb6a'
-                  }
+                  textTransform: 'none',
+                  borderRadius: 2,
+                  px: 3,
+                  py: 1
                 }}
               >
-                Save
+                Save Changes
               </Button>
               <Button
                 variant="outlined"
@@ -296,11 +304,10 @@ const handleUpdate = async () => {
                 startIcon={<CancelIcon />}
                 onClick={handleCancel}
                 sx={{
-                  color: '#e57373',
-                  borderColor: '#e57373',
-                  '&:hover': {
-                    borderColor: '#ef5350'
-                  }
+                  textTransform: 'none',
+                  borderRadius: 2,
+                  px: 3,
+                  py: 1
                 }}
               >
                 Cancel
@@ -314,13 +321,13 @@ const handleUpdate = async () => {
                 startIcon={<SaveIcon />}
                 onClick={handlePasswordUpdate}
                 sx={{
-                  backgroundColor: '#81c784',
-                  '&:hover': {
-                    backgroundColor: '#66bb6a'
-                  }
+                  textTransform: 'none',
+                  borderRadius: 2,
+                  px: 3,
+                  py: 1
                 }}
               >
-                Save Password
+                Update Password
               </Button>
               <Button
                 variant="outlined"
@@ -328,11 +335,10 @@ const handleUpdate = async () => {
                 startIcon={<CancelIcon />}
                 onClick={handlePasswordCancel}
                 sx={{
-                  color: '#e57373',
-                  borderColor: '#e57373',
-                  '&:hover': {
-                    borderColor: '#ef5350'
-                  }
+                  textTransform: 'none',
+                  borderRadius: 2,
+                  px: 3,
+                  py: 1
                 }}
               >
                 Cancel
@@ -341,54 +347,106 @@ const handleUpdate = async () => {
           )}
         </Box>
 
-        <CardContent sx={{ px: 6, pb: 6 }}>
+        <CardContent sx={{ px: { xs: 3, md: 6 }, pb: 6 }}>
           {passwordEditMode ? (
-            <Grid container spacing={4}>
+            <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Typography variant="h6" sx={{ color: 'white', mb: 2 }}>
+                <Typography variant="h5" sx={{ mb: 2, fontWeight: 600 }}>
                   Change Password
                 </Typography>
-                <Divider sx={{ 
-                  my: 2,
-                  backgroundColor: '#3a3a5d'
-                }} />
+                <Divider sx={{ my: 2 }} />
               </Grid>
               
               <Grid item xs={12} md={6}>
                 <TextField
                   label="Current Password"
                   name="currentPassword"
-                  type="password"
+                  type={showPassword.current ? 'text' : 'password'}
                   fullWidth
                   value={passwordForm.currentPassword}
                   onChange={handlePasswordChange}
                   sx={{ mb: 3 }}
-                  InputProps={{ style: { color: '#ffffff' } }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockIcon color="action" />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => handleClickShowPassword('current')}
+                          edge="end"
+                        >
+                          {showPassword.current ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
                 />
                 <TextField
                   label="New Password"
                   name="newPassword"
-                  type="password"
+                  type={showPassword.new ? 'text' : 'password'}
                   fullWidth
                   value={passwordForm.newPassword}
                   onChange={handlePasswordChange}
                   sx={{ mb: 3 }}
-                  InputProps={{ style: { color: '#ffffff' } }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockIcon color="action" />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => handleClickShowPassword('new')}
+                          edge="end"
+                        >
+                          {showPassword.new ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
                 />
                 <TextField
                   label="Confirm New Password"
                   name="confirmPassword"
-                  type="password"
+                  type={showPassword.confirm ? 'text' : 'password'}
                   fullWidth
                   value={passwordForm.confirmPassword}
                   onChange={handlePasswordChange}
                   sx={{ mb: 3 }}
-                  InputProps={{ style: { color: '#ffffff' } }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockIcon color="action" />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => handleClickShowPassword('confirm')}
+                          edge="end"
+                        >
+                          {showPassword.confirm ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }}
                 />
               </Grid>
             </Grid>
           ) : (
-            <Grid container spacing={4}>
+            <Grid container spacing={3}>
+              <Grid item xs={12}>
+                <Typography variant="h5" sx={{ mb: 2, fontWeight: 600 }}>
+                  Personal Information
+                </Typography>
+                <Divider sx={{ my: 2 }} />
+              </Grid>
+              
               <Grid item xs={12} md={6}>
                 <TextField
                   label="First Name"
@@ -397,8 +455,15 @@ const handleUpdate = async () => {
                   value={form.firstName}
                   onChange={handleChange}
                   sx={{ mb: 3 }}
-                  InputProps={{ style: { color: '#ffffff' } }}
-                  disabled={!editMode}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PersonIcon color="action" />
+                      </InputAdornment>
+                    ),
+                    readOnly: !editMode
+                  }}
+                  variant={editMode ? 'outlined' : 'filled'}
                 />
                 <TextField
                   label="Last Name"
@@ -407,8 +472,15 @@ const handleUpdate = async () => {
                   value={form.lastName}
                   onChange={handleChange}
                   sx={{ mb: 3 }}
-                  InputProps={{ style: { color: '#ffffff' } }}
-                  disabled={!editMode}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PersonIcon color="action" />
+                      </InputAdornment>
+                    ),
+                    readOnly: !editMode
+                  }}
+                  variant={editMode ? 'outlined' : 'filled'}
                 />
                 <TextField
                   label="Email"
@@ -418,8 +490,15 @@ const handleUpdate = async () => {
                   value={form.email}
                   onChange={handleChange}
                   sx={{ mb: 3 }}
-                  InputProps={{ style: { color: '#ffffff' } }}
-                  disabled={!editMode}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <EmailIcon color="action" />
+                      </InputAdornment>
+                    ),
+                    readOnly: !editMode
+                  }}
+                  variant={editMode ? 'outlined' : 'filled'}
                 />
                 <TextField
                   label="Phone"
@@ -428,18 +507,34 @@ const handleUpdate = async () => {
                   value={form.phone}
                   onChange={handleChange}
                   sx={{ mb: 3 }}
-                  InputProps={{ style: { color: '#ffffff' } }}
-                  disabled={!editMode}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <PhoneIcon color="action" />
+                      </InputAdornment>
+                    ),
+                    readOnly: !editMode
+                  }}
+                  variant={editMode ? 'outlined' : 'filled'}
                 />
                 <TextField
                   label="Address"
                   name="address"
                   fullWidth
+                  multiline
+                  rows={3}
                   value={form.address}
                   onChange={handleChange}
                   sx={{ mb: 3 }}
-                  InputProps={{ style: { color: '#ffffff' } }}
-                  disabled={!editMode}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <HomeIcon color="action" />
+                      </InputAdornment>
+                    ),
+                    readOnly: !editMode
+                  }}
+                  variant={editMode ? 'outlined' : 'filled'}
                 />
               </Grid>
             </Grid>
