@@ -14,6 +14,8 @@ import ProtectedRoute from '../Components/ProtectedRoute';
 import "../App/App.css"
 import CompleteGoogleProfile from '../Pages/CompleteGoogleProfile';
 import Payment from '../Pages/Payment';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 function App() {
   return (
