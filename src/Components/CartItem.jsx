@@ -1,162 +1,130 @@
-import React from 'react';
-import {
-  Box,
-  Typography,
-  IconButton,
-  Container,
-  Stack,
-} from '@mui/material';
+import React, { useContext } from 'react';
+import { Box, Typography, IconButton, Container, Stack } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import CloseIcon from '@mui/icons-material/Close';
 import StarIcon from '@mui/icons-material/Star';
+import { Link } from 'react-router-dom';
+import { CartContext } from '../Contexts/cartContext';
 
 const CartItem = () => {
-  const cartItems = [
-    {
-      id: '1',
-      title: 'Adidas Al Rihla Match Ball',
-      brand: 'Adidas',
-      category: 'Football Equipment',
-      price: 1699,
-      rate: 4.7,
-      available: true,
-      imageCover:
-        'https://eg.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/26/306982/1.jpg?1054',
-      count: 1,
-    },
-    {
-      id: '2',
-      title: 'SoccerBibl',
-      brand: 'Nike',
-      category: 'Football Apparel',
-      price: 499,
-      rate: 4.3,
-      available: true,
-      imageCover:
-        'https://www.soccerbible.com/media/167546/ifktab-min.jpg',
-      count: 1,
-    },
-    {
-      id: '3',
-      title: 'adidas unisex-adult X CRAZYFAST.3 FG Sneaker',
-      brand: 'Adidas',
-      category: 'Football Shoes',
-      price: 1199,
-      rate: 4.5,
-      available: false,
-      imageCover:
-        'https://contents.mediadecathlon.com/p2293034/7ee706b92957b5bc87d6b7683989722b/p2293034.jpg?format=auto&quality=70&f=768x0',
-      count: 1,
-    },
-  ];
-
-  const totalPrice = cartItems.reduce(
-    (acc, item) => acc + item.price * item.count,
-    0
-  );
+  const { cart, removeSpecificItem, updateItem } = useContext(CartContext);
 
   return (
     <Box sx={{ bgcolor: '#f3f7f7', py: 4 }}>
       <Container maxWidth="lg">
-     
-
-        {/* Cart Items */}
-        <Stack spacing={3}>
-          {cartItems.map((item) => (
+        {cart.length === 0 ? (
+          <Box
+            className="m-4 md:m-0 md:my-10 flex flex-col items-center gap-y-4 rounded-md p-5 bg-slate-200"
+          >
+            <Typography variant="h6" align="center">
+              Oops! Your Cart is Empty. Start shopping now by clicking the button below and find something you love!
+            </Typography>
             <Box
-              key={item.id}
+              component={Link}
+              to="/"
+              className="btn bg-primary-700 w-fit text-white hover:bg-primary-800"
               sx={{
-                display: 'flex',
-                flexDirection: { xs: 'column', sm: 'row' },
-                alignItems: 'center',
-                gap: 2,
-                bgcolor: 'white',
-                borderRadius: '16px',
-                px: 2,
-                py: 2,
-                position: 'relative',
+                px: 3,
+                py: 1,
+                borderRadius: '8px',
+                textDecoration: 'none',
+                color: 'white',
+                backgroundColor: '#1976d2',
+                '&:hover': {
+                  backgroundColor: '#115293',
+                },
               }}
             >
-              {/* زر الحذف */}
-              <IconButton
+              BACK TO HOME
+            </Box>
+          </Box>
+        ) : (
+          <Stack spacing={3}>
+            {cart.map((item) => (
+              <Box
+                key={item.id}
                 sx={{
-                  position: 'absolute',
-                  top: 8,
-                  right: 8,
+                  display: 'flex',
+                  flexDirection: { xs: 'column', sm: 'row' },
+                  alignItems: 'center',
+                  gap: 2,
+                  bgcolor: 'white',
+                  borderRadius: '16px',
+                  px: 2,
+                  py: 2,
+                  position: 'relative',
                 }}
               >
-                <CloseIcon />
-              </IconButton>
-
-              {/* صورة المنتج */}
-              <Box
-                component="img"
-                src={item.imageCover}
-                alt={item.title}
-                sx={{
-                  width: 160,
-                  height: 160,
-                  borderRadius: '16px',
-                  objectFit: 'contain',
-                  alignSelf: 'center',
-                }}
-              />
-
-              {/* معلومات المنتج */}
-              <Box sx={{ flex: 1, textAlign: { xs: 'center', sm: 'left' } }}>
-                <Typography fontWeight="bold" fontSize="1.2rem">
-                  {item.title}
-                </Typography>
+                <IconButton
+                  sx={{ position: 'absolute', top: 8, right: 8 }}
+                  onClick={() => removeSpecificItem(item.id)}
+                >
+                  <CloseIcon />
+                </IconButton>
 
                 <Box
+                  component="img"
+                  src={item.image}
+                  alt={item.title}
                   sx={{
-                    display: 'flex',
-                    justifyContent: { xs: 'center', sm: 'flex-start' },
-                    alignItems: 'center',
-                    gap: 1,
-                    mt: 0.5,
+                    width: 160,
+                    height: 160,
+                    borderRadius: '16px',
+                    objectFit: 'contain',
                   }}
-                >
-                  <Typography fontSize={14}>Rate :</Typography>
-                  <StarIcon sx={{ fontSize: 18, color: '#facc15' }} />
-                  <Typography fontSize={14}>{item.rate}</Typography>
+                />
+
+                <Box sx={{ flex: 1, textAlign: { xs: 'center', sm: 'left' } }}>
+                  <Typography fontWeight="bold" fontSize="1.2rem">
+                    {item.title}
+                  </Typography>
+
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: { xs: 'center', sm: 'flex-start' },
+                      alignItems: 'center',
+                      gap: 1,
+                      mt: 0.5,
+                    }}
+                  >
+                    <Typography fontSize={14}>Rate :</Typography>
+                    <StarIcon sx={{ fontSize: 18, color: '#facc15' }} />
+                    <Typography fontSize={14}>{item.rating.rate}</Typography>
+                  </Box>
+
+                  <Typography sx={{ mt: 1 }}>
+                    Price:{' '}
+                    <Typography component="span" sx={{ color: '#0299e2' }}>
+                      EGP {item.price.toFixed(2)}
+                    </Typography>
+                  </Typography>
                 </Box>
 
-                <Typography sx={{ mt: 1 }}>
-                  Price:{' '}
-                  <Typography component="span" sx={{ color: '#0299e2' }}>
-                    EGP {item.price}
+                <Stack direction="row" spacing={2} alignItems="center">
+                  <IconButton
+                    onClick={() => updateItem(item.id, item.count - 1)}
+                    disabled={item.count === 1}
+                  >
+                    <RemoveIcon />
+                  </IconButton>
+                  <Typography>{item.count}</Typography>
+                  <IconButton onClick={() => updateItem(item.id, item.count + 1)}>
+                    <AddIcon />
+                  </IconButton>
+                </Stack>
+
+                <Box sx={{ minWidth: 100, textAlign: 'center' }}>
+                  <Typography fontSize={14}>Total Price</Typography>
+                  <Typography color="#0299e2">
+                    EGP {(item.price * item.count).toFixed(2)}
                   </Typography>
-                </Typography>
-
-                <Typography sx={{ mt: 1, fontSize: 14, color: '#666' }}>
-                  {item.category} | {item.brand} |{' '}
-                  <Typography component="span" sx={{ color: item.available ? 'green' : 'red' }}>
-                    {item.available ? 'Available' : 'Out of Stock'}
-                  </Typography>
-                </Typography>
+                </Box>
               </Box>
-
-              {/* تحكم الكمية */}
-              <Stack direction="row" spacing={2} alignItems="center">
-                <IconButton>
-                  <RemoveIcon />
-                </IconButton>
-                <Typography>{item.count}</Typography>
-                <IconButton>
-                  <AddIcon />
-                </IconButton>
-              </Stack>
-
-              {/* إجمالي السعر */}
-              <Box sx={{ minWidth: 100, textAlign: 'center' }}>
-                <Typography fontSize={14}>Total Price</Typography>
-                <Typography color="#0299e2">EGP {item.price * item.count}</Typography>
-              </Box>
-            </Box>
-          ))}
-        </Stack>
+            ))}
+          </Stack>
+        )}
       </Container>
     </Box>
   );

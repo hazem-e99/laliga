@@ -1,183 +1,124 @@
-import React, { useState } from 'react';
-import {
-  Box,
-  Typography,
-  Avatar,
-  Button,
-  Stack,
-  Container,
-} from '@mui/material';
+import React, { useContext } from 'react';
+import { Box, Typography, Avatar, Button, Stack, Container } from '@mui/material';
 import { Star, ShoppingCart, Delete, ClearAll } from '@mui/icons-material';
-
-const initialProducts = [
-  {
-    id: '1',
-    title: 'Adidas Al Rihla Match Ball',
-    brand: 'Adidas',
-    category: 'Football Equipment',
-    price: 1699,
-    rate: 4.7,
-    available: true,
-    imageCover:
-      'https://eg.jumia.is/unsafe/fit-in/500x500/filters:fill(white)/product/26/306982/1.jpg?1054',
-    count: 1,
-  },
-  {
-    id: '2',
-    title: 'SoccerBibl',
-    brand: 'Nike',
-    category: 'Football Apparel',
-    price: 499,
-    rate: 4.3,
-    available: true,
-    imageCover:
-      'https://www.soccerbible.com/media/167546/ifktab-min.jpg',
-    count: 1,
-  },
-  {
-    id: '3',
-    title: 'adidas unisex-adult X CRAZYFAST.3 FG Sneaker',
-    brand: 'Adidas',
-    category: 'Football Shoes',
-    price: 1199,
-    rate: 4.5,
-    available: false,
-    imageCover:
-      'https://contents.mediadecathlon.com/p2293034/7ee706b92957b5bc87d6b7683989722b/p2293034.jpg?format=auto&quality=70&f=768x0',
-    count: 1,
-  },
-];
+import { WishlistContext } from '../Contexts/wishlistContext';
+import { CartContext } from '../Contexts/cartContext';
+import { NavLink } from 'react-router-dom';
 
 const Wishlist = () => {
-  const [products, setProducts] = useState(initialProducts);
+  const { wishlist, removeFromWishlist, clearWishlist } = useContext(WishlistContext);
+  const { addProductToCart } = useContext(CartContext);
 
-  const handleRemove = (id) => {
-    setProducts(products.filter((item) => item.id !== id));
-  };
-
-  const handleClearAll = () => {
-    setProducts([]);
+  const handleAddToCart = (product) => {
+    addProductToCart(product); 
+    removeFromWishlist(product.id); 
   };
 
   return (
     <Box sx={{ bgcolor: '#f3f7f7', py: 4 }}>
       <Container maxWidth="md">
-        <Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          justifyContent="space-between"
-          alignItems={{ xs: 'flex-start', sm: 'center' }}
-          spacing={2}
-          mb={4}
-        >
-          <Typography variant="h5" fontWeight="bold">
-            Favorite Products
-          </Typography>
-          {products.length > 0 && (
+        <Stack direction="row" justifyContent="space-between" alignItems="center" mb={4}>
+          <Typography variant="h5" fontWeight="bold">Favorite Products</Typography>
+          {wishlist.length > 0 && (
             <Button
               variant="outlined"
               color="error"
               startIcon={<ClearAll />}
-              sx={{
-                borderRadius: '12px',
-                borderWidth: 2,
-                fontWeight: 500,
-                textTransform: 'none',
-              }}
-              onClick={handleClearAll}
+              sx={{ borderRadius: '12px', borderWidth: 2 }}
+              onClick={clearWishlist}
             >
               Remove All
             </Button>
           )}
         </Stack>
 
-        {products.length === 0 ? (
-          <Typography textAlign="center" color="text.secondary">
-            No favorite products yet.
-          </Typography>
-        ) : (
-          products.map((product) => (
-            <Box
-              key={product.id}
+        {wishlist.length === 0 ? (
+          <Box className='m-4 md:m-0 md:my-10 flex flex-col items-center gap-y-4 rounded-md p-5 bg-slate-200'>
+            <h2>Oops! Your Wishlist is Empty. Start Shopping now by clicking the button below and find something You Love!</h2>
+            <NavLink 
+              to='/' 
+              className="btn bg-blue-600 w-fit text-white hover:bg-blue-800" 
               sx={{
-                bgcolor: 'white',
-                borderRadius: '16px',
-                p: 2,
-                mb: 3,
-                boxShadow: '0px 1px 4px rgba(0,0,0,0.05)',
+                backgroundColor: '#1d4ed8', 
+                color: 'white',
+                padding: '10px 20px',
+                borderRadius: '8px',
+                textDecoration: 'none',
+                '&:hover': {
+                  backgroundColor: '#1e40af' 
+                }
               }}
             >
-              <Stack
-                direction={{ xs: 'column', sm: 'row' }}
-                spacing={2}
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <Stack direction="row" spacing={2} alignItems="center" flex={1}>
-                  <Avatar
-                    variant="rounded"
-                    src={product.imageCover}
-                    sx={{ width: 100, height: 100 }}
-                  />
-                  <Box>
-                    <Typography fontWeight="bold" fontSize="1.1rem">
-                      {product.title}
-                    </Typography>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 0.5,
-                        mt: 0.5,
-                      }}
-                    >
-                      <Typography fontSize={14}>Rate:</Typography>
-                      <Star sx={{ fontSize: 18, color: '#facc15' }} />
-                      <Typography fontSize={14}>{product.rate}</Typography>
-                    </Box>
+              BACK TO HOME
+            </NavLink>
+          </Box>
+        ) : (
+          wishlist.map((product) => (
+            <Box key={product.id} sx={{
+              bgcolor: 'white', 
+              borderRadius: '16px', 
+              p: 2, 
+              mb: 3,
+              display: 'flex', 
+              flexDirection: { xs: 'column', sm: 'row' },
+              gap: 2,
+              position: 'relative',
+              boxShadow: 2, 
+            }}>
+              <Box
+                component="img"
+                src={product.image}
+                alt={product.title}
+                sx={{
+                  width: 160,
+                  height: 160,
+                  borderRadius: '16px',
+                  objectFit: 'contain',
+                 
+                }}
+              />
 
-                    <Typography fontWeight="bold" sx={{ color: '#0299e2', mt: 0.5 }}>
-                      Price: EGP {product.price}
-                    </Typography>
+              <Box sx={{ flex: 1, textAlign: { xs: 'center', sm: 'left' } }}>
+                <Typography fontWeight="bold" fontSize="1.2rem">{product.title}</Typography>
 
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ mt: 0.5 }}
-                    >
-                      {product.category} | {product.brand} |{' '}
-                      <Typography
-                        component="span"
-                        color={product.available ? 'green' : 'red'}
-                        fontWeight="500"
-                      >
-                        {product.available ? 'Available' : 'Unavailable'}
-                      </Typography>
-                    </Typography>
-                  </Box>
-                </Stack>
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: { xs: 'center', sm: 'flex-start' },
+                  alignItems: 'center',
+                  gap: 1,
+                  mt: 0.5,
+                }}>
+                  <Typography fontSize={14}>Rate:</Typography>
+                  <Star sx={{ fontSize: 18, color: '#facc15' }} />
+                  <Typography fontSize={14}>{product.rating.rate}</Typography>
+                </Box>
 
-                <Stack direction="row" spacing={1} mt={{ xs: 2, sm: 0 }}>
-                  <Button
-                    variant="contained"
-                    startIcon={<ShoppingCart />}
-                    sx={{
-                      borderRadius: '50px',
-                      backgroundColor: '#0299e2',
-                      textTransform: 'none',
-                    }}
-                  >
-                    Add to Cart
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="error"
-                    startIcon={<Delete />}
-                    sx={{ borderRadius: '50px', textTransform: 'none' }}
-                    onClick={() => handleRemove(product.id)}
-                  >
-                    Remove
-                  </Button>
-                </Stack>
+                <Typography sx={{ mt: 1 }}>
+                  Price:{' '}
+                  <Typography component="span" sx={{ color: '#0299e2' }}>
+                    EGP {product.price}
+                  </Typography>
+                </Typography>
+              </Box>
+
+              <Stack direction="row" spacing={2} alignItems="center">
+                <Button
+                  variant="contained"
+                  startIcon={<ShoppingCart />}
+                  sx={{ borderRadius: '50px', backgroundColor: '#0299e2' }}
+                  onClick={() => handleAddToCart(product)}
+                >
+                  Add to Cart
+                </Button>
+                <Button
+                  variant="contained"
+                  color="error"
+                  startIcon={<Delete />}
+                  sx={{ borderRadius: '50px' }}
+                  onClick={() => removeFromWishlist(product.id)}
+                >
+                  Remove
+                </Button>
               </Stack>
             </Box>
           ))

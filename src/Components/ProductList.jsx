@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useContext } from 'react';
 import { FaHeart, FaShoppingCart, FaStar } from 'react-icons/fa';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import { CartContext } from '../Contexts/cartContext';
+import { WishlistContext } from '../Contexts/wishlistContext';
 const ProductCard = ({ product }) => {
+  const { addProductToCart } = useContext(CartContext); 
+  const { addToWishlist } = useContext(WishlistContext); 
   return (
     <div className="px-2">
       <div className="card bg-base-100 shadow-xl">
@@ -22,10 +25,15 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
           <div className="card-actions justify-end mt-4 gap-2">
-            <button className="btn btn-sm btn-outline btn-primary">
-              <FaShoppingCart />
-            </button>
-            <button className="btn btn-sm btn-outline btn-error">
+          <button
+                className="btn btn-sm btn-outline btn-primary"
+                  onClick={() => addProductToCart(product)} >
+                  <FaShoppingCart />
+                      </button>
+
+            <button className="btn btn-sm btn-outline btn-error"
+            onClick={() => addToWishlist(product)} 
+            >
               <FaHeart />
             </button>
             <button className="btn btn-sm btn-outline btn-info">

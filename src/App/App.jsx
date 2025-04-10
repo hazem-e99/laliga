@@ -18,11 +18,14 @@ import CompleteGoogleProfile from '../Pages/CompleteGoogleProfile';
 import Payment from '../Pages/Payment';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
+import { CartProvider } from '../Contexts/cartContext';
+import { WishlistProvider } from '../Contexts/wishlistContext';
 function App() {
   return (
     <GoogleOAuthProvider clientId="367520079546-bd85slcaa4p4eerk1ioe0vnpgq9avggb.apps.googleusercontent.com">
-      <BrowserRouter>
+      <CartProvider>
+      <WishlistProvider>
+           <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
@@ -41,6 +44,9 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
+      </WishlistProvider>
+      </CartProvider>
+   
     </GoogleOAuthProvider>
   );
 }
