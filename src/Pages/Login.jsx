@@ -67,13 +67,11 @@ const Login = () => {
         const res = await axios.get(`http://localhost:5000/googleUsers?email=${googleEmail}`);
         
         if (res.data.length > 0) {
-          // المستخدم موجود، سجله دخول
           const user = res.data[0];
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('user', JSON.stringify(user));
           navigate('/');
         } else {
-          // المستخدم مش موجود، خليه يكمّل بياناته
           localStorage.setItem('googleTempUser', JSON.stringify({ email: googleEmail, name: googleName }));
           navigate('/complete-google-profile');
         }
