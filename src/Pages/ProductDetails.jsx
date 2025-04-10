@@ -4,14 +4,14 @@ import ProductDetailsCard from "../components/ProductDetailsCard";
 
 const ProductPage = () => {
   const product = {
-    title: "Woman Shawl",
+    title: "T-shirt",
     brand: "DeFacto",
-    category: "Women's Fashion",
-    price: 149,
+    category: "men's Fashion",
+    price: 300,
     rate: 4.8,
     available: true,
     image: "anomaly-WWesmHEgXDs-unsplash.jpg",
-    description: "Material: Polyester Blend | Colour: Multicolour | Department: Women",
+    description: "Material: Polyester Blend | Colour: Multicolour | Department: T-shirt",
   };
 
   return (
