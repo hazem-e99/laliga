@@ -36,6 +36,8 @@ const ProductPage = () => {
           title: productResponse.data.title,
           brand: "DeFacto",
           price: productResponse.data.price,
+          
+          rate: productResponse.data.rating?.rate, // Make sure rating is included
           available: true,
           image: productResponse.data.image,
           description: productResponse.data.description,
@@ -62,7 +64,6 @@ const ProductPage = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     const userName = user ? `${user.firstName} ${user.lastName}` : 'Anonymous';
 
-    // Check if user already submitted a review
     const hasExistingReview = reviews.some(review => review.name === userName);
     if (hasExistingReview) {
       setError('You have already submitted your feedback for this product');
@@ -127,7 +128,6 @@ const ProductPage = () => {
         margin: '40px auto 0',
         px: { xs: 2, md: 4 },
       }}>
-        {/* Larger Feedback Title */}
         <Typography variant="h5" gutterBottom sx={{ 
           fontWeight: 'bold', 
           mb: 4,
@@ -143,7 +143,6 @@ const ProductPage = () => {
           </Alert>
         )}
 
-        {/* Reviews List - Above Form */}
         <Grid container spacing={3} sx={{ mb: 4 }}>
           {reviews.map((review) => (
             <Grid item xs={12} sm={6} key={review.id}>
@@ -187,7 +186,6 @@ const ProductPage = () => {
           ))}
         </Grid>
 
-        {/* Review Form - Below Reviews */}
         <Paper elevation={3} sx={{ 
           p: 3,
           mb: 4,
