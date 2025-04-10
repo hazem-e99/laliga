@@ -34,6 +34,7 @@ function App() {
               <Route path="wishlist" element={<Wishlist />} />
               <Route path="profile" element={<Profile />} />
               <Route path="product/:id" element={<ProductDetails />} />
+              <Route path="ProductDetails" element={<ProductDetails />} />
             </Route>
           </Route>
         </Routes>
