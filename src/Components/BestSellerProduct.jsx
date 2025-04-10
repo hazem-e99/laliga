@@ -1,3 +1,4 @@
+
 import React from 'react';
 import ProductList from './ProductList';
 import SportsProducts from './ProductList';
@@ -9,6 +10,7 @@ const BestSellerProduct = () => {
                 <h1 className='text-3xl font-bold'>BestSeller</h1>
             </div>
            <SportsProducts></SportsProducts>
+           <ProductList></ProductList>
         </>
     );
 }

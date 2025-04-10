@@ -1,8 +1,53 @@
+// import React, { useEffect, useState } from 'react';
+// import { FaHeart, FaShoppingCart, FaStar } from 'react-icons/fa';
+// import Slider from 'react-slick';
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
+
+// const ProductCard = ({ product }) => {
+//   return (
+//     <div className="px-2">
+//       <div className="card bg-base-100 shadow-xl">
+//         <figure className="px-4 pt-4">
+//           <img src={product.image} alt={product.title} className="h-40 object-contain" />
+//         </figure>
+//         <div className="card-body">
+//           <h2 className="card-title text-base line-clamp-2">{product.title}</h2>
+//           <p className="text-sm text-gray-500 line-clamp-2">{product.description}</p>
+//           <div className="flex items-center justify-between mt-2">
+//             <span className="text-lg font-bold text-primary">${product.price.toFixed(2)}</span>
+//             <div className="flex items-center gap-1 text-yellow-500">
+//               <FaStar />
+//               <span>{product.rating.rate}</span>
+//             </div>
+//           </div>
+//           <div className="card-actions justify-end mt-4 gap-2">
+//             <button className="btn btn-sm btn-outline btn-primary">
+//               <FaShoppingCart />
+//             </button>
+//             <button className="btn btn-sm btn-outline btn-error">
+//               <FaHeart />
+//             </button>
+//             <button className="btn btn-sm btn-outline btn-info">
+//               Details
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+
+
+
+//meeeeeeeeeeeeeeeeeeeeee
 import React, { useEffect, useState } from 'react';
 import { FaHeart, FaShoppingCart, FaStar } from 'react-icons/fa';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Link } from 'react-router-dom'; // <-- إضافة هذا الاستيراد
 
 const ProductCard = ({ product }) => {
   return (
@@ -28,15 +73,26 @@ const ProductCard = ({ product }) => {
             <button className="btn btn-sm btn-outline btn-error">
               <FaHeart />
             </button>
-            <button className="btn btn-sm btn-outline btn-info">
+            <Link 
+              to={`/product/${product.id}`} // <-- تغيير الزر إلى رابط
+              className="btn btn-sm btn-outline btn-info"
+            >
               Details
-            </button>
+            </Link>
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+// ... باقي الكود يبقى كما هو
+
+
+
+
+
+
 
 const SportsProducts = () => {
   const [products, setProducts] = useState([]);
@@ -92,3 +148,18 @@ const SportsProducts = () => {
 };
 
 export default SportsProducts;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
