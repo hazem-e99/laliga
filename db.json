@@ -23,6 +23,18 @@
       "gender": "male",
       "address": "أسيوط / منفلوط",
       "acceptTerms": true
+    },
+    {
+      "id": "8b29",
+      "firstName": "mayar",
+      "lastName": "mohamed",
+      "phone": "01033224614",
+      "email": "mayarmohamed.8d6v@gmail.com",
+      "password": "Allah.2002",
+      "birthDate": "2002-02-09",
+      "gender": "female",
+      "address": "egypt",
+      "acceptTerms": true
     }
   ],
   "googleUsers": [

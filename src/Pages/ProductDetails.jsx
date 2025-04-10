@@ -1,11 +1,24 @@
-import React from 'react';
+import React from "react";
+import { Box } from "@mui/material";
+import ProductDetailsCard from "../components/ProductDetailsCard";
 
-const ProductDetails = () => {
-    return (
-        <>
-            <h1>ProductDetails</h1>
-        </>
-    );
-}
+const ProductPage = () => {
+  const product = {
+    title: "Woman Shawl",
+    brand: "DeFacto",
+    category: "Women's Fashion",
+    price: 149,
+    rate: 4.8,
+    available: true,
+    image: "anomaly-WWesmHEgXDs-unsplash.jpg",
+    description: "Material: Polyester Blend | Colour: Multicolour | Department: Women",
+  };
 
-export default ProductDetails;
+  return (
+    <Box sx={{ minHeight: "100vh", p: 4, backgroundColor: "#fff" }}>
+      <ProductDetailsCard product={product} />
+    </Box>
+  );
+};
+
+export default ProductPage;
