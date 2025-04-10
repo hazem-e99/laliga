@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { Box, Typography, Button, IconButton } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  IconButton,
+} from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import StarIcon from "@mui/icons-material/Star";
@@ -15,18 +20,14 @@ const ProductDetailsCard = ({ product }) => {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "row",
+        flexDirection: { xs: "column", md: "row" },
         alignItems: "center",
         justifyContent: "center",
         gap: 4,
         maxWidth: 1200,
         margin: "0 auto",
-        "@media (max-width:768px)": {
-          flexDirection: "column",
-        },
       }}
     >
-      
       <Box sx={{ flex: 1, display: "flex", justifyContent: "center" }}>
         <img
           src={product.image}
@@ -35,7 +36,6 @@ const ProductDetailsCard = ({ product }) => {
         />
       </Box>
 
-      
       <Box sx={{ flex: 1 }}>
         <Typography variant="h5" fontWeight="bold" gutterBottom>
           {product.title}
