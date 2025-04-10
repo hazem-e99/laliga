@@ -11,6 +11,8 @@ import Register from '../Pages/Register';
 import Wishlist from '../Pages/Wishlist';
 import Profile from '../Pages/Profile';
 import ProtectedRoute from '../Components/ProtectedRoute';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "../App/App.css"
 import CompleteGoogleProfile from '../Pages/CompleteGoogleProfile';
 import Payment from '../Pages/Payment';
