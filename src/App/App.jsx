@@ -11,9 +11,13 @@ import Register from '../Pages/Register';
 import Wishlist from '../Pages/Wishlist';
 import Profile from '../Pages/Profile';
 import ProtectedRoute from '../Components/ProtectedRoute';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import "../App/App.css"
 import CompleteGoogleProfile from '../Pages/CompleteGoogleProfile';
 import Payment from '../Pages/Payment';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 function App() {
   return (
@@ -32,6 +36,7 @@ function App() {
               <Route path="wishlist" element={<Wishlist />} />
               <Route path="profile" element={<Profile />} />
               <Route path="product/:id" element={<ProductDetails />} />
+              <Route path="ProductDetails" element={<ProductDetails />} />
             </Route>
           </Route>
         </Routes>

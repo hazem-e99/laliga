@@ -2,28 +2,17 @@
   "users": [
     {
       "id": "5be4",
-      "firstName": "Hazemm",
+      "firstName": "Hazem",
       "lastName": "Essam",
       "phone": "01094575914",
       "email": "zoka.live2000@gmail.com",
-      "password": "321123",
+      "password": "112233",
       "birthDate": "86666-11-09",
       "gender": "male",
-      "address": "اسيوط جديده",
+      "address": "اسيوط جديده2025",
       "acceptTerms": true
     },
     {
-
-      "id": "69bf",
-      "firstName": "zeinab",
-      "lastName": "mahmoud",
-      "phone": "01156616224",
-      "email": "aboHatem12345@gmail.com",
-      "password": "aboHatem12345@",
-      "birthDate": "2002-05-07",
-      "gender": "female",
-      "address": "qena",
-
       "id": "5cb0",
       "firstName": "Hazem",
       "lastName": "Essam",
@@ -32,8 +21,43 @@
       "password": "123456789",
       "birthDate": "94548-09-04",
       "gender": "male",
-      "address": "",
-
+      "address": "أسيوط / منفلوط",
+      "acceptTerms": true
+    },
+    {
+      "id": "8b29",
+      "firstName": "mayar",
+      "lastName": "mohamed",
+      "phone": "01033224614",
+      "email": "mayarmohamed.8d6v@gmail.com",
+      "password": "Allah.2002",
+      "birthDate": "2002-02-09",
+      "gender": "female",
+      "address": "egypt",
+      "acceptTerms": true
+    },
+    {
+      "id": "241e",
+      "firstName": "tasneem",
+      "lastName": "fawzy",
+      "phone": "01156616229",
+      "email": "Tasneem12345@gmail.com",
+      "password": "Tasneem12345@",
+      "birthDate": "2000-07-08",
+      "gender": "female",
+      "address": "cairo",
+      "acceptTerms": true
+    },
+    {
+      "id": "05c6",
+      "firstName": "zeinabb",
+      "lastName": "mm",
+      "phone": "01156616222",
+      "email": "zeinab12345@gmail.com",
+      "password": "Tasneem12345@",
+      "birthDate": "2003-06-16",
+      "gender": "female",
+      "address": "cairo",
       "acceptTerms": true
     }
   ],
