@@ -2,8 +2,15 @@ import { Link } from 'react-router-dom';
 import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import { ShoppingCart, AttachMoney, Delete, MonetizationOn } from '@mui/icons-material';
 import CartItem from '../Components/CartItem';
+import { useContext } from 'react';
+import { CartContext } from '../Contexts/cartContext';
 
 const Cart = () => {
+  // جلب cart و clearCart من الـ Context
+  const { cart, clearCart } = useContext(CartContext);
+
+  const totalPrice = cart.reduce((acc, item) => acc + item.price * item.count, 0);
+
   return (
     <Container sx={{ mt: 4 }}>
       <Stack direction="row" spacing={2} alignItems="center" mb={3}>
@@ -52,7 +59,7 @@ const Cart = () => {
             Your Total Price Cart:
           </Typography>
           <Typography variant="body1" color="primary" fontWeight="bold">
-            945
+            EGP {totalPrice.toFixed(2)}
           </Typography>
         </Stack>
 
@@ -61,6 +68,7 @@ const Cart = () => {
           color="error"
           startIcon={<Delete />}
           fullWidth={{ xs: true, md: false }}
+          onClick={clearCart} // استدعاء دالة clearCart عند الضغط
         >
           Delete Cart
         </Button>

@@ -125,15 +125,27 @@ import React, { useState } from "react";
 import { Box, Typography, Button, IconButton } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import StarIcon from "@mui/icons-material/Star"; // أضيفي هذا السطر
+import StarIcon from "@mui/icons-material/Star";
+import { useContext } from "react"; // أضيفي هذا السطر
+import { CartContext } from "../Contexts/cartContext";
+import { WishlistContext} from '../Contexts/wishlistContext'
 
 const ProductDetailsCard = ({ product }) => {
   const [liked, setLiked] = useState(false);
+  const { addProductToCart } = useContext(CartContext);
+
+  const { addToWishlist } = useContext(WishlistContext);
 
   const handleLike = () => {
-    setLiked((prev) => !prev);
+    setLiked((prev) => !prev); // تغيير حالة الإعجاب
+    if (!liked) {
+      addToWishlist(product); // إضافة المنتج إلى قائمة الرغبات إذا لم يكن موجودًا
+    }
   };
-
+  const handleAddToCart = () => {
+    addProductToCart(product); 
+  };
+  console.log(product);
   return (
     <Box
     sx={{
@@ -186,7 +198,7 @@ const ProductDetailsCard = ({ product }) => {
         </span>
       </Typography>
         
-        {/* النجوم والرقم - بنفس شكل الـ Homepage */}
+     
         {product.rate && (
           <Box sx={{ display: "flex", alignItems: "center", mt: 1, mb: 2 }}>
             <StarIcon sx={{ color: "#FFD700" }} />
@@ -208,16 +220,15 @@ const ProductDetailsCard = ({ product }) => {
           <IconButton color={liked ? "error" : "default"} onClick={handleLike}>
             {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </IconButton>
-          <Button 
-            variant="contained" 
-            color="primary" 
-            sx={{ 
-              padding: "8px 20px",
-              fontSize: "0.9rem"
-            }}
-          >
-            ADD TO CART
-          </Button>
+          <Button
+  variant="contained"
+  color="primary"
+  sx={{ padding: "8px 20px", fontSize: "0.9rem" }}
+  onClick={handleAddToCart} 
+>
+  ADD TO CART
+</Button>
+
         </Box>
       </Box>
     </Box>

@@ -1,3 +1,5 @@
+import React, { useEffect, useState,useContext } from 'react';
+
 // import React, { useEffect, useState } from 'react';
 // import { FaHeart, FaShoppingCart, FaStar } from 'react-icons/fa';
 // import Slider from 'react-slick';
@@ -41,18 +43,29 @@
 
 
 
-//meeeeeeeeeeeeeeeeeeeeee
-import React, { useEffect, useState } from 'react';
+
+
+
 import { FaHeart, FaShoppingCart, FaStar } from 'react-icons/fa';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+import { CartContext } from '../Contexts/cartContext';
+import { WishlistContext } from '../Contexts/wishlistContext';
+
 import { Link } from 'react-router-dom'; // <-- إضافة هذا الاستيراد
 
+
 const ProductCard = ({ product }) => {
+  const { addProductToCart } = useContext(CartContext); 
+  const { addToWishlist } = useContext(WishlistContext); 
   return (
-    <div className="px-2 py-5">
-      <div className="card bg-base-100 shadow-xl h-99">
+    <div className="px-2 m-3">
+      <div   style={{
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)', 
+          transition: 'box-shadow 0.3s ease',
+        }} className="card bg-base-100 shadow-xl">
         <figure className="px-4 pt-4">
           <img src={product.image} alt={product.title} className="h-40 object-contain" />
         </figure>
@@ -67,14 +80,19 @@ const ProductCard = ({ product }) => {
             </div>
           </div>
           <div className="card-actions justify-end mt-4 gap-2">
-            <button className="btn btn-sm btn-outline btn-primary">
-              <FaShoppingCart />
-            </button>
-            <button className="btn btn-sm btn-outline btn-error">
+          <button
+                className="btn btn-sm btn-outline btn-primary"
+                  onClick={() => addProductToCart(product)} >
+                  <FaShoppingCart />
+                      </button>
+
+            <button className="btn btn-sm btn-outline btn-error"
+            onClick={() => addToWishlist(product)} 
+            >
               <FaHeart />
             </button>
             <Link 
-              to={`/product/${product.id}`} // <-- تغيير الزر إلى رابط
+              to={`/product/${product.id}`} 
               className="btn btn-sm btn-outline btn-info"
             >
               Details
@@ -86,7 +104,7 @@ const ProductCard = ({ product }) => {
   );
 };
 
-// ... باقي الكود يبقى كما هو
+
 
 
 
@@ -131,15 +149,15 @@ const SportsProducts = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-10">
+    <div className="container mx-auto px-4 py-6 m-3">
       {loading ? (
         <div className="flex justify-center items-center h-40">
           <span className="loading loading-spinner loading-lg text-primary"></span>
         </div>
       ) : (
-        <Slider {...sliderSettings}>
+        <Slider {...sliderSettings} >
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard  key={product.id} product={product} />
           ))}
         </Slider>
       )}
@@ -148,18 +166,3 @@ const SportsProducts = () => {
 };
 
 export default SportsProducts;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
