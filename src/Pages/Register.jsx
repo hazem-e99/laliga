@@ -14,7 +14,8 @@ import {
   Divider,
   InputAdornment,
   Avatar,
-  Link
+  Link,
+  useTheme
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -28,6 +29,7 @@ import {
 } from '@mui/icons-material';
 
 const Register = () => {
+  const theme = useTheme();
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -77,7 +79,7 @@ const Register = () => {
   return (
     <Container maxWidth="md">
       <Box sx={{ 
-        mt: 4,
+        mt: 8,
         mb: 8,
         display: 'flex',
         flexDirection: 'column',
@@ -85,27 +87,39 @@ const Register = () => {
       }}>
         <Paper elevation={6} sx={{ 
           p: { xs: 3, md: 5 },
-          borderRadius: 4,
+          borderRadius: `${theme.shape.borderRadius * 2}px`,
           width: '100%',
           maxWidth: 800,
-          background: 'linear-gradient(to bottom right, #f8f9fa, #e9ecef)'
+          background: theme.palette.background.paper,
+          boxShadow: theme.shadows[10],
+          border: `1px solid ${theme.palette.divider}`
         }}>
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+          <Box sx={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            mb: 4
+          }}>
             <Avatar sx={{ 
-              bgcolor: 'primary.main',
+              bgcolor: theme.palette.primary.main,
               width: 64,
               height: 64,
-              mb: 2
+              boxShadow: theme.shadows[4]
             }}>
               <HowToReg sx={{ fontSize: 32 }} />
             </Avatar>
           </Box>
           
-          <Typography variant="h4" align="center" gutterBottom sx={{ 
-            fontWeight: 600,
-            color: 'text.primary',
-            mb: 4
-          }}>
+          <Typography 
+            variant="h4" 
+            align="center" 
+            gutterBottom 
+            sx={{ 
+              fontWeight: 700,
+              color: theme.palette.text.primary,
+              mb: 4,
+              letterSpacing: '-0.5px'
+            }}
+          >
             Create Your Account
           </Typography>
 
@@ -128,7 +142,13 @@ const Register = () => {
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      borderRadius: 2,
+                      borderRadius: `${theme.shape.borderRadius}px`,
+                      '& fieldset': {
+                        borderColor: theme.palette.divider,
+                      },
+                      '&:hover fieldset': {
+                        borderColor: theme.palette.primary.main,
+                      },
                     }
                   }}
                 />
@@ -148,7 +168,13 @@ const Register = () => {
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      borderRadius: 2,
+                      borderRadius: `${theme.shape.borderRadius}px`,
+                      '& fieldset': {
+                        borderColor: theme.palette.divider,
+                      },
+                      '&:hover fieldset': {
+                        borderColor: theme.palette.primary.main,
+                      },
                     }
                   }}
                 />
@@ -170,7 +196,13 @@ const Register = () => {
                 }}
                 sx={{
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2,
+                    borderRadius: `${theme.shape.borderRadius}px`,
+                    '& fieldset': {
+                      borderColor: theme.palette.divider,
+                    },
+                    '&:hover fieldset': {
+                      borderColor: theme.palette.primary.main,
+                    },
                   }
                 }}
               />
@@ -192,7 +224,13 @@ const Register = () => {
                 }}
                 sx={{
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2,
+                    borderRadius: `${theme.shape.borderRadius}px`,
+                    '& fieldset': {
+                      borderColor: theme.palette.divider,
+                    },
+                    '&:hover fieldset': {
+                      borderColor: theme.palette.primary.main,
+                    },
                   }
                 }}
               />
@@ -214,7 +252,13 @@ const Register = () => {
                 }}
                 sx={{
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2,
+                    borderRadius: `${theme.shape.borderRadius}px`,
+                    '& fieldset': {
+                      borderColor: theme.palette.divider,
+                    },
+                    '&:hover fieldset': {
+                      borderColor: theme.palette.primary.main,
+                    },
                   }
                 }}
               />
@@ -238,7 +282,13 @@ const Register = () => {
                   }}
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      borderRadius: 2,
+                      borderRadius: `${theme.shape.borderRadius}px`,
+                      '& fieldset': {
+                        borderColor: theme.palette.divider,
+                      },
+                      '&:hover fieldset': {
+                        borderColor: theme.palette.primary.main,
+                      },
                     }
                   }}
                 />
@@ -253,7 +303,13 @@ const Register = () => {
                   onChange={handleChange}
                   sx={{
                     '& .MuiOutlinedInput-root': {
-                      borderRadius: 2,
+                      borderRadius: `${theme.shape.borderRadius}px`,
+                      '& fieldset': {
+                        borderColor: theme.palette.divider,
+                      },
+                      '&:hover fieldset': {
+                        borderColor: theme.palette.primary.main,
+                      },
                     }
                   }}
                 >
@@ -280,7 +336,13 @@ const Register = () => {
                 }}
                 sx={{
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2,
+                    borderRadius: `${theme.shape.borderRadius}px`,
+                    '& fieldset': {
+                      borderColor: theme.palette.divider,
+                    },
+                    '&:hover fieldset': {
+                      borderColor: theme.palette.primary.main,
+                    },
                   }
                 }}
               />
@@ -297,7 +359,7 @@ const Register = () => {
                 }
                 label={
                   <Typography variant="body2">
-                    I agree to the <Link href="/terms" underline="hover">Terms and Conditions</Link>
+                    I agree to the <Link href="/terms" underline="hover" color="primary">Terms and Conditions</Link>
                   </Typography>
                 }
                 sx={{ mt: 1 }}
@@ -310,29 +372,40 @@ const Register = () => {
                 fullWidth
                 sx={{
                   py: 1.8,
-                  borderRadius: 2,
+                  borderRadius: `${theme.shape.borderRadius}px`,
                   fontSize: '1rem',
                   fontWeight: 600,
                   textTransform: 'none',
-                  background: 'linear-gradient(to right, #4f46e5, #7c3aed)',
+                  letterSpacing: '0.5px',
+                  background: `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
                   '&:hover': {
-                    background: 'linear-gradient(to right, #4338ca, #6d28d9)',
-                    boxShadow: '0 4px 12px rgba(79, 70, 229, 0.3)'
+                    transform: 'translateY(-2px)',
+                    boxShadow: theme.shadows[6],
                   }
                 }}
               >
                 Create Account
               </Button>
 
-              <Divider sx={{ my: 2 }}>
+              <Divider sx={{ 
+                my: 3,
+                '&::before, &::after': {
+                  borderColor: theme.palette.divider,
+                }
+              }}>
                 <Typography variant="body2" color="text.secondary">
-                  Already have an account?{' '}
+                  OR
                 </Typography>
               </Divider>
 
-              <Typography variant="body2" align="center" sx={{ mt: 2 }}>
+              <Typography variant="body2" align="center">
                 Already have an account?{' '}
-                <Link href="/login" underline="hover" fontWeight="500">
+                <Link 
+                  href="/login" 
+                  underline="hover" 
+                  color="primary"
+                  sx={{ fontWeight: 500 }}
+                >
                   Sign In
                 </Link>
               </Typography>

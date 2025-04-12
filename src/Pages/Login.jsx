@@ -11,7 +11,8 @@ import {
   Divider,
   Avatar,
   InputAdornment,
-  IconButton
+  IconButton,
+  useTheme
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -28,6 +29,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  const theme = useTheme();
 
   useEffect(() => {
     if (localStorage.getItem('isLoggedIn') === 'true') {
@@ -37,15 +39,12 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     try {
       const res = await axios.get(`http://localhost:5000/users?email=${email}&password=${password}`);
-      
       if (res.data.length === 1) {
         const user = res.data[0];
         localStorage.setItem('isLoggedIn', 'true'); 
         localStorage.setItem('user', JSON.stringify(user));
-        console.log('User logged in, localStorage isLoggedIn:', localStorage.getItem('isLoggedIn'));
         alert('Login successful!');
         navigate('/'); 
       } else {
@@ -65,7 +64,6 @@ const Login = () => {
   
       try {
         const res = await axios.get(`http://localhost:5000/googleUsers?email=${googleEmail}`);
-        
         if (res.data.length > 0) {
           const user = res.data[0];
           localStorage.setItem('isLoggedIn', 'true');
@@ -79,11 +77,8 @@ const Login = () => {
         console.error('Google Login Error:', err);
         alert('Something went wrong with Google login');
       }
-    } else {
-      console.log('Google Login Failed');
     }
   };
-  
 
   return (
     <Container maxWidth="sm">
@@ -99,15 +94,23 @@ const Login = () => {
           elevation={6} 
           sx={{ 
             p: 4, 
-            borderRadius: 3,
+            borderRadius: `${theme.shape.borderRadius * 2}px`,
             width: '100%',
             maxWidth: 500,
-            background: 'linear-gradient(to bottom right, #f5f7fa, #e4e8f0)',
-            boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15)'
+            background: theme.palette.background.paper,
+            boxShadow: theme.shadows[10],
+            border: `1px solid ${theme.palette.divider}`
           }}
         >
-          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-            <Avatar sx={{ bgcolor: '#3f51b5', width: 56, height: 56 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+            <Avatar 
+              sx={{ 
+                bgcolor: theme.palette.primary.main, 
+                width: 60, 
+                height: 60,
+                boxShadow: theme.shadows[4]
+              }}
+            >
               <LockOutlined fontSize="large" />
             </Avatar>
           </Box>
@@ -117,12 +120,13 @@ const Login = () => {
             align="center" 
             gutterBottom
             sx={{ 
-              fontWeight: 600,
-              color: '#2d3748',
-              mb: 3
+              fontWeight: 700,
+              color: theme.palette.text.primary,
+              mb: 4,
+              letterSpacing: '-0.5px'
             }}
           >
-            Welcome Back ..
+            Welcome Back
           </Typography>
 
           <form onSubmit={handleLogin}>
@@ -143,12 +147,12 @@ const Login = () => {
                 }}
                 sx={{
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2,
+                    borderRadius: `${theme.shape.borderRadius}px`,
                     '& fieldset': {
-                      borderColor: '#cbd5e0',
+                      borderColor: theme.palette.divider,
                     },
                     '&:hover fieldset': {
-                      borderColor: '#4a5568',
+                      borderColor: theme.palette.primary.main,
                     },
                   }
                 }}
@@ -172,6 +176,7 @@ const Login = () => {
                       <IconButton
                         onClick={() => setShowPassword(!showPassword)}
                         edge="end"
+                        sx={{ color: theme.palette.text.secondary }}
                       >
                         {showPassword ? <VisibilityOff /> : <Visibility />}
                       </IconButton>
@@ -180,12 +185,12 @@ const Login = () => {
                 }}
                 sx={{
                   '& .MuiOutlinedInput-root': {
-                    borderRadius: 2,
+                    borderRadius: `${theme.shape.borderRadius}px`,
                     '& fieldset': {
-                      borderColor: '#cbd5e0',
+                      borderColor: theme.palette.divider,
                     },
                     '&:hover fieldset': {
-                      borderColor: '#4a5568',
+                      borderColor: theme.palette.primary.main,
                     },
                   }
                 }}
@@ -199,13 +204,15 @@ const Login = () => {
                 sx={{
                   mt: 2,
                   py: 1.5,
-                  borderRadius: 2,
+                  borderRadius: `${theme.shape.borderRadius}px`,
                   fontSize: '1rem',
                   fontWeight: 600,
-                  background: 'linear-gradient(to right, #4f46e5, #7c3aed)',
+                  textTransform: 'none',
+                  letterSpacing: '0.5px',
+                  background: `linear-gradient(to right, ${theme.palette.primary.main}, ${theme.palette.primary.dark})`,
                   '&:hover': {
-                    background: 'linear-gradient(to right, #4338ca, #6d28d9)',
-                    boxShadow: '0 4px 12px rgba(79, 70, 229, 0.3)'
+                    transform: 'translateY(-2px)',
+                    boxShadow: theme.shadows[6],
                   }
                 }}
               >
@@ -214,8 +221,17 @@ const Login = () => {
             </Stack>
           </form>
 
-          <Box sx={{ mt: 3, mb: 2 }}>
-            <Divider sx={{ color: '#a0aec0' }}>OR</Divider>
+          <Box sx={{ mt: 4, mb: 3 }}>
+            <Divider 
+              sx={{ 
+                color: theme.palette.text.secondary,
+                '&::before, &::after': {
+                  borderColor: theme.palette.divider,
+                }
+              }}
+            >
+              OR
+            </Divider>
           </Box>
 
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
@@ -225,30 +241,29 @@ const Login = () => {
               shape="pill"
               theme="filled_blue"
               size="large"
+              width="300"
             />
           </Box>
 
           <Box sx={{ 
             display: 'flex', 
-            justifyContent: 'space-between', 
-            mt: 2,
-            color: '#4a5568'
+            justifyContent: 'center', 
+            mt: 3,
           }}>
             <Link 
               href="/register" 
               underline="hover" 
-              variant="body2"
+              variant="body1"
               sx={{
-                color: '#4a5568',
+                color: theme.palette.text.secondary,
+                fontWeight: 500,
                 '&:hover': {
-                  color: '#2d3748',
-                  fontWeight: 500
+                  color: theme.palette.primary.main,
                 }
               }}
             >
               Don't have an account? Register
             </Link>
-
           </Box>
         </Paper>
       </Box>

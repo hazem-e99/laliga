@@ -49,7 +49,7 @@ const CompleteGoogleProfile = () => {
     try {
       const res = await axios.post('http://localhost:5000/googleUsers', {
         ...formData,
-        isGoogleUser: true // إضافة علامة تمييز
+        isGoogleUser: true
       });
       localStorage.removeItem('googleTempUser');
       localStorage.setItem('isLoggedIn', 'true');
@@ -63,14 +63,34 @@ const CompleteGoogleProfile = () => {
 
   return (
     <Container maxWidth="sm">
-      <Box sx={{ mt: 8 }}>
-        <Paper elevation={6} sx={{ p: 4, borderRadius: 3 }}>
-          <Typography variant="h5" align="center" gutterBottom>
+      <Box sx={{ 
+        mt: 8,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center'
+      }}>
+        <Paper elevation={6} sx={{ 
+          p: 4, 
+          width: '100%',
+          borderRadius: (theme) => theme.shape.borderRadius * 2,
+          border: '1px solid rgba(0,0,0,0.04)',
+          boxShadow: (theme) => theme.shadows[4]
+        }}>
+          <Typography 
+            variant="h4" 
+            align="center" 
+            gutterBottom
+            sx={{
+              color: 'primary.main',
+              fontWeight: 600,
+              mb: 3
+            }}
+          >
             Complete Your Profile
           </Typography>
 
           <form onSubmit={handleSubmit}>
-            <Stack spacing={3} sx={{ mt: 3 }}>
+            <Stack spacing={3}>
               <TextField
                 name="firstName"
                 label="First Name"
@@ -78,6 +98,12 @@ const CompleteGoogleProfile = () => {
                 value={formData.firstName}
                 onChange={handleChange}
                 required
+                variant="outlined"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: (theme) => theme.shape.borderRadius,
+                  }
+                }}
               />
               <TextField
                 name="lastName"
@@ -86,6 +112,12 @@ const CompleteGoogleProfile = () => {
                 value={formData.lastName}
                 onChange={handleChange}
                 required
+                variant="outlined"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: (theme) => theme.shape.borderRadius,
+                  }
+                }}
               />
               <TextField
                 name="phone"
@@ -94,6 +126,12 @@ const CompleteGoogleProfile = () => {
                 value={formData.phone}
                 onChange={handleChange}
                 required
+                variant="outlined"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: (theme) => theme.shape.borderRadius,
+                  }
+                }}
               />
               <TextField
                 name="email"
@@ -101,6 +139,15 @@ const CompleteGoogleProfile = () => {
                 fullWidth
                 value={formData.email}
                 disabled
+                variant="outlined"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: (theme) => theme.shape.borderRadius,
+                  },
+                  '& .Mui-disabled': {
+                    backgroundColor: (theme) => theme.palette.action.disabledBackground,
+                  }
+                }}
               />
               <TextField
                 name="address"
@@ -109,6 +156,12 @@ const CompleteGoogleProfile = () => {
                 value={formData.address}
                 onChange={handleChange}
                 required
+                variant="outlined"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: (theme) => theme.shape.borderRadius,
+                  }
+                }}
               />
 
               <Button
@@ -117,13 +170,18 @@ const CompleteGoogleProfile = () => {
                 fullWidth
                 sx={{
                   mt: 2,
-                  py: 1.5,
-                  borderRadius: 2,
+                  py: 2,
+                  borderRadius: (theme) => theme.shape.borderRadius,
                   fontSize: '1rem',
-                  fontWeight: 600
+                  fontWeight: 600,
+                  textTransform: 'none',
+                  '&:hover': {
+                    boxShadow: (theme) => theme.shadows[4],
+                    backgroundColor: 'primary.dark'
+                  }
                 }}
               >
-                Submit
+                Complete Registration
               </Button>
             </Stack>
           </form>

@@ -1,6 +1,8 @@
+// src/App.js
 import React from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import { GoogleOAuthProvider } from '@react-oauth/google'; 
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import { ThemeProvider } from '@mui/material/styles';
 import Layout from '../Components/Layout';
 import ProductDetails from '../Pages/ProductDetails';
 import Dashboard from '../Pages/Dashboard';
@@ -11,37 +13,38 @@ import Register from '../Pages/Register';
 import Wishlist from '../Pages/Wishlist';
 import Profile from '../Pages/Profile';
 import ProtectedRoute from '../Components/ProtectedRoute';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import "../App/App.css"
 import CompleteGoogleProfile from '../Pages/CompleteGoogleProfile';
 import Payment from '../Pages/Payment';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import theme from '../theme/theme'; 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../App/App.css";
 
 function App() {
   return (
-    <GoogleOAuthProvider clientId="367520079546-bd85slcaa4p4eerk1ioe0vnpgq9avggb.apps.googleusercontent.com">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="register" element={<Register />} />
-            <Route path="login" element={<Login />} />
-            <Route path="/complete-google-profile" element={<CompleteGoogleProfile />} />
-            <Route element={<ProtectedRoute />}>
-              <Route path="cart" element={<Cart />} />
-              <Route path="/payment" element={<Payment />} />
-              <Route path="dashboard" element={<Dashboard />} />
-              <Route path="wishlist" element={<Wishlist />} />
-              <Route path="profile" element={<Profile />} />
-              <Route path="product/:id" element={<ProductDetails />} />
-              <Route path="ProductDetails" element={<ProductDetails />} />
+    <ThemeProvider theme={theme}>
+      <GoogleOAuthProvider clientId="367520079546-bd85slcaa4p4eerk1ioe0vnpgq9avggb.apps.googleusercontent.com">
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="register" element={<Register />} />
+              <Route path="login" element={<Login />} />
+              <Route path="/complete-google-profile" element={<CompleteGoogleProfile />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="cart" element={<Cart />} />
+                <Route path="/payment" element={<Payment />} />
+                <Route path="dashboard" element={<Dashboard />} />
+                <Route path="wishlist" element={<Wishlist />} />
+                <Route path="profile" element={<Profile />} />
+                <Route path="product/:id" element={<ProductDetails />} />
+                <Route path="ProductDetails" element={<ProductDetails />} />
+              </Route>
             </Route>
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </GoogleOAuthProvider>
+          </Routes>
+        </BrowserRouter>
+      </GoogleOAuthProvider>
+    </ThemeProvider>
   );
 }
 

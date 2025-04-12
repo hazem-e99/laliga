@@ -13,7 +13,8 @@ import {
   Alert,
   Collapse,
   IconButton,
-  InputAdornment
+  InputAdornment,
+  useTheme
 } from '@mui/material';
 import {
   Edit as EditIcon,
@@ -30,6 +31,7 @@ import {
 } from '@mui/icons-material';
 
 const Profile = () => {
+  const theme = useTheme();
   const user = JSON.parse(localStorage.getItem('user')) || {};
   const [editMode, setEditMode] = useState(false);
   const [passwordEditMode, setPasswordEditMode] = useState(false);
@@ -55,14 +57,6 @@ const Profile = () => {
   
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-
-  if (!user) {
-    return (
-      <Typography variant="h6" align="center" sx={{ mt: 4, color: 'text.primary' }}>
-        Please log in first
-      </Typography>
-    );
-  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -185,8 +179,16 @@ const Profile = () => {
     setPasswordEditMode(false);
   };
 
+  if (!user) {
+    return (
+      <Typography variant="h6" align="center" sx={{ mt: 4, color: 'text.primary' }}>
+        Please log in first
+      </Typography>
+    );
+  }
+
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
+    <Container maxWidth="lg" sx={{ py: 6 }}>
       <Collapse in={!!error}>
         <Alert
           severity="error"
@@ -200,7 +202,7 @@ const Profile = () => {
               <CloseIcon fontSize="inherit" />
             </IconButton>
           }
-          sx={{ mb: 2 }}
+          sx={{ mb: 3 }}
         >
           {error}
         </Alert>
@@ -219,65 +221,81 @@ const Profile = () => {
               <CloseIcon fontSize="inherit" />
             </IconButton>
           }
-          sx={{ mb: 2 }}
+          sx={{ mb: 3 }}
         >
           {success}
         </Alert>
       </Collapse>
 
       <Card sx={{ 
-        borderRadius: 3, 
-        boxShadow: 3,
-        background: 'linear-gradient(to bottom, #f5f7fa 0%, #e4e8f0 100%)',
-        overflow: 'hidden'
+        borderRadius: `${theme.shape.borderRadius * 2}px`,
+        boxShadow: theme.shadows[10],
+        background: theme.palette.background.paper,
+        overflow: 'hidden',
+        border: `1px solid ${theme.palette.divider}`
       }}>
+        {/* Header Section with Gradient */}
         <Box sx={{ 
-          height: 180, 
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          height: 200, 
+          background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
           position: 'relative'
         }} />
         
+        {/* Profile Avatar and Action Buttons */}
         <Box sx={{ 
           position: 'relative', 
           display: 'flex', 
           justifyContent: 'space-between',
           alignItems: 'flex-end',
           px: { xs: 3, md: 6 },
-          mt: -10,
+          mt: -12,
           mb: 4
         }}>
           <Avatar
             sx={{ 
-              width: 140, 
-              height: 140, 
-              border: '4px solid white',
-              bgcolor: 'primary.main',
-              color: 'white',
+              width: 150, 
+              height: 150, 
+              border: `4px solid ${theme.palette.background.paper}`,
+              bgcolor: theme.palette.primary.main,
+              color: theme.palette.primary.contrastText,
               fontSize: '3.5rem',
               fontWeight: 'bold',
-              boxShadow: 3
+              boxShadow: theme.shadows[6]
             }}
           >
             {user.firstName?.charAt(0).toUpperCase()}
           </Avatar>
           
+          {/* Action Buttons */}
           {!editMode && !passwordEditMode ? (
-            <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap', justifyContent: 'flex-end' }}>
+            <Box sx={{ 
+              display: 'flex', 
+              gap: 2, 
+              mb: 3, 
+              flexWrap: 'wrap', 
+              justifyContent: 'flex-end' 
+            }}>
               <Button
                 variant="contained"
                 startIcon={<EditIcon />}
                 onClick={() => setEditMode(true)}
                 sx={{ 
                   textTransform: 'none',
-                  borderRadius: 2,
-                  px: 3,
-                  py: 1
+                  borderRadius: `${theme.shape.borderRadius}px`,
+                  px: 4,
+                  py: 1.2,
+                  fontSize: '0.95rem',
+                  fontWeight: 600,
+                  boxShadow: theme.shadows[2],
+                  '&:hover': {
+                    boxShadow: theme.shadows[4],
+                    transform: 'translateY(-2px)'
+                  }
                 }}
               >
                 Edit Profile
               </Button>
               
-              {/* زر تغيير كلمة المرور - يظهر فقط للمستخدمين العاديين */}
               {!user.isGoogleUser && (
                 <Button
                   variant="outlined"
@@ -285,9 +303,16 @@ const Profile = () => {
                   onClick={() => setPasswordEditMode(true)}
                   sx={{ 
                     textTransform: 'none',
-                    borderRadius: 2,
-                    px: 3,
-                    py: 1
+                    borderRadius: `${theme.shape.borderRadius}px`,
+                    px: 4,
+                    py: 1.2,
+                    fontSize: '0.95rem',
+                    fontWeight: 600,
+                    borderWidth: 2,
+                    '&:hover': {
+                      borderWidth: 2,
+                      transform: 'translateY(-2px)'
+                    }
                   }}
                 >
                   Change Password
@@ -303,9 +328,16 @@ const Profile = () => {
                 onClick={handleUpdate}
                 sx={{
                   textTransform: 'none',
-                  borderRadius: 2,
-                  px: 3,
-                  py: 1
+                  borderRadius: `${theme.shape.borderRadius}px`,
+                  px: 4,
+                  py: 1.2,
+                  fontSize: '0.95rem',
+                  fontWeight: 600,
+                  boxShadow: theme.shadows[2],
+                  '&:hover': {
+                    boxShadow: theme.shadows[4],
+                    transform: 'translateY(-2px)'
+                  }
                 }}
               >
                 Save Changes
@@ -317,9 +349,16 @@ const Profile = () => {
                 onClick={handleCancel}
                 sx={{
                   textTransform: 'none',
-                  borderRadius: 2,
-                  px: 3,
-                  py: 1
+                  borderRadius: `${theme.shape.borderRadius}px`,
+                  px: 4,
+                  py: 1.2,
+                  fontSize: '0.95rem',
+                  fontWeight: 600,
+                  borderWidth: 2,
+                  '&:hover': {
+                    borderWidth: 2,
+                    transform: 'translateY(-2px)'
+                  }
                 }}
               >
                 Cancel
@@ -334,9 +373,16 @@ const Profile = () => {
                 onClick={handlePasswordUpdate}
                 sx={{
                   textTransform: 'none',
-                  borderRadius: 2,
-                  px: 3,
-                  py: 1
+                  borderRadius: `${theme.shape.borderRadius}px`,
+                  px: 4,
+                  py: 1.2,
+                  fontSize: '0.95rem',
+                  fontWeight: 600,
+                  boxShadow: theme.shadows[2],
+                  '&:hover': {
+                    boxShadow: theme.shadows[4],
+                    transform: 'translateY(-2px)'
+                  }
                 }}
               >
                 Update Password
@@ -348,9 +394,16 @@ const Profile = () => {
                 onClick={handlePasswordCancel}
                 sx={{
                   textTransform: 'none',
-                  borderRadius: 2,
-                  px: 3,
-                  py: 1
+                  borderRadius: `${theme.shape.borderRadius}px`,
+                  px: 4,
+                  py: 1.2,
+                  fontSize: '0.95rem',
+                  fontWeight: 600,
+                  borderWidth: 2,
+                  '&:hover': {
+                    borderWidth: 2,
+                    transform: 'translateY(-2px)'
+                  }
                 }}
               >
                 Cancel
@@ -359,14 +412,23 @@ const Profile = () => {
           )}
         </Box>
 
+        {/* Profile Content */}
         <CardContent sx={{ px: { xs: 3, md: 6 }, pb: 6 }}>
           {passwordEditMode ? (
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Typography variant="h5" sx={{ mb: 2, fontWeight: 600 }}>
+                <Typography variant="h5" sx={{ 
+                  mb: 3, 
+                  fontWeight: 700,
+                  color: theme.palette.text.primary,
+                  letterSpacing: '-0.5px'
+                }}>
                   Change Password
                 </Typography>
-                <Divider sx={{ my: 2 }} />
+                <Divider sx={{ 
+                  my: 2,
+                  borderColor: theme.palette.divider 
+                }} />
               </Grid>
               
               <Grid item xs={12} md={6}>
@@ -389,11 +451,15 @@ const Profile = () => {
                         <IconButton
                           onClick={() => handleClickShowPassword('current')}
                           edge="end"
+                          sx={{ color: theme.palette.text.secondary }}
                         >
                           {showPassword.current ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </InputAdornment>
-                    )
+                    ),
+                    sx: {
+                      borderRadius: `${theme.shape.borderRadius}px`,
+                    }
                   }}
                 />
                 <TextField
@@ -415,11 +481,15 @@ const Profile = () => {
                         <IconButton
                           onClick={() => handleClickShowPassword('new')}
                           edge="end"
+                          sx={{ color: theme.palette.text.secondary }}
                         >
                           {showPassword.new ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </InputAdornment>
-                    )
+                    ),
+                    sx: {
+                      borderRadius: `${theme.shape.borderRadius}px`,
+                    }
                   }}
                 />
                 <TextField
@@ -441,11 +511,15 @@ const Profile = () => {
                         <IconButton
                           onClick={() => handleClickShowPassword('confirm')}
                           edge="end"
+                          sx={{ color: theme.palette.text.secondary }}
                         >
                           {showPassword.confirm ? <VisibilityOff /> : <Visibility />}
                         </IconButton>
                       </InputAdornment>
-                    )
+                    ),
+                    sx: {
+                      borderRadius: `${theme.shape.borderRadius}px`,
+                    }
                   }}
                 />
               </Grid>
@@ -453,10 +527,18 @@ const Profile = () => {
           ) : (
             <Grid container spacing={3}>
               <Grid item xs={12}>
-                <Typography variant="h5" sx={{ mb: 2, fontWeight: 600 }}>
+                <Typography variant="h5" sx={{ 
+                  mb: 3, 
+                  fontWeight: 700,
+                  color: theme.palette.text.primary,
+                  letterSpacing: '-0.5px'
+                }}>
                   Personal Information
                 </Typography>
-                <Divider sx={{ my: 2 }} />
+                <Divider sx={{ 
+                  my: 2,
+                  borderColor: theme.palette.divider 
+                }} />
               </Grid>
               
               <Grid item xs={12} md={6}>
@@ -473,7 +555,10 @@ const Profile = () => {
                         <PersonIcon color="action" />
                       </InputAdornment>
                     ),
-                    readOnly: !editMode
+                    readOnly: !editMode,
+                    sx: {
+                      borderRadius: `${theme.shape.borderRadius}px`,
+                    }
                   }}
                   variant={editMode ? 'outlined' : 'filled'}
                 />
@@ -490,7 +575,10 @@ const Profile = () => {
                         <PersonIcon color="action" />
                       </InputAdornment>
                     ),
-                    readOnly: !editMode
+                    readOnly: !editMode,
+                    sx: {
+                      borderRadius: `${theme.shape.borderRadius}px`,
+                    }
                   }}
                   variant={editMode ? 'outlined' : 'filled'}
                 />
@@ -508,7 +596,10 @@ const Profile = () => {
                         <EmailIcon color="action" />
                       </InputAdornment>
                     ),
-                    readOnly: !editMode
+                    readOnly: !editMode,
+                    sx: {
+                      borderRadius: `${theme.shape.borderRadius}px`,
+                    }
                   }}
                   variant={editMode ? 'outlined' : 'filled'}
                 />
@@ -525,7 +616,10 @@ const Profile = () => {
                         <PhoneIcon color="action" />
                       </InputAdornment>
                     ),
-                    readOnly: !editMode
+                    readOnly: !editMode,
+                    sx: {
+                      borderRadius: `${theme.shape.borderRadius}px`,
+                    }
                   }}
                   variant={editMode ? 'outlined' : 'filled'}
                 />
@@ -544,7 +638,10 @@ const Profile = () => {
                         <HomeIcon color="action" />
                       </InputAdornment>
                     ),
-                    readOnly: !editMode
+                    readOnly: !editMode,
+                    sx: {
+                      borderRadius: `${theme.shape.borderRadius}px`,
+                    }
                   }}
                   variant={editMode ? 'outlined' : 'filled'}
                 />
