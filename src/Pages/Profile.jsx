@@ -87,8 +87,11 @@ const Profile = () => {
   const handleUpdate = async () => {
     try {
       const updatedUser = { ...user, ...form };
+      const endpoint = user.isGoogleUser ? 
+        `http://localhost:5000/googleUsers/${user.id}` : 
+        `http://localhost:5000/users/${user.id}`;
 
-      const response = await fetch(`http://localhost:5000/users/${user.id}`, {
+      const response = await fetch(endpoint, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -123,6 +126,11 @@ const Profile = () => {
   };
 
   const handlePasswordUpdate = async () => {
+    if (user.isGoogleUser) {
+      setError('Google users cannot change password here');
+      return;
+    }
+  
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
       setError('New passwords do not match');
       return;
@@ -268,19 +276,23 @@ const Profile = () => {
               >
                 Edit Profile
               </Button>
-              <Button
-                variant="outlined"
-                startIcon={<LockIcon />}
-                onClick={() => setPasswordEditMode(true)}
-                sx={{ 
-                  textTransform: 'none',
-                  borderRadius: 2,
-                  px: 3,
-                  py: 1
-                }}
-              >
-                Change Password
-              </Button>
+              
+              {/* زر تغيير كلمة المرور - يظهر فقط للمستخدمين العاديين */}
+              {!user.isGoogleUser && (
+                <Button
+                  variant="outlined"
+                  startIcon={<LockIcon />}
+                  onClick={() => setPasswordEditMode(true)}
+                  sx={{ 
+                    textTransform: 'none',
+                    borderRadius: 2,
+                    px: 3,
+                    py: 1
+                  }}
+                >
+                  Change Password
+                </Button>
+              )}
             </Box>
           ) : editMode ? (
             <Box sx={{ display: 'flex', gap: 2, mb: 3 }}>

@@ -2,13 +2,15 @@ import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import { Outlet } from 'react-router-dom'; // 👈 لازم تضيف دي
+import ScrollToTopButton from './ScrollToTopButton';
 
 const Layout = ({ children }) => {
   return (
     <div>
-      <Navbar />
+      <Navbar/>
       {children ? children : <Outlet />} 
-      <Footer />
+      <Footer/>
+      <ScrollToTopButton/>
     </div>
   );
 };
