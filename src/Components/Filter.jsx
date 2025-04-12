@@ -6,7 +6,7 @@ const Filter = () => {
             <div className='pt-5 text-center'>
                 <h1 className='text-3xl font-bold'>Shop By Category</h1>
             </div>
-            <div className='grid grid-cols-6'>
+            <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center content-center'>
                 <div className='text-center'>
                     <div className="avatar pt-8">
                         <div className="w-24 rounded-full">

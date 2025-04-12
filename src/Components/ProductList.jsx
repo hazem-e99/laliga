@@ -62,8 +62,11 @@ const ProductCard = ({ product }) => {
   const { addProductToCart } = useContext(CartContext); 
   const { addToWishlist } = useContext(WishlistContext); 
   return (
-    <div className="px-2">
-      <div className="card bg-base-100 shadow-xl">
+    <div className="px-2 m-3">
+      <div   style={{
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)', 
+          transition: 'box-shadow 0.3s ease',
+        }} className="card bg-base-100 shadow-xl">
         <figure className="px-4 pt-4">
           <img src={product.image} alt={product.title} className="h-40 object-contain" />
         </figure>
@@ -147,15 +150,15 @@ const SportsProducts = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto px-4 py-6 m-3">
       {loading ? (
         <div className="flex justify-center items-center h-40">
           <span className="loading loading-spinner loading-lg text-primary"></span>
         </div>
       ) : (
-        <Slider {...sliderSettings}>
+        <Slider {...sliderSettings} >
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard  key={product.id} product={product} />
           ))}
         </Slider>
       )}
