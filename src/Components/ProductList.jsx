@@ -51,8 +51,8 @@ import { Link } from 'react-router-dom'; // <-- إضافة هذا الاستير
 
 const ProductCard = ({ product }) => {
   return (
-    <div className="px-2">
-      <div className="card bg-base-100 shadow-xl">
+    <div className="px-2 py-5">
+      <div className="card bg-base-100 shadow-xl h-99">
         <figure className="px-4 pt-4">
           <img src={product.image} alt={product.title} className="h-40 object-contain" />
         </figure>
@@ -131,7 +131,7 @@ const SportsProducts = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto px-4 py-10">
       {loading ? (
         <div className="flex justify-center items-center h-40">
           <span className="loading loading-spinner loading-lg text-primary"></span>
