@@ -53,17 +53,22 @@ const Wishlist = () => {
             </NavLink>
           </Box>
         ) : (
-          wishlist.map((product) => (
-            <Box key={product.id} sx={{
+          wishlist.map((product,index) => (
+            <Box key={index} sx={{
               bgcolor: 'white', 
               borderRadius: '16px', 
               p: 2, 
+          
+              
               mb: 3,
               display: 'flex', 
-              flexDirection: { xs: 'column', sm: 'row' },
+             
               gap: 2,
+              justifyContent: 'center',
+              alignItems: 'center',
               position: 'relative',
               boxShadow: 2, 
+              flexDirection: { xs: 'column', sm: 'column',md:'row' },
             }}>
               <Box
                 component="img"
@@ -90,7 +95,7 @@ const Wishlist = () => {
                 }}>
                   <Typography fontSize={14}>Rate:</Typography>
                   <Star sx={{ fontSize: 18, color: '#facc15' }} />
-                  <Typography fontSize={14}>{product.rating.rate}</Typography>
+                  <Typography fontSize={14}>{product?.rating?.rate ? product?.rating?.rate : product?.rate ? product?.rate : "No rating"}</Typography>
                 </Box>
 
                 <Typography sx={{ mt: 1 }}>

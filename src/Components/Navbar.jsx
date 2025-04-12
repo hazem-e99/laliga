@@ -29,6 +29,10 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
+import { Badge } from '@mui/material';
+import { useContext } from 'react';
+import { CartContext } from '../Contexts/cartContext';
+import { WishlistContext } from '../Contexts/wishlistContext';
 
 const Navbar = () => {
   const location = useLocation();
@@ -39,6 +43,10 @@ const Navbar = () => {
   const user = JSON.parse(localStorage.getItem('user')) || {};
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { cart } = useContext(CartContext);
+  const cartCount = cart.length;
+  const { wishlist } = useContext(WishlistContext);
+const wishlistCount = wishlist.length;
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -70,12 +78,33 @@ const Navbar = () => {
   const renderDesktopNav = () => (
     <>
       <CustomNavButton to="/" icon={<HomeIcon />} text="Home" currentPath={location.pathname} />
-      <CustomNavButton to="/cart" icon={<ShoppingCartIcon />} text="Cart" currentPath={location.pathname} />
+ 
+
       <CustomNavButton to="/dashboard" icon={<DashboardIcon />} text="Dashboard" currentPath={location.pathname} />
       
       {isLoggedIn ? (
         <>
-          <CustomNavButton to="/wishlist" icon={<FavoriteBorderIcon />} text="Wishlist" currentPath={location.pathname} />
+             <CustomNavButton
+  to="/cart"
+  icon={
+    <Badge badgeContent={cartCount} color="error" showZero>
+      <ShoppingCartIcon />
+    </Badge>
+  }
+  text="Cart"
+  currentPath={location.pathname}
+/>
+          <CustomNavButton
+  to="/wishlist"
+  icon={
+    <Badge badgeContent={wishlistCount} color="error" showZero>
+      <FavoriteBorderIcon />
+    </Badge>
+  }
+  text="Wishlist"
+  currentPath={location.pathname}
+/>
+
           
           <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
             <Button

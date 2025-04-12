@@ -15,6 +15,7 @@ const CartItem = () => {
       <Container maxWidth="lg">
         {cart.length === 0 ? (
           <Box
+        
             className="m-4 md:m-0 md:my-10 flex flex-col items-center gap-y-4 rounded-md p-5 bg-slate-200"
           >
             <Typography variant="h6" align="center">
@@ -41,88 +42,103 @@ const CartItem = () => {
           </Box>
         ) : (
           <Stack spacing={3}>
-            {cart.map((item) => (
-              <Box
-                key={item.id}
-                sx={{
-                  display: 'flex',
-                  flexDirection: { xs: 'column', sm: 'row' },
-                  alignItems: 'center',
-                  gap: 2,
-                  bgcolor: 'white',
-                  borderRadius: '16px',
-                  px: 2,
-                  py: 2,
-                  position: 'relative',
-                }}
-              >
-                <IconButton
-                  sx={{ position: 'absolute', top: 8, right: 8 }}
-                  onClick={() => removeSpecificItem(item.id)}
-                >
-                  <CloseIcon />
-                </IconButton>
-
+            {cart.map((item,index) => {
+              console.log("cartttt",item);  
+              return (
                 <Box
-                  component="img"
-                  src={item.image}
-                  alt={item.title}
+                key={ index}
                   sx={{
-                    width: 160,
-                    height: 160,
+                    display: 'flex',
+                    flexDirection: { xs: 'column', sm: 'column',md:'row' },
+                    alignItems: 'center',
+                    gap: 2,
+                    bgcolor: 'white',
                     borderRadius: '16px',
-                    objectFit: 'contain',
+                    px: 2,
+                    py: 2,
+                    position: 'relative',
                   }}
-                />
-
-                <Box sx={{ flex: 1, textAlign: { xs: 'center', sm: 'left' } }}>
-                  <Typography fontWeight="bold" fontSize="1.2rem">
-                    {item.title}
-                  </Typography>
+                >
+                  <IconButton
+                    sx={{ position: 'absolute', top: 8, right: 8 }}
+                    onClick={() => removeSpecificItem(item.id)}
+                  >
+                    <CloseIcon />
+                  </IconButton>
 
                   <Box
+                    component="img"
+                    src={item.image}
+                    alt={item.title}
                     sx={{
-                      display: 'flex',
-                      justifyContent: { xs: 'center', sm: 'flex-start' },
-                      alignItems: 'center',
-                      gap: 1,
-                      mt: 0.5,
+                      width: 160,
+                      height: 160,
+                      borderRadius: '16px',
+                      objectFit: 'contain',
                     }}
-                  >
-                    <Typography fontSize={14}>Rate :</Typography>
-                    <StarIcon sx={{ fontSize: 18, color: '#facc15' }} />
-                    <Typography fontSize={14}>{item.rating.rate}</Typography>
+                  />
+
+                  <Box sx={{ flex: 1, textAlign: { xs: 'center', sm: 'left' } }}>
+                    <Typography fontWeight="bold" fontSize="1.2rem">
+                      {item.title}
+                    </Typography>
+
+                 
+
+                    {/* إضافة حالة التوفر */}
+                     {/* <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+                            {item.brand} |{" "}
+                            <span style={{ color: item.available ? "green" : "red" }}>
+                              {item.available ? "Available" : "Out of Stock"}
+                            </span>
+                          </Typography> */}
+
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        justifyContent: { xs: 'center', sm: 'flex-start' },
+                        alignItems: 'center',
+                        gap: 1,
+                        mt: 0.5,
+                      }}
+                    >
+                      <Typography fontSize={14}>Rate :</Typography>
+                      <StarIcon sx={{ fontSize: 18, color: '#facc15' }} />
+                      <Typography fontSize={14}>
+                      {item?.rating?.rate ? item?.rating?.rate : item?.rate ? item?.rate : "No rating"}
+                      </Typography>
+                    </Box>
+
+                    <Typography sx={{ mt: 1 }}>
+                      Price:{' '}
+                      <Typography component="span" sx={{ color: '#0299e2' }}>
+                        EGP {item.price.toFixed(2)}
+                      </Typography>
+                    </Typography>
                   </Box>
 
-                  <Typography sx={{ mt: 1 }}>
-                    Price:{' '}
-                    <Typography component="span" sx={{ color: '#0299e2' }}>
-                      EGP {item.price.toFixed(2)}
+                  <Stack direction="row" spacing={2} alignItems="center">
+                    <IconButton
+                      onClick={() => updateItem(item.id, item.count - 1)}
+                      disabled={item.count === 1}
+                    >
+                      <RemoveIcon />
+                    </IconButton>
+                    <Typography>{item.count}</Typography>
+                    <IconButton onClick={() => updateItem(item.id, item.count + 1)}>
+                      <AddIcon />
+                    </IconButton>
+                  </Stack>
+
+                  <Box sx={{ minWidth: 100, textAlign: 'center' }}>
+                    <Typography fontSize={14}>Total Price</Typography>
+                    <Typography color="#0299e2">
+                      EGP {(item.price * item.count).toFixed(2)}
                     </Typography>
-                  </Typography>
+                  </Box>
                 </Box>
-
-                <Stack direction="row" spacing={2} alignItems="center">
-                  <IconButton
-                    onClick={() => updateItem(item.id, item.count - 1)}
-                    disabled={item.count === 1}
-                  >
-                    <RemoveIcon />
-                  </IconButton>
-                  <Typography>{item.count}</Typography>
-                  <IconButton onClick={() => updateItem(item.id, item.count + 1)}>
-                    <AddIcon />
-                  </IconButton>
-                </Stack>
-
-                <Box sx={{ minWidth: 100, textAlign: 'center' }}>
-                  <Typography fontSize={14}>Total Price</Typography>
-                  <Typography color="#0299e2">
-                    EGP {(item.price * item.count).toFixed(2)}
-                  </Typography>
-                </Box>
-              </Box>
-            ))}
+              );
+            })}
           </Stack>
         )}
       </Container>

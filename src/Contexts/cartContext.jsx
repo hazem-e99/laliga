@@ -8,23 +8,49 @@ export const CartProvider = ({ children }) => {
     return storedCart ? JSON.parse(storedCart) : [];
   });
 
-  // حفظ cart في localStorage عند كل تغيير
+  const [cartCount, setCartCount] = useState(() => {
+    const storedCart = localStorage.getItem("cart");
+    const parsed = storedCart ? JSON.parse(storedCart) : [];
+    return parsed.reduce((acc, item) => acc + item.count, 0);
+  });
+
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
+    const totalCount = cart.reduce((acc, item) => acc + item.count, 0);
+    setCartCount(totalCount);
   }, [cart]);
 
+  // ✅ تعديل normalizeProduct لتوليد id فريد بناءً على خصائص أخرى
+  const normalizeProduct = (product) => {
+    return {
+      ...product,
+      id: product.id || `${product.name}-${product.brand}-${Date.now()}`, // توليد id فريد
+      rate: product?.rate || product?.rating?.rate || null,
+      brand: product?.brand || "No brand",
+    };
+  };
+
+  // ✅ دالة للتحقق من وجود المنتج في السلة
+  const isProductInCart = (product) => {
+    return cart.some((item) => item.id === product.id); // نبحث عن المنتج باستخدام الـ id الفريد
+  };
+
   const addProductToCart = (product) => {
-    const existingItem = cart.find((item) => item.id === product.id);
-    if (existingItem) {
+    const normalizedProduct = normalizeProduct(product);
+
+    // تحقق إذا كان المنتج موجود بالفعل في السلة
+    if (isProductInCart(normalizedProduct)) {
+      // إذا كان موجودًا، قم بتحديث الكمية
       setCart((prevCart) =>
         prevCart.map((item) =>
-          item.id === product.id
-            ? { ...item, count: item.count + 1 }
+          item.id === normalizedProduct.id
+            ? { ...item, count: item.count + 1 } // زيادة العدد
             : item
         )
       );
     } else {
-      setCart((prevCart) => [...prevCart, { ...product, count: 1 }]);
+      // إذا لم يكن موجودًا، أضف المنتج للسلة
+      setCart((prevCart) => [...prevCart, { ...normalizedProduct, count: 1 }]);
     }
   };
 
@@ -39,13 +65,21 @@ export const CartProvider = ({ children }) => {
       )
     );
   };
+
   const clearCart = () => {
     setCart([]);
   };
-  
+
   return (
     <CartContext.Provider
-      value={{ cart, addProductToCart, removeSpecificItem, updateItem , clearCart,}}
+      value={{
+        cart,
+        cartCount,
+        addProductToCart,
+        removeSpecificItem,
+        updateItem,
+        clearCart,
+      }}
     >
       {children}
     </CartContext.Provider>
