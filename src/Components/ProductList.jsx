@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState,useContext } from 'react';
 
 // import React, { useEffect, useState } from 'react';
@@ -93,7 +92,7 @@ const ProductCard = ({ product }) => {
               <FaHeart />
             </button>
             <Link 
-              to={`/product/${product.id}`} // <-- تغيير الزر إلى رابط
+              to={`/product/${product.id}`} 
               className="btn btn-sm btn-outline btn-info"
             >
               Details
@@ -105,7 +104,7 @@ const ProductCard = ({ product }) => {
   );
 };
 
-// ... باقي الكود يبقى كما هو
+
 
 
 
@@ -167,18 +166,3 @@ const SportsProducts = () => {
 };
 
 export default SportsProducts;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

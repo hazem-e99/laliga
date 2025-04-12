@@ -1,76 +1,38 @@
-import React from 'react';
+const Filter = ({ onCategoryClick }) => {
+    const categories = [
+        { name: 'Sneakers', img: './img/sneakers.jpg' },
+        { name: 'Shorts', img: './img/shorts.jpg' },
+        { name: 'Tshirts', img: './img/Tshirt.jpg' },
+        { name: 'Pants', img: './img/pants.jpg' },
+        { name: 'Accessories', img: './img/accessories.jpg' }
+    ];
 
-const Filter = () => {
     return (
         <>
             <div className='pt-5 text-center'>
                 <h1 className='text-3xl font-bold'>Shop By Category</h1>
             </div>
-            <div className='grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 justify-items-center content-center'>
-                <div className='text-center'>
-                    <div className="avatar pt-8">
-                        <div className="w-24 rounded-full">
-                            <img src="./img/sneakers.jpg" />
+            <div className='grid grid-cols-6'>
+                {categories.map((category) => (
+                    <div
+                        key={category.name}
+                        className='text-center cursor-pointer'
+                        onClick={() => onCategoryClick(category.name)}
+                    >
+                        <div className="avatar pt-8">
+                            <div className="w-24 rounded-full">
+                                <img src={category.img} alt={category.name} />
+                            </div>
+                        </div>
+                        <div className='font-semibold'>
+                            {category.name}
                         </div>
                     </div>
-                    <div className='font-semibold'>
-                        Sneakers
-                    </div>
-                </div>
-                <div className='text-center'>
-                    <div className="avatar pt-8">
-                        <div className="w-24 rounded-full">
-                            <img src="./img/shorts.jpg" />
-                        </div>
-                    </div>
-                    <div className='font-semibold'>
-                        Shorts
-                    </div>
-                </div>
-                <div className='text-center'>
-                    <div className="avatar pt-8">
-                        <div className="w-24 rounded-full">
-                            <img src="./img/Tshirt.jpg" />
-                        </div>
-                    </div>
-                    <div className='font-semibold'>
-                        T-shirt
-                    </div>
-                </div>
-                <div className='text-center'>
-                    <div className="avatar pt-8">
-                        <div className="w-24 rounded-full">
-                            <img src="./img/pants.jpg" />
-                        </div>
-                    </div>
-                    <div className='font-semibold'>
-                        Pants
-                    </div>
-                </div>
-                <div className='text-center'>
-                    <div className="avatar pt-8">
-                        <div className="w-24 rounded-full">
-                            <img src="./img/accessories.jpg" />
-                        </div>
-                    </div>
-                    <div className='font-semibold'>
-                    Accessories
-                    </div>
-                </div>
-                <div className='text-center'>
-                    <div className="avatar pt-8">
-                        <div className="w-24 rounded-full">
-                            <img src="./img/Sale.jpg" />
-                        </div>
-                    </div>
-                    <div className='font-semibold'>
-                        Sale
-                    </div>
-                </div>
-                
+                ))}
             </div>
         </>
     );
 }
+
 
 export default Filter;
