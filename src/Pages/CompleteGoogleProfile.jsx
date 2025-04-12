@@ -17,6 +17,7 @@ const CompleteGoogleProfile = () => {
     firstName: '',
     lastName: '',
     email: '',
+    phone: '',
     address: ''
   });
 
@@ -44,9 +45,12 @@ const CompleteGoogleProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      const res = await axios.post('http://localhost:5000/googleUsers', formData);
+      const res = await axios.post('http://localhost:5000/googleUsers', {
+        ...formData,
+        isGoogleUser: true // إضافة علامة تمييز
+      });
       localStorage.removeItem('googleTempUser');
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('user', JSON.stringify(res.data));
@@ -80,6 +84,14 @@ const CompleteGoogleProfile = () => {
                 label="Last Name"
                 fullWidth
                 value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
+              <TextField
+                name="phone"
+                label="Phone Number"
+                fullWidth
+                value={formData.phone}
                 onChange={handleChange}
                 required
               />

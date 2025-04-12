@@ -1,56 +1,14 @@
 {
-  "users": [
-    {
-      "id": "5be4",
-      "firstName": "Hazem",
-      "lastName": "Essam",
-      "phone": "01094575914",
-      "email": "zoka.live2000@gmail.com",
-      "password": "112233",
-      "birthDate": "86666-11-09",
-      "gender": "male",
-      "address": "اسيوط جديده2025",
-      "acceptTerms": true
-    },
-    {
-      "id": "5cb0",
-      "firstName": "Hazem",
-      "lastName": "Essam",
-      "phone": "01094575914",
-      "email": "hazemessam8199@gmail.com",
-      "password": "123456789",
-      "birthDate": "94548-09-04",
-      "gender": "male",
-      "address": "أسيوط / منفلوط",
-      "acceptTerms": true
-    },
-    {
-      "id": "8b29",
-      "firstName": "mayar",
-      "lastName": "mohamed",
-      "phone": "01033224614",
-      "email": "mayarmohamed.8d6v@gmail.com",
-      "password": "Allah.2002",
-      "birthDate": "2002-02-09",
-      "gender": "female",
-      "address": "egypt",
-      "acceptTerms": true
-    }
-  ],
+  "users": [],
   "googleUsers": [
     {
-      "id": "39aa",
+      "id": "f9fa",
       "firstName": "Hazem",
       "lastName": "Essam",
       "email": "zoka.live2000@gmail.com",
-      "address": "اسيوط المدينه الجديده ثثث"
-    },
-    {
-      "id": "a166",
-      "firstName": "mina",
-      "lastName": "maged",
-      "email": "minamaged2070@gmail.com",
-      "address": "sgfkgkdjfd"
+      "phone": "01094575914",
+      "address": "اسيوط",
+      "isGoogleUser": true
     }
   ]
 }
