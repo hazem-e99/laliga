@@ -1,0 +1,1021 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Sneaker XYZ",
+      "description": "High quality sports sneaker",
+      "price": 50.99,
+      "image": "https://m.media-amazon.com/images/I/61gUPudI4cL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.5,
+        "count": 120
+      },
+      "category": "sneakers",
+      "isBestSeller": true
+      ,    "isTrending":false
+    },
+    {
+      "id": 2,
+      "title": "Sporty T-Shirt",
+      "description": "Comfortable cotton T-shirt for sports",
+      "price": 19.99,
+      "image": "https://m.media-amazon.com/images/I/51PgfGRJBNL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 90
+      },
+      "category": "t-shirts",
+      "isBestSeller": false
+      ,    "isTrending":true
+    },
+    {
+      "id": 3,
+      "title": "Running Shorts",
+      "description": "Lightweight running shorts for men",
+      "price": 25.49,
+      "image": "https://m.media-amazon.com/images/I/719TgPx7ltL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.2,
+        "count": 150
+      },
+      "category": "shorts",
+      "isBestSeller": true
+      ,    "isTrending":true
+    },
+    {
+      "id": 4,
+      "title": "Basketball Sneakers",
+      "description": "Premium basketball sneakers for professional players",
+      "price": 120.99,
+      "image": "https://m.media-amazon.com/images/I/61QENo259UL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.8,
+        "count": 250
+      },
+      "category": "sneakers",
+      "isBestSeller": true,
+      "isTrending":false
+    },
+    {
+      "id": 5,
+      "title": "Yoga Mat",
+      "description": "Eco-friendly yoga mat for home and studio use",
+      "price": 35.00,
+      "image": "https://m.media-amazon.com/images/I/61NuEY-o1aL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.3,
+        "count": 200
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+    },
+    {
+      "id": 6,
+      "title": "Sports Socks",
+      "description": "Breathable and comfortable sports socks for athletes",
+      "price": 9.99,
+      "image": "https://m.media-amazon.com/images/I/51NNRaUuhCL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.1,
+        "count": 300
+      },
+      "category": "accessories",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 7,
+      "title": "Compression Pants",
+      "description": "Compression pants for muscle support during exercise",
+      "price": 45.75,
+      "image": "https://m.media-amazon.com/images/I/518yHk8eh7L._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.7,
+        "count": 110
+      },
+      "category": "pants",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 8,
+      "title": "Sports Watch",
+      "description": "Multi-function sports watch with heart rate monitor",
+      "price": 80.99,
+      "image": "https://m.media-amazon.com/images/I/61OMihkPjZL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.6,
+        "count": 180
+      },
+      "category": "accessories",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 9,
+      "title": "Fitness Tracker",
+      "description": "Track your fitness progress with this advanced fitness tracker",
+      "price": 45.99,
+      "image": "https://m.media-amazon.com/images/I/51S64ElhpBL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.4,
+        "count": 220
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 10,
+      "title": "Football Shoes",
+      "description": "Lightweight football shoes for quick movements on the field",
+      "price": 99.99,
+      "image": "https://m.media-amazon.com/images/I/61xS99rC2eL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.7,
+        "count": 175
+      },
+      "category": "sneakers",
+      "isBestSeller": true
+      ,    "isTrending":true
+    },
+    {
+      "id": 11,
+      "title": "Running Shoes",
+      "description": "Comfortable running shoes designed for long-distance runs",
+      "price": 75.99,
+      "image": "https://m.media-amazon.com/images/I/71Nd22I-eNL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.6,
+        "count": 160
+      },
+      "category": "sneakers",
+      "isBestSeller": true
+      ,    "isTrending":true
+    },
+    {
+      "id": 12,
+      "title": "Workout Tank Top",
+      "description": "Breathable tank top perfect for workout sessions",
+      "price": 20.99,
+      "image": "https://m.media-amazon.com/images/I/61sGFYUhdaL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.2,
+        "count": 150
+      },
+      "category": "t-shirts",
+      "isBestSeller": false
+      ,    "isTrending":true
+    },
+    {
+      "id": 13,
+      "title": "Jogging Pants",
+      "description": "Stylish jogging pants for relaxed workouts",
+      "price": 38.99,
+      "image": "https://m.media-amazon.com/images/I/41uQA92xMAL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.5,
+        "count": 120
+      },
+      "category": "pants",
+      "isBestSeller": true
+      ,    "isTrending":true
+    },
+    {
+      "id": 14,
+      "title": "Water Bottle",
+      "description": "Durable water bottle to keep you hydrated during workouts",
+      "price": 12.50,
+      "image": "https://m.media-amazon.com/images/I/61YuSHElgKL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.3,
+        "count": 130
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":true
+    },
+    {
+      "id": 15,
+      "title": "Boxing Gloves",
+      "description": "Professional boxing gloves for intense training",
+      "price": 59.99,
+      "image": "https://m.media-amazon.com/images/I/51df0s6DzmL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.8,
+        "count": 200
+        ,    "isTrending":true
+      },
+      "category": "accessories",
+      "isBestSeller": true
+      ,    "isTrending":true
+    },
+    {
+      "id": 16,
+      "title": "Gym Bag",
+      "description": "Spacious gym bag with multiple compartments",
+      "price": 39.99,
+      "image": "https://m.media-amazon.com/images/I/61NxZvxNseL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.4,
+        "count": 180
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":true
+    },
+    {
+      "id": 17,
+      "title": "Knee Pads",
+      "description": "Protect your knees with these comfortable knee pads",
+      "price": 18.99,
+      "image": "https://m.media-amazon.com/images/I/41t18AWSoeL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 150
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+    },
+    {
+      "id": 18,
+      "title": "Tennis Racket",
+      "description": "Premium tennis racket for professional players",
+      "price": 120.99,
+      "image": "https://m.media-amazon.com/images/I/61aBE7ch+bL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.6,
+        "count": 170
+      },
+      "category": "accessories",
+      "isBestSeller": true
+      ,    "isTrending":false
+    },
+    {
+      "id": 19,
+      "title": "Running Jacket",
+      "description": "Waterproof jacket designed for outdoor running",
+      "price": 65.99,
+      "image": "https://m.media-amazon.com/images/I/61raNaD5DdL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.5,
+        "count": 190
+      },
+      "category": "pants",
+      "isBestSeller": false
+      ,    "isTrending":true
+    },
+    {
+      "id": 20,
+      "title": "Fitness Gloves",
+      "description": "Comfortable fitness gloves for weightlifting",
+      "price": 15.99,
+      "image": "https://m.media-amazon.com/images/I/51URTlZVZRL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.1,
+        "count": 140
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+    },
+    {
+      "id": 21,
+      "title": "Compression Shirt",
+      "description": "Compression shirt for better muscle support",
+      "price": 30.99,
+      "image": "https://m.media-amazon.com/images/I/61aQp6TWjYL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.3,
+        "count": 210
+      },
+      "category": "t-shirts",
+      "isBestSeller": true
+      ,    "isTrending":true
+    },
+    {
+      "id": 22,
+      "title": "Football Jersey",
+      "description": "Stylish football jersey for sports enthusiasts",
+      "price": 50.00,
+      "image": "https://m.media-amazon.com/images/I/61ASppeHlLL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.5,
+        "count": 220
+      },
+      "category": "t-shirts",
+      "isBestSeller": true
+      ,    "isTrending":false
+    },
+    {
+      "id": 23,
+      "title": "Baseball Glove",
+      "description": "Premium baseball glove for serious players",
+      "price": 75.99,
+      "image": "https://m.media-amazon.com/images/I/61LHvRmkupL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.7,
+        "count": 180
+      },
+      "category": "accessories",
+      "isBestSeller": true
+      ,    "isTrending":true
+    },
+    {
+      "id": 24,
+      "title": "Waterproof Shoes",
+      "description": "Durable waterproof shoes for all weather conditions",
+      "price": 99.99,
+      "image": "https://m.media-amazon.com/images/I/81oC70HeifL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.8,
+        "count": 230
+      },
+      "category": "sneakers",
+      "isBestSeller": false
+      ,    "isTrending":true
+    },
+    {
+      "id": 25,
+      "title": "Multi-purpose Shorts",
+      "description": "Versatile shorts for a variety of sports",
+      "price": 27.99,
+      "image": "https://m.media-amazon.com/images/I/71rZTN85F2L._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.5,
+        "count": 200
+      },
+      "category": "shorts",
+      "isBestSeller": true
+      ,    "isTrending":true
+    },
+    {
+      "id": 26,
+      "title": "Sports Water Jug",
+      "description": "Large water jug for long workout sessions",
+      "price": 22.99,
+      "image": "https://m.media-amazon.com/images/I/818-3OxSrtL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.2,
+        "count": 190
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 27,
+      "title": "Outdoor Sneakers",
+      "description": "All-weather outdoor sneakers for rugged terrains",
+      "price": 110.99,
+      "image": "https://m.media-amazon.com/images/I/51nT1FP+X4L._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.3,
+        "count": 210
+      },
+      "category": "sneakers",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 28,
+      "title": "Wristband Set",
+      "description": "Set of comfortable wristbands for sports",
+      "price": 9.99,
+      "image": "https://m.media-amazon.com/images/I/61tvoncs2TL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.4,
+        "count": 200
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 29,
+      "title": "Weight Lifting Belt",
+      "description": "Sturdy belt for weightlifting support",
+      "price": 29.99,
+      "image": "https://m.media-amazon.com/images/I/817Od9xDf2L._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.5,
+        "count": 220
+      },
+      "category": "accessories",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 30,
+      "title": "Sports Headband",
+      "description": "Sweat-wicking headband for active workouts",
+      "price": 6.99,
+      "image": "https://m.media-amazon.com/images/I/515io6Tt+WL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 150
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 31,
+      "title": "Gym Shoes",
+      "description": "Comfortable shoes for gym workouts",
+      "price": 89.99,
+      "image": "https://m.media-amazon.com/images/I/51vwq5ervCL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.7,
+        "count": 190
+      },
+      "category": "sneakers",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 32,
+      "title": "Hiking Boots",
+      "description": "Durable hiking boots for outdoor adventures",
+      "price": 120.00,
+      "image": "https://m.media-amazon.com/images/I/614xi73jKvL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.8,
+        "count": 180
+      },
+      "category": "sneakers",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 33,
+      "title": "Compression Sleeves",
+      "description": "Compression sleeves for muscle support",
+      "price": 19.99,
+      "image": "https://m.media-amazon.com/images/I/61jy+976QRL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.3,
+        "count": 170
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 34,
+      "title": "Golf Shoes",
+      "description": "Professional golf shoes with great grip",
+      "price": 99.99,
+      "image": "https://m.media-amazon.com/images/I/61+bYSpHbYL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.6,
+        "count": 160
+      },
+      "category": "sneakers",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 35,
+      "title": "Cycling Gloves",
+      "description": "Comfortable gloves for cycling enthusiasts",
+      "price": 15.99,
+      "image": "https://m.media-amazon.com/images/I/61KAgj3fAxL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.2,
+        "count": 140
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 36,
+      "title": "Triathlon Suit",
+      "description": "High-performance triathlon suit for elite athletes",
+      "price": 200.00,
+      "image": "https://m.media-amazon.com/images/I/51g80+ZuaFL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.9,
+        "count": 130
+      },
+      "category": "pants",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 37,
+      "title": "Sports Cap",
+      "description": "Lightweight sports cap to keep you cool",
+      "price": 14.99,
+      "image": "https://m.media-amazon.com/images/I/61GzQfBa+lL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.3,
+        "count": 220
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 38,
+      "title": "Sweatpants",
+      "description": "Comfortable sweatpants for casual wear",
+      "price": 45.99,
+      "image": "https://m.media-amazon.com/images/I/51cy1gvE+uL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.1,
+        "count": 160
+      },
+      "category": "pants",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 39,
+      "title": "Fitness Mat",
+      "description": "High-quality mat for various fitness activities",
+      "price": 29.99,
+      "image": "https://m.media-amazon.com/images/I/61VGSjSwqdL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.4,
+        "count": 140
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 40,
+      "title": "Resistance Bands",
+      "description": "Set of resistance bands for strength training",
+      "price": 16.99,
+      "image": "https://m.media-amazon.com/images/I/51PHrriNxUL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.0,
+        "count": 220
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 41,
+      "title": "Basketball Shorts",
+      "description": "Comfortable shorts for playing basketball",
+      "price": 24.99,
+      "image": "https://m.media-amazon.com/images/I/61jW7AeUihL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.7,
+        "count": 180
+      },
+      "category": "shorts",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 42,
+      "title": "Soccer Cleats",
+      "description": "Lightweight cleats for soccer players",
+      "price": 80.00,
+      "image": "https://m.media-amazon.com/images/I/71uwl4DP3qL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.9,
+        "count": 160
+      },
+      "category": "sneakers",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 43,
+      "title": "Running Cap",
+      "description": "Breathable cap designed for running",
+      "price": 19.99,
+      "image": "https://m.media-amazon.com/images/I/51tJamRWoTL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.3,
+        "count": 140
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 44,
+      "title": "Football Gloves",
+      "description": "Professional football gloves for better grip",
+      "price": 30.99,
+      "image": "https://m.media-amazon.com/images/I/61OMihkPjZL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.6,
+        "count": 130
+      },
+      "category": "accessories",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 45,
+      "title": "Hockey Stick",
+      "description": "Top-quality hockey stick for professional use",
+      "price": 89.99,
+      "image": "https://m.media-amazon.com/images/I/71Kzep16MKL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.7,
+        "count": 200
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 46,
+      "title": "Fitness Shorts",
+      "description": "Lightweight shorts for gym workouts",
+      "price": 23.99,
+      "image": "https://m.media-amazon.com/images/I/71bYofYE--L._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.4,
+        "count": 160
+      },
+      "category": "shorts",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 47,
+      "title": "Track Jacket",
+      "description": "Stylish track jacket for outdoor activities",
+      "price": 69.99,
+      "image": "https://m.media-amazon.com/images/I/61o7zfPCjcL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.8,
+        "count": 190
+      },
+      "category": "pants",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 48,
+      "title": "Bicycle Helmet",
+      "description": "Durable and comfortable helmet for cycling",
+      "price": 45.00,
+      "image": "https://m.media-amazon.com/images/I/51ExMlyTJhL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.3,
+        "count": 150
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 49,
+      "title": "Football Socks",
+      "description": "Comfortable socks designed for football players",
+      "price": 8.99,
+      "image": "https://m.media-amazon.com/images/I/61-LvbcanfL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.6,
+        "count": 130
+      },
+      "category": "accessories",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 50,
+      "title": "Running Shoes Pro",
+      "description": "Pro-level running shoes for competitive runners",
+      "price": 130.00,
+      "image": "https://m.media-amazon.com/images/I/711+jxHKSHL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.9,
+        "count": 150
+      },
+      "category": "sneakers",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 51,
+      "title": "Casual Sneakers",
+      "description": "Comfortable sneakers for everyday wear",
+      "price": 65.99,
+      "image": "https://m.media-amazon.com/images/I/61fIqWMahuL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.4,
+        "count": 180
+      },
+      "category": "sneakers",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 52,
+      "title": "Training Sneakers",
+      "description": "Versatile sneakers for various training activities",
+      "price": 85.99,
+      "image": "hhttps://m.media-amazon.com/images/I/51sX7BBn5hL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.6,
+        "count": 160
+      },
+      "category": "sneakers",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 53,
+      "title": "Skateboarding Shoes",
+      "description": "Durable shoes designed for skateboarding",
+      "price": 79.99,
+      "image": "https://m.media-amazon.com/images/I/61J1Lm6Um1L._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.7,
+        "count": 140
+      },
+      "category": "sneakers",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 54,
+      "title": "Trail Running Shoes",
+      "description": "Specialized shoes for trail running",
+      "price": 95.99,
+      "image": "https://m.media-amazon.com/images/I/71qajppJ8NL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.8,
+        "count": 120
+      },
+      "category": "sneakers",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 55,
+      "title": "Walking Shoes",
+      "description": "Comfortable shoes for long walks",
+      "price": 59.99,
+      "image": "https://m.media-amazon.com/images/I/61hsYw3qGmL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.5,
+        "count": 160
+      },
+      "category": "sneakers",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 56,
+      "title": "Basketball T-Shirt",
+      "description": "Comfortable T-shirt for basketball players",
+      "price": 24.99,
+      "image": "https://m.media-amazon.com/images/I/811TOteAtdL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.3,
+        "count": 140
+      },
+      "category": "t-shirts",
+      "isBestSeller": true
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 57,
+      "title": "Running T-Shirt",
+      "description": "Breathable T-shirt for runners",
+      "price": 22.99,
+      "image": "https://m.media-amazon.com/images/I/61NONhf-U+L._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.4,
+        "count": 150
+      },
+      "category": "t-shirts",
+      "isBestSeller": false
+      ,    "isTrending":false
+
+    },
+    {
+      "id": 58,
+      "title": "Gym T-Shirt",
+      "description": "Comfortable T-shirt for gym workouts",
+      "price": 19.99,
+      "image": "https://m.media-amazon.com/images/I/410vSnAd61S._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.2,
+        "count": 130
+      },
+      "category": "t-shirts",
+      "isBestSeller": true
+      ,    "isTrending":true
+    },
+    {
+      "id": 59,
+      "title": "Training Shorts",
+      "description": "Lightweight shorts for various training activities",
+      "price": 29.99,
+      "image": "https://m.media-amazon.com/images/I/91eZVSSC2wL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.5,
+        "count": 140
+      },
+      "category": "shorts",
+      "isBestSeller": false
+      ,    "isTrending":true
+    },
+    {
+      "id": 60,
+      "title": "Swim Shorts",
+      "description": "Quick-dry shorts for swimming",
+      "price": 34.99,
+      "image": "https://m.media-amazon.com/images/I/61GK+j70uhL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.6,
+        "count": 120
+      },
+      "category": "shorts",
+      "isBestSeller": true
+      ,    "isTrending":true
+    },
+    {
+      "id": 61,
+      "title": "Cycling Shorts",
+      "description": "Padded shorts for comfortable cycling",
+      "price": 49.99,
+      "image": "https://m.media-amazon.com/images/I/81SVWC1oLpL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.7,
+        "count": 110
+      },
+      "category": "shorts",
+      "isBestSeller": false
+      ,    "isTrending":true
+    },
+    {
+      "id": 62,
+      "title": "Training Pants",
+      "description": "Versatile pants for various training activities",
+      "price": 54.99,
+      "image": "https://m.media-amazon.com/images/I/61isaC6YFaL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.4,
+        "count": 130
+      },
+      "category": "pants",
+      "isBestSeller": true
+      ,    "isTrending":true
+    },
+    {
+      "id": 63,
+      "title": "Yoga Pants",
+      "description": "Comfortable pants for yoga practice",
+      "price": 39.99,
+      "image": "https://m.media-amazon.com/images/I/41ol99SZa8L._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.6,
+        "count": 140
+      },
+      "category": "pants",
+      "isBestSeller": false
+      ,    "isTrending":true
+    },
+    {
+      "id": 64,
+      "title": "Sports Towel",
+      "description": "Quick-dry towel for sports activities",
+      "price": 12.99,
+      "image": "https://m.media-amazon.com/images/I/71B+8bRW01L._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.3,
+        "count": 160
+      },
+      "category": "accessories",
+      "isBestSeller": true
+      ,    "isTrending":true
+    },
+    {
+      "id": 65,
+      "title": "Jump Rope",
+      "description": "Durable jump rope for cardio workouts",
+      "price": 8.99,
+      "image": "https://m.media-amazon.com/images/I/61TTPCEIdWL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.5,
+        "count": 120
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":true
+    },
+    {
+      "id": 66,
+      "title": "Foam Roller",
+      "description": "High-density foam roller for muscle recovery",
+      "price": 24.99,
+      "image": "https://m.media-amazon.com/images/I/41OBKqYqaKL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.7,
+        "count": 140
+      },
+      "category": "accessories",
+      "isBestSeller": true
+      ,    "isTrending":true
+    },
+    {
+      "id": 67,
+      "title": "Sports Sunglasses",
+      "description": "Protective sunglasses for outdoor sports",
+      "price": 35.99,
+      "image": "https://m.media-amazon.com/images/I/61hzNKOYA2L._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.6,
+        "count": 130
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":true
+    },
+    {
+      "id": 68,
+      "title": "Ankle Weights",
+      "description": "Adjustable ankle weights for strength training",
+      "price": 19.99,
+      "image": "https://m.media-amazon.com/images/I/71W1+tivoKL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.4,
+        "count": 110
+      },
+      "category": "accessories",
+      "isBestSeller": true
+      ,    "isTrending":true
+    },
+    {
+      "id": 69,
+      "title": "Sports Backpack",
+      "description": "Compact backpack for sports gear",
+      "price": 29.99,
+      "image": "https://m.media-amazon.com/images/I/71FdP-OYznL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.5,
+        "count": 120
+      },
+      "category": "accessories",
+      "isBestSeller": false
+      ,    "isTrending":true
+    },
+    {
+      "id": 70,
+      "title": "Sports Armband",
+      "description": "Armband for holding phones during workouts",
+      "price": 9.99,
+      "image": "https://m.media-amazon.com/images/I/714k+3YqMeL._AC_UL480_FMwebp_QL65_.jpg",
+      "rating": {
+        "rate": 4.2,
+        "count": 140
+      },
+      "category": "accessories",
+      "isBestSeller": true
+      ,    "isTrending":true
+    }
+  ]
+}
