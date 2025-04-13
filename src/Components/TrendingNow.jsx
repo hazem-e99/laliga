@@ -1,15 +1,13 @@
 import React from 'react';
-import SportsProducts from './ProductList';
+import productsData from '../sports_products.json';
+import CategorySlider from './CategorySlider';
 
 const TrendingNow = () => {
-    return (
-        <>
-            <div className='pt-5 text-center'>
-                <h1 className='text-3xl font-bold'>Trending Now</h1>
-            </div>
-            <SportsProducts/>
-        </>
-    );
-}
+  const isTrending = productsData.products.filter(
+    (product) => product.isTrending === true
+  );
+
+  return <CategorySlider title="Trending now" products={isTrending} />;
+};
 
 export default TrendingNow;

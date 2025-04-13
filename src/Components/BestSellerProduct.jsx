@@ -1,20 +1,13 @@
-
 import React from 'react';
+import productsData from '../sports_products.json';
+import CategorySlider from './CategorySlider';
 
+const Bestseller = () => {
+  const bestSellerProducts = productsData.products.filter(
+    (product) => product.isBestSeller === true
+  );
 
-import ProductList from './ProductList';
-import SportsProducts from './ProductList';
+  return <CategorySlider title="Best Seller" products={bestSellerProducts} />;
+};
 
-const BestSellerProduct = () => {
-    return (
-        <>
-            <div className='pt-5 text-center'>
-                <h1 className='text-3xl font-bold'>BestSeller</h1>
-            </div>
-           <SportsProducts></SportsProducts>
-           <ProductList></ProductList>
-        </>
-    );
-}
-
-export default BestSellerProduct;
+export default Bestseller;
