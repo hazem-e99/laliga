@@ -1,5 +1,21 @@
 {
+
+  "users": [
+    {
+      "id": "7c16",
+      "firstName": "tasneem",
+      "lastName": "fawzy",
+      "phone": "01156616229",
+      "email": "Tasneem12345@gmail.com",
+      "password": "Tasneem12345@",
+      "birthDate": "2009-03-19",
+      "gender": "female",
+      "address": "cairo",
+      "acceptTerms": true
+    }
+  ],
   "users": [],
+
   "googleUsers": [
     {
       "id": "b913",

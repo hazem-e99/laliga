@@ -10,7 +10,9 @@ import {
   import CreditCardIcon from '@mui/icons-material/CreditCard';
   import { useNavigate } from 'react-router-dom';
   import { useState } from 'react';
-  
+  import { useContext } from 'react';
+import { CartContext } from '../Contexts/cartContext';
+
   const Payment = () => {
     const navigate = useNavigate();
     const [isPaid, setIsPaid] = useState(false);
@@ -21,7 +23,8 @@ import {
     const [cvv, setCvv] = useState('');
   
     const [errors, setErrors] = useState({});
-  
+    const { clearCart } = useContext(CartContext); 
+
     const validate = () => {
       const newErrors = {};
       if (!/^\d{16}$/.test(cardNumber)) {
@@ -44,6 +47,7 @@ import {
       setErrors(validationErrors);
       if (Object.keys(validationErrors).length === 0) {
         setIsPaid(true);
+        clearCart(); 
         setTimeout(() => {
           navigate('/');
         }, 2000);
