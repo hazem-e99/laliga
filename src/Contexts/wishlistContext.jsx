@@ -18,37 +18,46 @@ export const WishlistProvider = ({ children }) => {
   const normalizeProduct = (product) => {
     return {
       ...product,
-      id: product.id || `${product.name}-${product.brand}-${Date.now()}`, // Generating unique ID
+      id: product.id || `${product.name}-${product.brand}-${Date.now()}`,
       rate: product?.rate || product?.rating?.rate || null,
       brand: product?.brand || "No brand",
     };
   };
 
   const isProductInWishlist = (product) => {
-    return wishlist.some((item) => item.id === product.id); // Check if product exists by ID
+    return wishlist.some((item) => item.id === product.id);
   };
 
-  const addToWishlist = (item) => {
-    const normalizedProduct = normalizeProduct(item);
-  
-    if (!isProductInWishlist(normalizedProduct)) {
-      setWishlist((prev) => [...prev, normalizedProduct]);
-      toast.success("❤️ Product added to wishlist!");
-    } else {
+  const addToWishlist = (product) => {
+    const normalized = normalizeProduct(product);
+    const exists = wishlist.find((item) => item.id === normalized.id);
+
+    if (exists) {
       toast.error("⚠️ This product is already in your wishlist.");
+      return;
     }
+
+    setWishlist((prev) => [...prev, normalized]);
+    toast.success("❤️ Product added to wishlist!");
   };
-  
+
   const removeFromWishlist = (id) => {
     setWishlist((prev) => prev.filter((item) => item.id !== id));
     toast.success("🗑️ Product removed from wishlist.");
   };
-  
+
+  const toggleWishlist = (product) => {
+    if (isProductInWishlist(product)) {
+      removeFromWishlist(product.id);
+    } else {
+      addToWishlist(product);
+    }
+  };
+
   const clearWishlist = () => {
     setWishlist([]);
     toast.success("🧹 Wishlist cleared.");
   };
-  
 
   return (
     <WishlistContext.Provider
@@ -57,6 +66,8 @@ export const WishlistProvider = ({ children }) => {
         addToWishlist,
         removeFromWishlist,
         clearWishlist,
+        toggleWishlist,
+        isProductInWishlist,
       }}
     >
       {children}

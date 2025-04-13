@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { useContext } from 'react';
 import { CartContext } from '../Contexts/cartContext';
 import { WishlistContext } from '../Contexts/wishlistContext';
 import { FaHeart, FaShoppingCart, FaStar } from 'react-icons/fa';
 
+// ====== ProductCard Component ======
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate(); 
   const { addProductToCart } = useContext(CartContext); 
   const { addToWishlist } = useContext(WishlistContext); 
+
+  const handleDetailsClick = () => {
+    navigate(`/product/${product.id}`);
+  };
+
+  console.log('product in card:', product);
+
   return (
     <div className="w-full max-w-[240px]">
       <div className="card bg-base-100 shadow-xl h-full">
@@ -32,10 +41,13 @@ const ProductCard = ({ product }) => {
             <button className="btn btn-sm btn-outline btn-primary" onClick={() => addProductToCart(product)}>
               <FaShoppingCart />
             </button>
-            <button className="btn btn-sm btn-outline btn-error"  onClick={() => addToWishlist(product)} >
+            <button className="btn btn-sm btn-outline btn-error" onClick={() => addToWishlist(product)}>
               <FaHeart />
             </button>
-            <button className="btn btn-sm btn-outline btn-info">
+            <button 
+              className="btn btn-sm btn-outline btn-info"
+              onClick={handleDetailsClick}
+            >
               Details
             </button>
           </div>
@@ -45,6 +57,7 @@ const ProductCard = ({ product }) => {
   );
 };
 
+// ====== CategorySlider Component ======
 const CategorySlider = ({ title, products }) => {
   return (
     <section className="mb-16">
@@ -52,7 +65,8 @@ const CategorySlider = ({ title, products }) => {
         {title}
       </h2>
 
-      <Swiper  className='p-5'
+      <Swiper
+        className="p-5"
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={20}
         slidesPerView={1}
@@ -67,7 +81,7 @@ const CategorySlider = ({ title, products }) => {
       >
         {products.map((product) => (
           <SwiperSlide key={product.id}>
-            <ProductCard className='mb-7' product={product} />
+            <ProductCard product={product} />
           </SwiperSlide>
         ))}
       </Swiper>

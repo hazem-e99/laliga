@@ -21,7 +21,6 @@ export const CartProvider = ({ children }) => {
     setCartCount(totalCount);
   }, [cart]);
 
-  
   const normalizeProduct = (product) => {
     return {
       ...product,
@@ -31,29 +30,32 @@ export const CartProvider = ({ children }) => {
     };
   };
 
- 
   const isProductInCart = (product) => {
-    return cart.some((item) => item.id === product.id); 
+    return cart.some((item) => item.id === product.id);  
   };
 
   const addProductToCart = (product) => {
     const normalizedProduct = normalizeProduct(product);
-  
+
     if (isProductInCart(normalizedProduct)) {
-      toast.error("⚠️ This product is already in your cart  ");
-      return;
+      setCart((prevCart) =>
+        prevCart.map((item) =>
+          item.id === normalizedProduct.id
+            ? { ...item, count: item.count + 1 }
+            : item
+        )
+      );
+      toast.success("🛒 Product quantity increased in the cart!");
     } else {
       setCart((prevCart) => [...prevCart, { ...normalizedProduct, count: 1 }]);
       toast.success("✅ Product added to cart successfully!");
     }
   };
-  
 
   const removeSpecificItem = (productId) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
     toast.success("🗑️ Product removed from cart successfully!");
   };
-  
 
   const updateItem = (productId, count) => {
     setCart((prevCart) =>
@@ -67,7 +69,6 @@ export const CartProvider = ({ children }) => {
     setCart([]);
     toast.success("🧹 Cart has been cleared successfully!");
   };
-  
 
   return (
     <CartContext.Provider
