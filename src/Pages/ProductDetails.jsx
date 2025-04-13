@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import productsData from '../sports_products.json';
+
 import { 
   Box, 
   IconButton, 
@@ -14,8 +16,8 @@ import {
   Alert
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ProductDetailsCard from "../components/ProductDetailsCard";
-import axios from 'axios';
+import ProductDetailsCard from "../Components/ProductDetailsCard";
+
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -31,17 +33,23 @@ const ProductPage = () => {
     
     const fetchData = async () => {
       try {
-        const productResponse = await axios.get(`https://fakestoreapi.com/products/${id}`);
-        setProduct({
-          title: productResponse.data.title,
-          brand: "DeFacto",
-          price: productResponse.data.price,
-          
-          rate: productResponse.data.rating?.rate, // Make sure rating is included
-          available: true,
-          image: productResponse.data.image,
-          description: productResponse.data.description,
-        });
+        const localProduct = productsData.products.find(p => p.id === parseInt(id));
+
+        if (localProduct) {
+          setProduct({
+            id: localProduct.id, 
+            title: localProduct.title,
+            brand: localProduct.brand || "Brand", 
+            price: localProduct.price,
+            rate: localProduct.rating?.rate || 4,
+            available: localProduct.available ?? true,
+            image: localProduct.image,
+            description: localProduct.description,
+            category: localProduct.category,
+          });
+        } else {
+          setProduct(null);
+        }
 
         const savedReviews = JSON.parse(localStorage.getItem(`product_${id}_reviews`)) || [];
         setReviews(savedReviews);

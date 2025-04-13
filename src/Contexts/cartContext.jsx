@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
 
 export const CartContext = createContext();
 
@@ -20,42 +21,40 @@ export const CartProvider = ({ children }) => {
     setCartCount(totalCount);
   }, [cart]);
 
-  // ✅ تعديل normalizeProduct لتوليد id فريد بناءً على خصائص أخرى
   const normalizeProduct = (product) => {
     return {
       ...product,
-      id: product.id || `${product.name}-${product.brand}-${Date.now()}`, // توليد id فريد
+      id: product.id || `${product.name}-${product.brand}-${Date.now()}`, 
       rate: product?.rate || product?.rating?.rate || null,
       brand: product?.brand || "No brand",
     };
   };
 
-  // ✅ دالة للتحقق من وجود المنتج في السلة
   const isProductInCart = (product) => {
-    return cart.some((item) => item.id === product.id); // نبحث عن المنتج باستخدام الـ id الفريد
+    return cart.some((item) => item.id === product.id);  
   };
 
   const addProductToCart = (product) => {
     const normalizedProduct = normalizeProduct(product);
 
-    // تحقق إذا كان المنتج موجود بالفعل في السلة
     if (isProductInCart(normalizedProduct)) {
-      // إذا كان موجودًا، قم بتحديث الكمية
       setCart((prevCart) =>
         prevCart.map((item) =>
           item.id === normalizedProduct.id
-            ? { ...item, count: item.count + 1 } // زيادة العدد
+            ? { ...item, count: item.count + 1 }
             : item
         )
       );
+      toast.success("🛒 Product quantity increased in the cart!");
     } else {
-      // إذا لم يكن موجودًا، أضف المنتج للسلة
       setCart((prevCart) => [...prevCart, { ...normalizedProduct, count: 1 }]);
+      toast.success("✅ Product added to cart successfully!");
     }
   };
 
   const removeSpecificItem = (productId) => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== productId));
+    toast.success("🗑️ Product removed from cart successfully!");
   };
 
   const updateItem = (productId, count) => {
@@ -68,6 +67,7 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => {
     setCart([]);
+    toast.success("🧹 Cart has been cleared successfully!");
   };
 
   return (

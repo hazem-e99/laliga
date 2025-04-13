@@ -101,7 +101,7 @@ const Wishlist = () => {
                 <Typography sx={{ mt: 1 }}>
                   Price:{' '}
                   <Typography component="span" sx={{ color: '#0299e2' }}>
-                    EGP {product.price}
+                    $ {product.price}
                   </Typography>
                 </Typography>
               </Box>
