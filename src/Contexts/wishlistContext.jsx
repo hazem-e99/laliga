@@ -13,7 +13,15 @@ export const WishlistProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
   }, [wishlist]);
-
+// /////////////
+const toggleWishlist = (product) => {
+  if (isProductInWishlist(product)) {
+    removeFromWishlist(product.id);
+  } else {
+    addToWishlist(product);
+  }
+};
+// ///////
   const normalizeProduct = (product) => {
     return {
       ...product,
@@ -23,20 +31,19 @@ export const WishlistProvider = ({ children }) => {
     };
   };
 
- 
   const isProductInWishlist = (product) => {
-    return wishlist.some((item) => item.id === product.id); // نبحث عن المنتج باستخدام الـ id الفريد
+    return wishlist.some((item) => item.id === product.id);
   };
 
-  const addToWishlist = (item) => {
-    const normalizedProduct = normalizeProduct(item);
-
-    if (!isProductInWishlist(normalizedProduct)) {
-      setWishlist((prev) => [...prev, normalizedProduct]); // إضافة المنتج إذا لم يكن موجودًا
-    }
+  const addToWishlist = (product) => {
+    const normalized = normalizeProduct(product);
+    setWishlist((prevItems) => {
+      const exists = prevItems.find(item => item.id === normalized.id);
+      if (exists) return prevItems;
+      return [...prevItems, normalized];
+    });
   };
 
-  
   const removeFromWishlist = (id) => {
     setWishlist((prev) => prev.filter((item) => item.id !== id));
   };
@@ -52,6 +59,8 @@ export const WishlistProvider = ({ children }) => {
         addToWishlist,
         removeFromWishlist,
         clearWishlist,
+        toggleWishlist,             
+        isProductInWishlist         
       }}
     >
       {children}

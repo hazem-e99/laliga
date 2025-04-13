@@ -6,79 +6,84 @@ import { Box, Typography, Button, IconButton } from "@mui/material";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import StarIcon from "@mui/icons-material/Star";
-import { useContext } from "react"; // أضيفي هذا السطر
+import { useContext } from "react";
 import { CartContext } from "../Contexts/cartContext";
-import { WishlistContext} from '../Contexts/wishlistContext'
+import { WishlistContext } from '../Contexts/wishlistContext'
 
 const ProductDetailsCard = ({ product }) => {
   const [liked, setLiked] = useState(false);
   const { addProductToCart } = useContext(CartContext);
 
   const { addToWishlist } = useContext(WishlistContext);
-
+  const { toggleWishlist, isProductInWishlist } = useContext(WishlistContext);
   const handleLike = () => {
-    setLiked((prev) => !prev); // تغيير حالة الإعجاب
+    setLiked((prev) => !prev);
     if (!liked) {
-      addToWishlist(product); // إضافة المنتج إلى قائمة الرغبات إذا لم يكن موجودًا
+      addToWishlist(product);
     }
   };
   const handleAddToCart = () => {
-    addProductToCart(product); 
+    addProductToCart(product);
   };
   console.log(product);
   return (
     <Box
-    sx={{
-      display: "flex",
-      flexDirection: { xs: "column", md: "row" },
-      alignItems: "center",
-      justifyContent: "center",
-      gap: 4,
-      maxWidth: 1200,
-      margin: "0 auto",
-      padding: { xs: "20px 16px", md: "40px 24px" },
-      height: "100%",
-      boxSizing: "border-box"
-    }}
-  >
-    <Box sx={{ 
-      flex: 1, 
-      display: "flex", 
-      justifyContent: "center",
-      maxWidth: { xs: "300px", md: "400px" },
-      height: "auto"
-    }}>
-      <img
-        src={product.image}
-        alt={product.title}
-        style={{ 
-          width: "100%", 
-          height: "auto",
-          maxHeight: "400px",
-          objectFit: "contain",
-          borderRadius: "12px" 
-        }}
-      />
-    </Box>
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", md: "row" },
+        alignItems: "center",
+        justifyContent: "center",
+        gap: 4,
+        maxWidth: 1200,
+        margin: "0 auto",
+        padding: { xs: "20px 16px", md: "40px 24px" },
+        height: "100%",
+        boxSizing: "border-box"
+      }}
+    >
+      <Box sx={{
+        flex: 1,
+        display: "flex",
+        justifyContent: "center",
+        maxWidth: { xs: "300px", md: "400px" },
+        height: "auto"
+      }}>
+        <img
+          src={product.image}
+          alt={product.title}
+          style={{
+            width: "100%",
+            height: "auto",
+            maxHeight: "400px",
+            objectFit: "contain",
+            borderRadius: "12px"
+          }}
+        />
+      </Box>
 
-    <Box sx={{ 
-      flex: 1,
-      padding: { xs: "0", md: "0 16px" },
-      height: "100%",
-      overflow: "hidden"
-    }}>
-      <Typography variant="h5" fontWeight="bold" gutterBottom>
-        {product.title}
-      </Typography>
-      
-      <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-        {product.brand} |{" "}
-        <span style={{ color: product.available ? "green" : "red" }}>
-          {product.available ? "Available" : "Out of Stock"}
-        </span>
-      </Typography>
-        
-     
+      <Box sx={{
+        flex: 1,
+        padding: { xs: "0", md: "0 16px" },
+        height: "100%",
+        overflow: "hidden"
+      }}>
+        <Typography variant="h5" fontWeight="bold" gutterBottom>
+          {product.title}
+        </Typography>
+
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+          {product.brand} |{" "}
+          <span style={{ color: product.available ? "green" : "red" }}>
+            {product.available ? "Available" : "Out of Stock"}
+          </span>
+        </Typography>
+        {product.category && (
+          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+            Category: <strong>{product.category}</strong>
+          </Typography>
+        )}
+
+
         {product.rate && (
           <Box sx={{ display: "flex", alignItems: "center", mt: 1, mb: 2 }}>
             <StarIcon sx={{ color: "#FFD700" }} />
@@ -88,26 +93,26 @@ const ProductDetailsCard = ({ product }) => {
           </Box>
         )}
 
-<Typography variant="body2" color="text.secondary" gutterBottom>
+        <Typography variant="body2" color="text.secondary" gutterBottom>
           {product.description}
         </Typography>
 
         <Typography variant="h6" color="primary" fontWeight="bold" gutterBottom>
-          EGP {product.price}
+          $ {product.price}
         </Typography>
 
         <Box sx={{ display: "flex", gap: 2, mt: 3 }}>
-          <IconButton color={liked ? "error" : "default"} onClick={handleLike}>
-            {liked ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-          </IconButton>
+        <IconButton onClick={() => toggleWishlist(product)}>
+  {isProductInWishlist(product) ? <FavoriteIcon color="error" /> : <FavoriteBorderIcon />}
+</IconButton>
           <Button
-  variant="contained"
-  color="primary"
-  sx={{ padding: "8px 20px", fontSize: "0.9rem" }}
-  onClick={handleAddToCart} 
->
-  ADD TO CART
-</Button>
+            variant="contained"
+            color="primary"
+            sx={{ padding: "8px 20px", fontSize: "0.9rem" }}
+            onClick={handleAddToCart}
+          >
+            ADD TO CART
+          </Button>
 
         </Box>
       </Box>

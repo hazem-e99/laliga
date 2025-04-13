@@ -1,4 +1,7 @@
 import React from 'react';
+//
+import { useNavigate } from 'react-router-dom';
+//
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -7,6 +10,15 @@ import 'swiper/css/pagination';
 import { FaHeart, FaShoppingCart, FaStar } from 'react-icons/fa';
 
 const ProductCard = ({ product }) => {
+  const navigate = useNavigate(); 
+
+  const handleDetailsClick = () => {
+    navigate(`/product/${product.id}`); //  بتروح  للصفحة بتاعة تفاصيل المنتج
+  };
+ 
+
+  console.log('product in card:', product);
+
   return (
     <div className="w-full max-w-[240px]">
       <div className="card bg-base-100 shadow-xl h-full">
@@ -30,7 +42,10 @@ const ProductCard = ({ product }) => {
             <button className="btn btn-sm btn-outline btn-error">
               <FaHeart />
             </button>
-            <button className="btn btn-sm btn-outline btn-info">
+            <button 
+              className="btn btn-sm btn-outline btn-info"
+              onClick={handleDetailsClick} 
+            >
               Details
             </button>
           </div>
@@ -39,6 +54,9 @@ const ProductCard = ({ product }) => {
     </div>
   );
 };
+
+
+/////////////////////////////
 
 const CategorySlider = ({ title, products }) => {
   return (
