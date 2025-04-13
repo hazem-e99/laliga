@@ -20,11 +20,35 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { CartProvider } from '../Contexts/cartContext';
 import { WishlistProvider } from '../Contexts/wishlistContext';
+import { Toaster } from "react-hot-toast";
 function App() {
   return (
     <GoogleOAuthProvider clientId="367520079546-bd85slcaa4p4eerk1ioe0vnpgq9avggb.apps.googleusercontent.com">
       <CartProvider>
       <WishlistProvider>
+<Toaster
+  position="top-center"
+  toastOptions={{
+    style: {
+      fontSize: '18px',
+      padding: '16px 24px',
+      borderRadius: '12px',
+    },
+    success: {
+      iconTheme: {
+        primary: '#22c55e',
+        secondary: '#f0fdf4',
+      },
+    },
+    error: {
+      iconTheme: {
+        primary: '#ef4444',
+        secondary: '#fef2f2',
+      },
+    },
+  }}
+/>
+
            <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
