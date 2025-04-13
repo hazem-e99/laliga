@@ -5,6 +5,7 @@ import {
   Box,
   useTheme,
   useMediaQuery,
+  Container,
 } from '@mui/material';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
@@ -52,7 +53,7 @@ const Home = () => {
 
   return (
     <>
-   
+      {/* زر الفلتر */}
       <Box
         sx={{
           position: 'fixed',
@@ -67,58 +68,81 @@ const Home = () => {
         </IconButton>
       </Box>
 
+      {/* Drawer بتاع الفلتر */}
       <Drawer
         anchor="left"
         open={isFilterOpen}
         onClose={toggleFilter}
         variant={isMobile ? 'temporary' : 'persistent'}
       >
-        <Filter 
-          onCategoryClick={scrollToCategory} 
-          onFilterChange={handleFilterChange} 
+        <Filter
+          onCategoryClick={scrollToCategory}
+          onFilterChange={handleFilterChange}
         />
       </Drawer>
 
-      <Box sx={{ ml: isMobile ? 0 : isFilterOpen ? 35 : 0, transition: 'margin 0.3s ease' }}>
+      {/* الاسلايدر في مكانه بره الكونتينر */}
+      <Box mb={4}>
         <AppSlider />
-        <BestSellerProduct />
-        <TrendingNow />
+      </Box>
 
-        <div ref={refs['Sneakers']}>
-          <Sneakers 
-            priceFilter={priceFilter} 
-            ratingFilter={ratingFilter} 
-            searchTerm={searchTerm} 
-          />
-        </div>
-        <div ref={refs['Shorts']}>
-          <Shorts 
-            priceFilter={priceFilter} 
-            ratingFilter={ratingFilter} 
-            searchTerm={searchTerm} 
-          />
-        </div>
-        <div ref={refs['Tshirts']}>
-          <Tshirts 
-            priceFilter={priceFilter} 
-            ratingFilter={ratingFilter} 
-            searchTerm={searchTerm} 
-          />
-        </div>
-        <div ref={refs['Pants']}>
-          <Pants 
-            priceFilter={priceFilter} 
-            ratingFilter={ratingFilter} 
-            searchTerm={searchTerm} 
-          />
-        </div>
-        <div ref={refs['Accessories']}>
-          <Accessories 
-            priceFilter={priceFilter} 
-            ratingFilter={ratingFilter} 
-            searchTerm={searchTerm} 
-          />
-        </div>
+      {/* المحتوى الرئيسي */}
+      <Box
+        sx={{
+          ml: isMobile ? 0 : isFilterOpen ? 35 : 0,
+          transition: 'margin 0.3s ease',
+          pt: 2,
+        }}
+      >
+        <Container maxWidth="lg">
+          <Box mb={4}>
+            <BestSellerProduct />
+          </Box>
+
+          <Box mb={4}>
+            <TrendingNow />
+          </Box>
+
+          <Box mb={4} ref={refs['Sneakers']}>
+            <Sneakers
+              priceFilter={priceFilter}
+              ratingFilter={ratingFilter}
+              searchTerm={searchTerm}
+            />
+          </Box>
+
+          <Box mb={4} ref={refs['Shorts']}>
+            <Shorts
+              priceFilter={priceFilter}
+              ratingFilter={ratingFilter}
+              searchTerm={searchTerm}
+            />
+          </Box>
+
+          <Box mb={4} ref={refs['Tshirts']}>
+            <Tshirts
+              priceFilter={priceFilter}
+              ratingFilter={ratingFilter}
+              searchTerm={searchTerm}
+            />
+          </Box>
+
+          <Box mb={4} ref={refs['Pants']}>
+            <Pants
+              priceFilter={priceFilter}
+              ratingFilter={ratingFilter}
+              searchTerm={searchTerm}
+            />
+          </Box>
+
+          <Box mb={4} ref={refs['Accessories']}>
+            <Accessories
+              priceFilter={priceFilter}
+              ratingFilter={ratingFilter}
+              searchTerm={searchTerm}
+            />
+          </Box>
+        </Container>
       </Box>
     </>
   );
