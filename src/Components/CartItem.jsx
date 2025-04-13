@@ -85,13 +85,13 @@ const CartItem = () => {
 
                  
 
-                    {/* إضافة حالة التوفر */}
-                     {/* <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-                            {item.brand} |{" "}
-                            <span style={{ color: item.available ? "green" : "red" }}>
-                              {item.available ? "Available" : "Out of Stock"}
+                   
+                     <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+                            {item.category} |{" "}
+                            <span style={{ color: item.isBestSeller ? "green" : "red" }}>
+                              {item.isBestSeller ? "BestSeller" : "New Product"}
                             </span>
-                          </Typography> */}
+                          </Typography>
 
                     <Box
                       sx={{
@@ -112,7 +112,7 @@ const CartItem = () => {
                     <Typography sx={{ mt: 1 }}>
                       Price:{' '}
                       <Typography component="span" sx={{ color: '#0299e2' }}>
-                        EGP {item.price.toFixed(2)}
+                        $ {item.price.toFixed(2)}
                       </Typography>
                     </Typography>
                   </Box>
