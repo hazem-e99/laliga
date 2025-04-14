@@ -66,7 +66,7 @@ const CategorySlider = ({ title, products }) => {
       </h2>
 
       <Swiper
-        className="p-5"
+        className="p-5 custom-swiper-nav"
         modules={[Navigation, Pagination, Autoplay]}
         spaceBetween={20}
         slidesPerView={1}

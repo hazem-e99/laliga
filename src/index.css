@@ -66,3 +66,22 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+/* ===== Swiper Navigation Button Custom Position ===== */
+.custom-swiper-nav .swiper-button-next {
+  right: -25px;
+  color: #0ea5e9; /* optional: لون السهم */
+}
+
+.custom-swiper-nav .swiper-button-prev {
+  left: -25px;
+  color: #0ea5e9; /* optional: لون السهم */
+}
+
+/* Optional: تكبير حجم الأسهم شوية */
+.custom-swiper-nav .swiper-button-next,
+.custom-swiper-nav .swiper-button-prev {
+  font-size: 20px;
+  width: 30px;
+  height: 30px;
+}
+

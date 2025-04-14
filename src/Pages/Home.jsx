@@ -18,6 +18,7 @@ import Shorts from '../Components/Shorts';
 import Tshirts from '../Components/Tshirts';
 import Pants from '../Components/Pants';
 import Accessories from '../Components/Accessories';
+import CustomerReviews from '../Components/CustomerReviews';
 
 const Home = () => {
   const refs = {
@@ -144,6 +145,7 @@ const Home = () => {
           </Box>
         </Container>
       </Box>
+      <CustomerReviews/>
     </>
   );
 };

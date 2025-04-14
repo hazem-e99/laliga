@@ -42,3 +42,19 @@
 } */
 @import "tailwindcss";
 @plugin "daisyui";
+/* ابعاد الأسهم */
+.custom-swiper-nav .swiper-button-next {
+  right: -5px !important;
+  color: #0ea5e9;
+}
+.custom-swiper-nav .swiper-button-prev {
+  left: -5px !important;
+  color: #0ea5e9;
+}
+
+/* ابعاد الباجيناش (النقاط) عن الكروت */
+.custom-swiper-nav .swiper-pagination {
+  margin-top: 30px !important;
+  position: relative !important;
+}
+
