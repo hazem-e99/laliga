@@ -28,7 +28,7 @@ import {
   Phone as PhoneIcon,
   Home as HomeIcon
 } from '@mui/icons-material';
-
+import { useTranslation } from 'react-i18next';
 const Profile = () => {
   const user = JSON.parse(localStorage.getItem('user')) || {};
   const [editMode, setEditMode] = useState(false);
@@ -38,7 +38,7 @@ const Profile = () => {
     new: false,
     confirm: false
   });
-  
+  const { t, i18n } = useTranslation();
   const [form, setForm] = useState({
     firstName: user?.firstName || '',
     lastName: user?.lastName || '',
@@ -106,7 +106,7 @@ const Profile = () => {
       const updatedUserFromServer = await response.json();
       localStorage.setItem('user', JSON.stringify(updatedUserFromServer));
 
-      setSuccess('Profile updated successfully!');
+      setSuccess( t('profileSuccess'));
       setTimeout(() => setSuccess(''), 3000);
       setEditMode(false);
     } catch (error) {
@@ -162,7 +162,7 @@ const Profile = () => {
       const updatedUser = await response.json();
       localStorage.setItem('user', JSON.stringify(updatedUser));
   
-      setSuccess('Password updated successfully!');
+      setSuccess(t('passwordSuccess'));
       setTimeout(() => setSuccess(''), 3000);
       setPasswordForm({
         currentPassword: '',
@@ -274,7 +274,8 @@ const Profile = () => {
                   py: 1
                 }}
               >
-                Edit Profile
+                   {t('editProfile')}
+          
               </Button>
               
               {/* زر تغيير كلمة المرور - يظهر فقط للمستخدمين العاديين */}
@@ -290,7 +291,7 @@ const Profile = () => {
                     py: 1
                   }}
                 >
-                  Change Password
+                     {t('changePassword')}
                 </Button>
               )}
             </Box>
@@ -308,7 +309,7 @@ const Profile = () => {
                   py: 1
                 }}
               >
-                Save Changes
+                   {t('saveChanges')}
               </Button>
               <Button
                 variant="outlined"
@@ -322,7 +323,7 @@ const Profile = () => {
                   py: 1
                 }}
               >
-                Cancel
+                  {t('cancel')}
               </Button>
             </Box>
           ) : (
@@ -339,7 +340,8 @@ const Profile = () => {
                   py: 1
                 }}
               >
-                Update Password
+                   {t('updatePassword')}
+                
               </Button>
               <Button
                 variant="outlined"
@@ -353,7 +355,8 @@ const Profile = () => {
                   py: 1
                 }}
               >
-                Cancel
+                   {t('cancel')}
+               
               </Button>
             </Box>
           )}
@@ -364,14 +367,15 @@ const Profile = () => {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Typography variant="h5" sx={{ mb: 2, fontWeight: 600 }}>
-                  Change Password
+                  
+                  {t('changePassword')}
                 </Typography>
                 <Divider sx={{ my: 2 }} />
               </Grid>
               
               <Grid item xs={12} md={6}>
                 <TextField
-                  label="Current Password"
+                  label=   {t('currentPassword')}
                   name="currentPassword"
                   type={showPassword.current ? 'text' : 'password'}
                   fullWidth
@@ -397,7 +401,7 @@ const Profile = () => {
                   }}
                 />
                 <TextField
-                  label="New Password"
+                  label=   {t('newPassword')}
                   name="newPassword"
                   type={showPassword.new ? 'text' : 'password'}
                   fullWidth
@@ -423,7 +427,7 @@ const Profile = () => {
                   }}
                 />
                 <TextField
-                  label="Confirm New Password"
+                  label=   {t('confirmPassword')}
                   name="confirmPassword"
                   type={showPassword.confirm ? 'text' : 'password'}
                   fullWidth
@@ -454,14 +458,15 @@ const Profile = () => {
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <Typography variant="h5" sx={{ mb: 2, fontWeight: 600 }}>
-                  Personal Information
+                 
+                  {t('personalInfo')}
                 </Typography>
                 <Divider sx={{ my: 2 }} />
               </Grid>
               
               <Grid item xs={12} md={6}>
                 <TextField
-                  label="First Name"
+                  label=   {t('firstName')}
                   name="firstName"
                   fullWidth
                   value={form.firstName}
@@ -478,7 +483,7 @@ const Profile = () => {
                   variant={editMode ? 'outlined' : 'filled'}
                 />
                 <TextField
-                  label="Last Name"
+                  label=   {t('lastName')}
                   name="lastName"
                   fullWidth
                   value={form.lastName}
@@ -495,7 +500,7 @@ const Profile = () => {
                   variant={editMode ? 'outlined' : 'filled'}
                 />
                 <TextField
-                  label="Email"
+                  label=   {t('email')}
                   name="email"
                   type="email"
                   fullWidth
@@ -513,7 +518,7 @@ const Profile = () => {
                   variant={editMode ? 'outlined' : 'filled'}
                 />
                 <TextField
-                  label="Phone"
+                  label=   {t('phone')}
                   name="phone"
                   fullWidth
                   value={form.phone}
@@ -530,7 +535,7 @@ const Profile = () => {
                   variant={editMode ? 'outlined' : 'filled'}
                 />
                 <TextField
-                  label="Address"
+                  label=   {t('address')}
                   name="address"
                   fullWidth
                   multiline

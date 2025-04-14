@@ -26,10 +26,11 @@ import {
   Home,
   HowToReg
 } from '@mui/icons-material';
-
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-hot-toast';
 const Register = () => {
   const navigate = useNavigate();
-
+  const { t } = useTranslation()
   const [form, setForm] = useState({
     firstName: '',
     lastName: '',
@@ -54,7 +55,7 @@ const Register = () => {
     e.preventDefault();
 
     if (!form.acceptTerms) {
-      return alert('Please accept the terms and conditions.');
+      return  toast.error(t("accept_terms_error")); ;
     }
 
     try {
@@ -62,15 +63,15 @@ const Register = () => {
       const userExists = users.find((user) => user.email === form.email);
 
       if (userExists) {
-        alert('User already exists!');
+        toast.error(t("user_exists"));;
       } else {
         await axios.post('http://localhost:5000/users', form);
-        alert('Registered successfully!');
+        toast.success(t("registration_success"));;
         navigate('/login');
       }
     } catch (error) {
       console.error('Registration error:', error);
-      alert('Registration failed. Please try again.');
+      toast.error(t("registration_error"));;
     }
   };
 
@@ -106,14 +107,14 @@ const Register = () => {
             color: 'text.primary',
             mb: 4
           }}>
-            Create Your Account
+            {t("create_account")}
           </Typography>
 
           <form onSubmit={handleRegister}>
             <Stack spacing={3}>
               <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
                 <TextField
-                  label="First Name"
+                  label={t("first_name")}
                   name="firstName"
                   fullWidth
                   required
@@ -133,7 +134,7 @@ const Register = () => {
                   }}
                 />
                 <TextField
-                  label="Last Name"
+                  label={t("last_name")}
                   name="lastName"
                   fullWidth
                   required
@@ -155,7 +156,7 @@ const Register = () => {
               </Stack>
 
               <TextField
-                label="Phone Number"
+                label={t("phone")}
                 name="phone"
                 fullWidth
                 required
@@ -176,7 +177,7 @@ const Register = () => {
               />
 
               <TextField
-                label="Email"
+                label={t("email")}
                 type="email"
                 name="email"
                 fullWidth
@@ -198,7 +199,7 @@ const Register = () => {
               />
 
               <TextField
-                label="Password"
+                label={t("password")}
                 type="password"
                 name="password"
                 fullWidth
@@ -221,7 +222,7 @@ const Register = () => {
 
               <Stack direction={{ xs: 'column', md: 'row' }} spacing={3}>
                 <TextField
-                  label="Date of Birth"
+                  label={t("birth_date")}
                   type="date"
                   name="birthDate"
                   fullWidth
@@ -244,7 +245,7 @@ const Register = () => {
                 />
 
                 <TextField
-                  label="Gender"
+                  label={t("gender")}
                   name="gender"
                   fullWidth
                   required
@@ -257,14 +258,14 @@ const Register = () => {
                     }
                   }}
                 >
-                  <MenuItem value="male">Male</MenuItem>
-                  <MenuItem value="female">Female</MenuItem>
-                  <MenuItem value="other">Other</MenuItem>
+                  <MenuItem value="male">{t("male")}</MenuItem>
+                  <MenuItem value="female">{t("female")}</MenuItem>
+                  <MenuItem value="other">{t("other")}</MenuItem>
                 </TextField>
               </Stack>
 
               <TextField
-                label="Address"
+                  label={t("address")}
                 name="address"
                 fullWidth
                 multiline
@@ -297,7 +298,7 @@ const Register = () => {
                 }
                 label={
                   <Typography variant="body2">
-                    I agree to the <Link href="/terms" underline="hover">Terms and Conditions</Link>
+                     {t("accept_terms")} <Link href="/terms" underline="hover">Terms and Conditions</Link>
                   </Typography>
                 }
                 sx={{ mt: 1 }}
@@ -321,19 +322,19 @@ const Register = () => {
                   }
                 }}
               >
-                Create Account
+                {t("create_account")}
               </Button>
 
               <Divider sx={{ my: 2 }}>
                 <Typography variant="body2" color="text.secondary">
-                  Already have an account?{' '}
+                {t("already_have_account")}{' '}
                 </Typography>
               </Divider>
 
               <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-                Already have an account?{' '}
+              {t("already_have_account")}{' '}
                 <Link href="/login" underline="hover" fontWeight="500">
-                  Sign In
+                {t("sign_in")}
                 </Link>
               </Typography>
             </Stack>

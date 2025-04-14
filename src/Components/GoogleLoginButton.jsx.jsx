@@ -2,6 +2,7 @@
 import React from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { Button } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 const GoogleLoginButton = () => {
   const responseGoogle = (response) => {
@@ -11,6 +12,7 @@ const GoogleLoginButton = () => {
     
     }
   };
+  const { t } = useTranslation();
 
   return (
     <GoogleLogin
@@ -31,7 +33,8 @@ const GoogleLoginButton = () => {
             },
           }}
         >
-          Login with Google
+          {t('auth.loginWithGoogle')}
+
         </Button>
       )}
     />

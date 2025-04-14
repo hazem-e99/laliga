@@ -1,14 +1,20 @@
 import React from 'react';
 import productsData from '../sports_products.json';
 import CategorySlider from './CategorySlider';
+import { useTranslation } from 'react-i18next';
 
 const Pants = ({ priceFilter, ratingFilter, searchTerm }) => {
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
+
+  // فلترة منتجات البنطال باستخدام category.en دائماً
   const allPants = productsData.products.filter(
-    product => product.category.toLowerCase() === 'pants'
+    (product) => product.category?.en?.toLowerCase() === 'pants'
   );
 
+  // فلترة حسب السعر
   const filteredByPrice = priceFilter
-    ? allPants.filter(product => {
+    ? allPants.filter((product) => {
         const price = product.price;
         if (priceFilter === '0-50') return price < 50;
         if (priceFilter === '50-100') return price >= 50 && price <= 100;
@@ -18,23 +24,26 @@ const Pants = ({ priceFilter, ratingFilter, searchTerm }) => {
       })
     : allPants;
 
+  // فلترة حسب التقييم
   const filteredByRating = ratingFilter
-    ? filteredByPrice.filter(product => product.rating.rate >= ratingFilter)
+    ? filteredByPrice.filter((product) => product.rating.rate >= ratingFilter)
     : filteredByPrice;
 
+  // فلترة حسب البحث، باستخدام الترجمة الحالية
   const filteredBySearchTerm = searchTerm
-    ? filteredByRating.filter(product =>
-        product.title.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    ? filteredByRating.filter((product) => {
+        const title = product.title?.[currentLang]?.toLowerCase() || '';
+        return title.includes(searchTerm.toLowerCase());
+      })
     : filteredByRating;
 
   return (
     <div className="pants-section">
-      <CategorySlider title="Pants" products={filteredBySearchTerm} />
+      <CategorySlider title={t("pants")} products={filteredBySearchTerm} />
 
       {filteredBySearchTerm.length === 0 && (
         <div className="no-products-message">
-          No pants found matching your filters.
+          {t('no_pants_found')}
         </div>
       )}
     </div>

@@ -12,11 +12,11 @@ import {
   import { useState } from 'react';
   import { useContext } from 'react';
 import { CartContext } from '../Contexts/cartContext';
-
+import { useTranslation } from 'react-i18next';
   const Payment = () => {
     const navigate = useNavigate();
     const [isPaid, setIsPaid] = useState(false);
-  
+    const { t } = useTranslation(); 
     const [cardNumber, setCardNumber] = useState('');
     const [cardHolder, setCardHolder] = useState('');
     const [expiry, setExpiry] = useState('');
@@ -60,7 +60,7 @@ import { CartContext } from '../Contexts/cartContext';
           <Stack direction="row" spacing={1} alignItems="center" mb={3}>
             <CreditCardIcon color="primary" />
             <Typography variant="h6" fontWeight="bold">
-              Payment Details
+            {t('payment_details')}
             </Typography>
           </Stack>
   
@@ -115,16 +115,16 @@ import { CartContext } from '../Contexts/cartContext';
                 sx={{ mt: 2 }}
                 onClick={handlePayment}
               >
-                Pay Now
+               {t('pay_now')}
               </Button>
             </Box>
           ) : (
             <Box textAlign="center" mt={5}>
               <Typography variant="h5" color="green" fontWeight="bold" mb={2}>
-                ✅ Payment Successful!
+              {t('payment_success')}
               </Typography>
               <Typography variant="body1">
-                Thanks for your order, ! Redirecting to home...
+              {t('payment_thank_you')}
               </Typography>
             </Box>
           )}

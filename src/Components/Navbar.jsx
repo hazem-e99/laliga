@@ -33,8 +33,13 @@ import { Badge } from '@mui/material';
 import { useContext } from 'react';
 import { CartContext } from '../Contexts/cartContext';
 import { WishlistContext } from '../Contexts/wishlistContext';
+import LanguageIcon from '@mui/icons-material/Language'; 
+import i18n from '../i18n';
+import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
+  const { t } = useTranslation();
+
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -48,6 +53,12 @@ const Navbar = () => {
   const { wishlist } = useContext(WishlistContext);
 const wishlistCount = wishlist.length;
 
+const [isLanguageEnglish, setIsLanguageEnglish] = useState(i18n.language === 'en');
+const toggleLanguage = () => {
+  const newLang = isLanguageEnglish ? 'ar' : 'en';
+  i18n.changeLanguage(newLang); // تغيير اللغة في i18n
+  setIsLanguageEnglish(!isLanguageEnglish);
+};
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -77,10 +88,10 @@ const wishlistCount = wishlist.length;
 
   const renderDesktopNav = () => (
     <>
-      <CustomNavButton to="/" icon={<HomeIcon />} text="Home" currentPath={location.pathname} />
+      <CustomNavButton to="/" icon={<HomeIcon />} text={t('nav.home')}  currentPath={location.pathname} />
  
 
-      <CustomNavButton to="/dashboard" icon={<DashboardIcon />} text="Dashboard" currentPath={location.pathname} />
+      <CustomNavButton to="/dashboard" icon={<DashboardIcon />} text={t('nav.dashboard')} currentPath={location.pathname} />
       
       {isLoggedIn ? (
         <>
@@ -91,7 +102,7 @@ const wishlistCount = wishlist.length;
       <ShoppingCartIcon />
     </Badge>
   }
-  text="Cart"
+  text={t('nav.cart')} 
   currentPath={location.pathname}
 />
           <CustomNavButton
@@ -101,7 +112,7 @@ const wishlistCount = wishlist.length;
       <FavoriteBorderIcon />
     </Badge>
   }
-  text="Wishlist"
+  text={t('nav.wishlist')} 
   currentPath={location.pathname}
 />
 
@@ -140,7 +151,7 @@ const wishlistCount = wishlist.length;
               </Typography>
               <ExpandMoreIcon fontSize="small" />
             </Button>
-            
+
             <Menu
               anchorEl={anchorEl}
               open={Boolean(anchorEl)}
@@ -180,7 +191,7 @@ const wishlistCount = wishlist.length;
                 <ListItemIcon>
                   <PersonOutlineIcon fontSize="small" />
                 </ListItemIcon>
-                <ListItemText>Profile</ListItemText>
+                <ListItemText>{t('nav.profile')}</ListItemText>
               </MenuItem>
               
               <Divider sx={{ my: 0.5 }} />
@@ -190,15 +201,33 @@ const wishlistCount = wishlist.length;
                   <ExitToAppIcon fontSize="small" color="error" />
                 </ListItemIcon>
                 <ListItemText primaryTypographyProps={{ color: 'error' }}>
-                  Logout
+                {t('nav.logout')}
                 </ListItemText>
               </MenuItem>
             </Menu>
           </Box>
         </>
       ) : (
-        <CustomNavButton to="/login" icon={<LoginIcon />} text="Login" currentPath={location.pathname} />
+        <CustomNavButton to="/login" icon={<LoginIcon />} text={t('nav.login')} currentPath={location.pathname} />
       )}
+         <Button
+      onClick={toggleLanguage}
+      sx={{
+        color: '#ffffff',
+        marginLeft: 2,
+        fontWeight: 500,
+        textTransform: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 1,
+        '&:hover': {
+          backgroundColor: 'rgba(255, 255, 255, 0.1)'
+        }
+      }}
+    >
+      <LanguageIcon fontSize="small" /> {/* الأيقونة */}
+      <Typography variant="body1">{isLanguageEnglish ? 'AR' : 'EN'}</Typography> {/* نص اللغة */}
+    </Button>
     </>
   );
 
@@ -248,12 +277,12 @@ const wishlistCount = wishlist.length;
           
           {/* Navigation items */}
           <List sx={{ flexGrow: 1 }}>
-            <NavItem to="/" icon={<HomeIcon />} text="Home" currentPath={location.pathname} onClick={toggleDrawer(false)} />
-            <NavItem to="/cart" icon={<ShoppingCartIcon />} text="Cart" currentPath={location.pathname} onClick={toggleDrawer(false)} />
-            <NavItem to="/dashboard" icon={<DashboardIcon />} text="Dashboard" currentPath={location.pathname} onClick={toggleDrawer(false)} />
+            <NavItem to="/" icon={<HomeIcon />} text={t('nav.home')}  currentPath={location.pathname} onClick={toggleDrawer(false)} />
+            <NavItem to="/cart" icon={<ShoppingCartIcon />} text={t('nav.cart')}  currentPath={location.pathname} onClick={toggleDrawer(false)} />
+            <NavItem to="/dashboard" icon={<DashboardIcon />} text={t('nav.wishlist')}  currentPath={location.pathname} onClick={toggleDrawer(false)} />
             
             {isLoggedIn && (
-              <NavItem to="/wishlist" icon={<FavoriteBorderIcon />} text="Wishlist" currentPath={location.pathname} onClick={toggleDrawer(false)} />
+              <NavItem to="/wishlist" icon={<FavoriteBorderIcon />} text={t('nav.wishlist')}  currentPath={location.pathname} onClick={toggleDrawer(false)} />
             )}
           </List>
           
@@ -261,7 +290,7 @@ const wishlistCount = wishlist.length;
           <Box sx={{ p: 2, borderTop: '1px solid rgba(255, 255, 255, 0.12)' }}>
             {isLoggedIn ? (
               <>
-                <NavItem to="/profile" icon={<PersonOutlineIcon />} text="Profile" currentPath={location.pathname} onClick={toggleDrawer(false)} />
+                <NavItem to="/profile" icon={<PersonOutlineIcon />} text={t('nav.profile')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
                 <ListItem 
                   button 
                   onClick={() => {
@@ -282,7 +311,7 @@ const wishlistCount = wishlist.length;
                 </ListItem>
               </>
             ) : (
-              <NavItem to="/login" icon={<LoginIcon />} text="Login" currentPath={location.pathname} onClick={toggleDrawer(false)} />
+              <NavItem to="/login" icon={<LoginIcon />} text={t('nav.login')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
             )}
           </Box>
         </Box>

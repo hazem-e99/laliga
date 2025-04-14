@@ -6,10 +6,10 @@ import "slick-carousel/slick/slick-theme.css";
 import { CartContext } from '../Contexts/cartContext';
 import { WishlistContext } from '../Contexts/wishlistContext';
 import { Link } from 'react-router-dom'; // <-- إضافة هذا الاستيراد
-
+import { useTranslation } from 'react-i18next';
 // استيراد ملف JSON
 import productsData from '../sports_products.json';  // تأكد من المسار الصحيح
-
+const { t } = useTranslation();
 const ProductCard = ({ product }) => {
   const { addProductToCart } = useContext(CartContext); 
   const { addToWishlist } = useContext(WishlistContext); 
@@ -48,7 +48,7 @@ const ProductCard = ({ product }) => {
               to={`/product/${product.id}`} 
               className="btn btn-sm btn-outline btn-info"
             >
-              Details
+               {t('product.details')}
             </Link>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
-
+import { useTranslation } from 'react-i18next';
 export const WishlistContext = createContext();
 
 const getInitialWishlist = () => {
@@ -10,7 +10,7 @@ const getInitialWishlist = () => {
 
 export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState(getInitialWishlist());
-
+  const { t } = useTranslation();
   useEffect(() => {
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
   }, [wishlist]);
@@ -29,21 +29,27 @@ export const WishlistProvider = ({ children }) => {
   };
 
   const addToWishlist = (product) => {
+   
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      window.location.href = "/login"; 
+      return;
+    }
+
     const normalized = normalizeProduct(product);
     const exists = wishlist.find((item) => item.id === normalized.id);
 
     if (exists) {
-      toast.error("⚠️ This product is already in your wishlist.");
+      toast.error(t('product_already_in_wishlist'));
       return;
     }
 
     setWishlist((prev) => [...prev, normalized]);
-    toast.success("❤️ Product added to wishlist!");
+    toast.success(t('product_added_to_wishlist'));
   };
 
   const removeFromWishlist = (id) => {
     setWishlist((prev) => prev.filter((item) => item.id !== id));
-    toast.success("🗑️ Product removed from wishlist.");
+    toast.success(t('product_removed_from_wishlist'));
   };
 
   const toggleWishlist = (product) => {
@@ -56,7 +62,7 @@ export const WishlistProvider = ({ children }) => {
 
   const clearWishlist = () => {
     setWishlist([]);
-    toast.success("🧹 Wishlist cleared.");
+    toast.success(t('wishlist_cleared'));
   };
 
   return (

@@ -4,21 +4,23 @@ import { Star, ShoppingCart, Delete, ClearAll } from '@mui/icons-material';
 import { WishlistContext } from '../Contexts/wishlistContext';
 import { CartContext } from '../Contexts/cartContext';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Wishlist = () => {
+  const { t, i18n } = useTranslation(); // استخدم i18n للوصول إلى اللغة الحالية
   const { wishlist, removeFromWishlist, clearWishlist } = useContext(WishlistContext);
   const { addProductToCart } = useContext(CartContext);
 
   const handleAddToCart = (product) => {
-    addProductToCart(product); 
-    removeFromWishlist(product.id); 
+    addProductToCart(product);
+    removeFromWishlist(product.id);
   };
 
   return (
     <Box sx={{ bgcolor: '#f3f7f7', py: 4 }}>
       <Container maxWidth="md">
         <Stack direction="row" justifyContent="space-between" alignItems="center" mb={4}>
-          <Typography variant="h5" fontWeight="bold">Favorite Products</Typography>
+          <Typography variant="h5" fontWeight="bold">{t('favorite_product')}</Typography>
           {wishlist.length > 0 && (
             <Button
               variant="outlined"
@@ -27,17 +29,17 @@ const Wishlist = () => {
               sx={{ borderRadius: '12px', borderWidth: 2 }}
               onClick={clearWishlist}
             >
-              Remove All
+              {t('remove_all')}
             </Button>
           )}
         </Stack>
 
         {wishlist.length === 0 ? (
           <Box className='m-4 md:m-0 md:my-10 flex flex-col items-center gap-y-4 rounded-md p-5 bg-slate-200'>
-            <h2>Oops! Your Wishlist is Empty. Start Shopping now by clicking the button below and find something You Love!</h2>
+            <h2>{t('wishlist_empty_message')}</h2>
             <NavLink 
               to='/' 
-              className="btn bg-blue-600 w-fit text-white hover:bg-blue-800" 
+              className="btn bg-blue-600 w-fit text-white hover:bg-blue-800"
               sx={{
                 backgroundColor: '#1d4ed8', 
                 color: 'white',
@@ -45,30 +47,27 @@ const Wishlist = () => {
                 borderRadius: '8px',
                 textDecoration: 'none',
                 '&:hover': {
-                  backgroundColor: '#1e40af' 
+                  backgroundColor: '#1e40af'
                 }
               }}
             >
-              BACK TO HOME
+              {t('back_to_home')}
             </NavLink>
           </Box>
         ) : (
-          wishlist.map((product,index) => (
+          wishlist.map((product, index) => (
             <Box key={index} sx={{
               bgcolor: 'white', 
               borderRadius: '16px', 
               p: 2, 
-          
-              
               mb: 3,
-              display: 'flex', 
-             
+              display: 'flex',
               gap: 2,
               justifyContent: 'center',
               alignItems: 'center',
               position: 'relative',
               boxShadow: 2, 
-              flexDirection: { xs: 'column', sm: 'column',md:'row' },
+              flexDirection: { xs: 'column', sm: 'column', md: 'row' },
             }}>
               <Box
                 component="img"
@@ -79,13 +78,13 @@ const Wishlist = () => {
                   height: 160,
                   borderRadius: '16px',
                   objectFit: 'contain',
-                 
                 }}
               />
 
               <Box sx={{ flex: 1, textAlign: { xs: 'center', sm: 'left' } }}>
-                <Typography fontWeight="bold" fontSize="1.2rem">{product.title}</Typography>
-
+                <Typography fontWeight="bold" fontSize="1.2rem">
+                  {product.title[i18n.language]} {/* استخدام اللغة الحالية لعرض العنوان */}
+                </Typography>
                 <Box sx={{
                   display: 'flex',
                   justifyContent: { xs: 'center', sm: 'flex-start' },
@@ -93,13 +92,13 @@ const Wishlist = () => {
                   gap: 1,
                   mt: 0.5,
                 }}>
-                  <Typography fontSize={14}>Rate:</Typography>
+                  <Typography fontSize={14}>{t('rate')}:</Typography>
                   <Star sx={{ fontSize: 18, color: '#facc15' }} />
-                  <Typography fontSize={14}>{product?.rating?.rate ? product?.rating?.rate : product?.rate ? product?.rate : "No rating"}</Typography>
+                  <Typography fontSize={14}>{product?.rating?.rate || t('no_rating')}</Typography>
                 </Box>
 
                 <Typography sx={{ mt: 1 }}>
-                  Price:{' '}
+                  {t('price')}: 
                   <Typography component="span" sx={{ color: '#0299e2' }}>
                     $ {product.price}
                   </Typography>
@@ -113,7 +112,7 @@ const Wishlist = () => {
                   sx={{ borderRadius: '50px', backgroundColor: '#0299e2' }}
                   onClick={() => handleAddToCart(product)}
                 >
-                  Add to Cart
+                  {t('add_to_cart')}
                 </Button>
                 <Button
                   variant="contained"
@@ -122,7 +121,7 @@ const Wishlist = () => {
                   sx={{ borderRadius: '50px' }}
                   onClick={() => removeFromWishlist(product.id)}
                 >
-                  Remove
+                  {t('remove')}
                 </Button>
               </Stack>
             </Box>
