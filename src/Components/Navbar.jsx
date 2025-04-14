@@ -1,44 +1,26 @@
-import React, { useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { 
-  AppBar, 
-  Toolbar, 
-  Typography, 
-  Button, 
-  Avatar, 
-  Menu, 
-  MenuItem,
-  Divider,
-  Box,
-  ListItemIcon,
-  ListItemText,
-  IconButton,
-  Drawer,
-  List,
-  ListItem,
-  useMediaQuery,
-  useTheme
-} from '@mui/material';
-import HomeIcon from '@mui/icons-material/Home';
+import React, { useContext, useState } from 'react';
+import { AppBar, Toolbar, IconButton, Typography, Button, Avatar, Menu, MenuItem, Divider, List, ListItem, ListItemIcon, ListItemText, Badge, Box, Drawer, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { CartContext } from '../../context/CartContext';
+import { WishlistContext } from '../../context/WishlistContext';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import LoginIcon from '@mui/icons-material/Login';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import LoginIcon from '@mui/icons-material/Login';
+import HomeIcon from '@mui/icons-material/Home';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import { Badge } from '@mui/material';
-import { useContext } from 'react';
-import { CartContext } from '../Contexts/cartContext';
-import { WishlistContext } from '../Contexts/wishlistContext';
-import LanguageIcon from '@mui/icons-material/Language'; 
-import i18n from '../i18n';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import LanguageIcon from '@mui/icons-material/Language';
 import { useTranslation } from 'react-i18next';
+import CustomNavButton from './CustomNavButton';
+import NavItem from './NavItem';
 
 const Navbar = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -51,27 +33,21 @@ const Navbar = () => {
   const { cart } = useContext(CartContext);
   const cartCount = cart.length;
   const { wishlist } = useContext(WishlistContext);
-const wishlistCount = wishlist.length;
+  const wishlistCount = wishlist.length;
 
-const [isLanguageEnglish, setIsLanguageEnglish] = useState(i18n.language === 'en');
-const toggleLanguage = () => {
-  const newLang = isLanguageEnglish ? 'ar' : 'en';
-  i18n.changeLanguage(newLang); // تغيير اللغة في i18n
-  setIsLanguageEnglish(!isLanguageEnglish);
-};
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+  const [isLanguageEnglish, setIsLanguageEnglish] = useState(i18n.language === 'en');
+  const toggleLanguage = () => {
+    const newLang = isLanguageEnglish ? 'ar' : 'en';
+    i18n.changeLanguage(newLang);
+    setIsLanguageEnglish(!isLanguageEnglish);
   };
 
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
-
+  const handleMenuOpen = (event) => setAnchorEl(event.currentTarget);
+  const handleMenuClose = () => setAnchorEl(null);
   const handleProfileClick = () => {
     handleMenuClose();
     navigate('/profile');
   };
-
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('user');
@@ -80,129 +56,54 @@ const toggleLanguage = () => {
   };
 
   const toggleDrawer = (open) => (event) => {
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) return;
     setDrawerOpen(open);
   };
 
   const renderDesktopNav = () => (
     <>
-      <CustomNavButton to="/" icon={<HomeIcon />} text={t('nav.home')}  currentPath={location.pathname} />
- 
+      <CustomNavButton to="/" icon={<HomeIcon />} text={t('nav.home')} currentPath={location.pathname} />
+      <CustomNavButton to="/admin" icon={<DashboardIcon />} text={t('nav.dashboard')} currentPath={location.pathname} />
 
-      <CustomNavButton to="/dashboard" icon={<DashboardIcon />} text={t('nav.dashboard')} currentPath={location.pathname} />
-      
       {isLoggedIn ? (
         <>
-             <CustomNavButton
-  to="/cart"
-  icon={
-    <Badge badgeContent={cartCount} color="error" showZero>
-      <ShoppingCartIcon />
-    </Badge>
-  }
-  text={t('nav.cart')} 
-  currentPath={location.pathname}
-/>
           <CustomNavButton
-  to="/wishlist"
-  icon={
-    <Badge badgeContent={wishlistCount} color="error" showZero>
-      <FavoriteBorderIcon />
-    </Badge>
-  }
-  text={t('nav.wishlist')} 
-  currentPath={location.pathname}
-/>
-
-          
+            to="/cart"
+            icon={
+              <Badge badgeContent={cartCount} color="error" showZero>
+                <ShoppingCartIcon />
+              </Badge>
+            }
+            text={t('nav.cart')}
+            currentPath={location.pathname}
+          />
+          <CustomNavButton
+            to="/wishlist"
+            icon={
+              <Badge badgeContent={wishlistCount} color="error" showZero>
+                <FavoriteBorderIcon />
+              </Badge>
+            }
+            text={t('nav.wishlist')}
+            currentPath={location.pathname}
+          />
           <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
-            <Button
-              onClick={handleMenuOpen}
-              sx={{ 
-                color: '#ffffff', 
-                textTransform: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1,
-                padding: '8px 12px',
-                borderRadius: '8px',
-                '&:hover': {
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)'
-                }
-              }}
-            >
-              <Avatar 
-                alt={user.firstName} 
-                sx={{ 
-                  width: 32, 
-                  height: 32,
-                  bgcolor: '#90caf9',
-                  color: '#1e1e2f',
-                  fontWeight: 'bold',
-                  fontSize: '0.875rem'
-                }}
-              >
+            <Button onClick={handleMenuOpen} sx={{ color: '#fff', textTransform: 'none', display: 'flex', alignItems: 'center', gap: 1 }}>
+              <Avatar sx={{ width: 32, height: 32, bgcolor: '#90caf9', color: '#1e1e2f', fontWeight: 'bold' }}>
                 {user.firstName?.charAt(0)?.toUpperCase() || 'U'}
               </Avatar>
-              <Typography variant="body1" sx={{ marginLeft: 1 }}>
-                {user.firstName || 'User'}
-              </Typography>
+              <Typography variant="body1">{user.firstName || 'User'}</Typography>
               <ExpandMoreIcon fontSize="small" />
             </Button>
-
-            <Menu
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'right',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              PaperProps={{
-                elevation: 0,
-                sx: {
-                  mt: 1,
-                  minWidth: 200,
-                  borderRadius: '8px',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
-                  overflow: 'visible',
-                  '&:before': {
-                    content: '""',
-                    display: 'block',
-                    position: 'absolute',
-                    top: 0,
-                    right: 14,
-                    width: 10,
-                    height: 10,
-                    bgcolor: 'background.paper',
-                    transform: 'translateY(-50%) rotate(45deg)',
-                    zIndex: 0,
-                  }
-                }
-              }}
-            >
-              <MenuItem onClick={handleProfileClick} sx={{ py: 1.5 }}>
-                <ListItemIcon>
-                  <PersonOutlineIcon fontSize="small" />
-                </ListItemIcon>
+            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+              <MenuItem onClick={handleProfileClick}>
+                <ListItemIcon><PersonOutlineIcon fontSize="small" /></ListItemIcon>
                 <ListItemText>{t('nav.profile')}</ListItemText>
               </MenuItem>
-              
-              <Divider sx={{ my: 0.5 }} />
-              
-              <MenuItem onClick={handleLogout} sx={{ py: 1.5 }}>
-                <ListItemIcon>
-                  <ExitToAppIcon fontSize="small" color="error" />
-                </ListItemIcon>
-                <ListItemText primaryTypographyProps={{ color: 'error' }}>
-                {t('nav.logout')}
-                </ListItemText>
+              <Divider />
+              <MenuItem onClick={handleLogout}>
+                <ListItemIcon><ExitToAppIcon fontSize="small" color="error" /></ListItemIcon>
+                <ListItemText primaryTypographyProps={{ color: 'error' }}>{t('nav.logout')}</ListItemText>
               </MenuItem>
             </Menu>
           </Box>
@@ -210,182 +111,54 @@ const toggleLanguage = () => {
       ) : (
         <CustomNavButton to="/login" icon={<LoginIcon />} text={t('nav.login')} currentPath={location.pathname} />
       )}
-         <Button
-      onClick={toggleLanguage}
-      sx={{
-        color: '#ffffff',
-        marginLeft: 2,
-        fontWeight: 500,
-        textTransform: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 1,
-        '&:hover': {
-          backgroundColor: 'rgba(255, 255, 255, 0.1)'
-        }
-      }}
-    >
-      <LanguageIcon fontSize="small" /> {/* الأيقونة */}
-      <Typography variant="body1">{isLanguageEnglish ? 'AR' : 'EN'}</Typography> {/* نص اللغة */}
-    </Button>
+      <Button onClick={toggleLanguage} sx={{ color: '#fff', ml: 2, textTransform: 'none', display: 'flex', alignItems: 'center', gap: 1 }}>
+        <LanguageIcon fontSize="small" />
+        <Typography variant="body1">{isLanguageEnglish ? 'AR' : 'EN'}</Typography>
+      </Button>
     </>
   );
 
   const renderMobileNav = () => (
     <>
-      <IconButton
-        edge="start"
-        color="inherit"
-        aria-label="menu"
-        onClick={toggleDrawer(true)}
-        sx={{ mr: 2 }}
-      >
+      <IconButton onClick={toggleDrawer(true)} color="inherit">
         {drawerOpen ? <CloseIcon /> : <MenuIcon />}
       </IconButton>
-      
-      <Drawer
-        anchor="left"
-        open={drawerOpen}
-        onClose={toggleDrawer(false)}
-        sx={{
-          '& .MuiDrawer-paper': {
-            width: 280,
-            backgroundColor: '#1e1e2f',
-            color: '#ffffff'
-          }
-        }}
-      >
-        <Box
-          sx={{ width: 280, height: '100%', display: 'flex', flexDirection: 'column' }}
-          role="presentation"
-        >
-          {/* Header with close button */}
-          <Box sx={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
-            p: 2,
-            borderBottom: '1px solid rgba(255, 255, 255, 0.12)'
-          }}>
-            <Typography variant="h6" sx={{ fontFamily: 'Roboto, sans-serif', fontWeight: 700 }}>
-              My Shop
-            </Typography>
-            <IconButton onClick={toggleDrawer(false)} color="inherit">
-              <CloseIcon />
-            </IconButton>
-          </Box>
-          
-          {/* Navigation items */}
-          <List sx={{ flexGrow: 1 }}>
-            <NavItem to="/" icon={<HomeIcon />} text={t('nav.home')}  currentPath={location.pathname} onClick={toggleDrawer(false)} />
-            <NavItem to="/cart" icon={<ShoppingCartIcon />} text={t('nav.cart')}  currentPath={location.pathname} onClick={toggleDrawer(false)} />
-            <NavItem to="/dashboard" icon={<DashboardIcon />} text={t('nav.wishlist')}  currentPath={location.pathname} onClick={toggleDrawer(false)} />
-            
-            {isLoggedIn && (
-              <NavItem to="/wishlist" icon={<FavoriteBorderIcon />} text={t('nav.wishlist')}  currentPath={location.pathname} onClick={toggleDrawer(false)} />
-            )}
-          </List>
-          
-          {/* User section at bottom */}
-          <Box sx={{ p: 2, borderTop: '1px solid rgba(255, 255, 255, 0.12)' }}>
-            {isLoggedIn ? (
-              <>
-                <NavItem to="/profile" icon={<PersonOutlineIcon />} text={t('nav.profile')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
-                <ListItem 
-                  button 
-                  onClick={() => {
-                    handleLogout();
-                    toggleDrawer(false)();
-                  }}
-                  sx={{
-                    color: '#e57373',
-                    '&:hover': {
-                      backgroundColor: 'rgba(255, 255, 255, 0.1)'
-                    }
-                  }}
-                >
-                  <ListItemIcon sx={{ color: 'inherit' }}>
-                    <ExitToAppIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Logout" />
-                </ListItem>
-              </>
-            ) : (
-              <NavItem to="/login" icon={<LoginIcon />} text={t('nav.login')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
-            )}
-          </Box>
+      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)} sx={{ '& .MuiDrawer-paper': { width: 280, backgroundColor: '#1e1e2f', color: '#fff' } }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 2 }}>
+          <Typography variant="h6">My Shop</Typography>
+          <IconButton onClick={toggleDrawer(false)} color="inherit"><CloseIcon /></IconButton>
+        </Box>
+        <List>
+          <NavItem to="/" icon={<HomeIcon />} text={t('nav.home')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
+          <NavItem to="/admin" icon={<DashboardIcon />} text={t('nav.dashboard')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
+          {isLoggedIn && (
+            <>
+              <NavItem to="/cart" icon={<ShoppingCartIcon />} text={t('nav.cart')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
+              <NavItem to="/wishlist" icon={<FavoriteBorderIcon />} text={t('nav.wishlist')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
+            </>
+          )}
+        </List>
+        <Box sx={{ p: 2 }}>
+          {isLoggedIn ? (
+            <>
+              <NavItem to="/profile" icon={<PersonOutlineIcon />} text={t('nav.profile')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
+              <ListItem button onClick={() => { handleLogout(); toggleDrawer(false)(); }} sx={{ color: '#e57373' }}>
+                <ListItemIcon sx={{ color: 'inherit' }}><ExitToAppIcon /></ListItemIcon>
+                <ListItemText primary={t('nav.logout')} />
+              </ListItem>
+            </>
+          ) : (
+            <NavItem to="/login" icon={<LoginIcon />} text={t('nav.login')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
+          )}
         </Box>
       </Drawer>
     </>
   );
 
   return (
-    <AppBar position="sticky" sx={{ backgroundColor: '#1e1e2f', boxShadow: '0 4px 10px rgba(0,0,0,0.3)' }}>
-      <Toolbar>
-        <Typography variant="h6" sx={{ flexGrow: isMobile ? 0 : 1, fontFamily: 'Roboto, sans-serif', fontWeight: 700, letterSpacing: 1, color: '#ffffff' }}>
-          My Shop
-        </Typography>
-        
-        {isMobile ? renderMobileNav() : renderDesktopNav()}
-      </Toolbar>
+    <AppBar position="static" sx={{ backgroundColor: '#1e1e2f' }}>
+      <Toolbar>{isMobile ? renderMobileNav() : renderDesktopNav()}</Toolbar>
     </AppBar>
-  );
-};
-
-// Component for desktop navigation buttons
-const CustomNavButton = ({ to, icon, text, currentPath }) => {
-  const isActive = currentPath === to;
-  return (
-    <Button 
-      component={Link} 
-      to={to} 
-      startIcon={icon} 
-      sx={{ 
-        color: isActive ? '#90caf9' : '#ffffff', 
-        fontWeight: isActive ? 600 : 500, 
-        fontSize: '0.95rem', 
-        textTransform: 'none', 
-        marginLeft: 2, 
-        borderBottom: isActive ? '2px solid #90caf9' : 'none', 
-        borderRadius: 0, 
-        transition: 'all 0.3s ease', 
-        '&:hover': { 
-          backgroundColor: 'rgba(255, 255, 255, 0.1)', 
-          color: '#90caf9' 
-        },
-        '& .MuiButton-startIcon': {
-          marginRight: '6px'
-        }
-      }}
-    >
-      {text}
-    </Button>
-  );
-};
-
-// Component for mobile navigation items
-const NavItem = ({ to, icon, text, currentPath, onClick }) => {
-  const isActive = currentPath === to;
-  return (
-    <ListItem 
-      button 
-      component={Link} 
-      to={to}
-      onClick={onClick}
-      sx={{
-        color: isActive ? '#90caf9' : '#ffffff',
-        fontWeight: isActive ? 600 : 400,
-        '&:hover': {
-          backgroundColor: 'rgba(255, 255, 255, 0.1)',
-          color: '#90caf9'
-        }
-      }}
-    >
-      <ListItemIcon sx={{ color: 'inherit' }}>
-        {icon}
-      </ListItemIcon>
-      <ListItemText primary={text} />
-    </ListItem>
   );
 };
 
