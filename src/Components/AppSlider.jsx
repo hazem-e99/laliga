@@ -1,88 +1,191 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Box, IconButton, Typography, useTheme } from '@mui/material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const AppSlider = () => {
-    return (
-        <>
-            <div className="carousel w-full ">
-                <div id="slide1" className="carousel-item relative w-full h-80">
-                    <img
-                        src="https://images.squarespace-cdn.com/content/v1/630f9449e9d3ae151b3599d3/1662513818701-GQABAAV7SUNE1000GRI6/mens-capsule-wardrobe.jpg"
-                        className="w-full" />
-                    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                        <a href="#slide4" className="btn btn-circle">❮</a>
-                        <a href="#slide2" className="btn btn-circle">❯</a>
-                    </div>
-                </div>
-                <div id="slide2" className="carousel-item relative w-full h-80">
-                    <img
-                        src="https://i.etsystatic.com/26262462/r/il/9e44c7/4461937773/il_fullxfull.4461937773_le31.jpg"
-                        className="w-full" />
-                    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                        <a href="#slide1" className="btn btn-circle">❮</a>
-                        <a href="#slide3" className="btn btn-circle">❯</a>
-                    </div>
-                </div>
-                <div id="slide3" className="carousel-item relative w-full h-80">
-                    <img
-                        src="https://modo3.com/thumbs/fit630x300/240204/1561923697/%D9%83%D9%8A%D9%81%D9%8A%D8%A9_%D8%A7%D9%84%D8%AA%D8%AE%D9%84%D8%B5_%D9%85%D9%86_%D8%A7%D9%84%D8%B3%D9%88%D8%A7%D8%AF_%D8%AA%D8%AD%D8%AA_%D8%A7%D9%84%D8%A5%D8%A8%D8%B7.jpg"
-                        className="w-full" />
-                    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                        <a href="#slide2" className="btn btn-circle">❮</a>
-                        <a href="#slide4" className="btn btn-circle">❯</a>
-                    </div>
-                </div>
-                <div id="slide4" className="carousel-item relative w-full h-80">
-                    <img
-                        src="https://www.fashiongonerogue.com/wp-content/uploads/2024/06/Different-Accessories.jpg"
-                        className="w-full" />
-                    <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
-                        <a href="#slide3" className="btn btn-circle">❮</a>
-                        <a href="#slide1" className="btn btn-circle">❯</a>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
-}
+  const theme = useTheme();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  const slides = [
+    {
+      image: './img/slider1.jpg',
+      title: 'Summer Collection',
+      description: 'Discover our new summer arrivals with 30% discount'
+    },
+    {
+      image: './img/slider2.jpg',
+      title: 'Winter Essentials',
+      description: 'Stay warm with our premium winter collection'
+    },
+    {
+      image: './img/slider3.jpg',
+      title: 'Spring Fashion',
+      description: 'Fresh styles for the new season'
+    },
+    {
+      image: './img/slider4.jpg',
+      title: 'Autumn Specials',
+      description: 'Cozy outfits for fall days'
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      handleNext();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [currentSlide]);
+
+  const handlePrev = () => {
+    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  };
+
+  return (
+    <Box sx={{
+      position: 'relative',
+      width: '100%',
+      height: { xs: '50vh', md: '80vh' },
+      overflow: 'hidden',
+      borderRadius: 2,
+      boxShadow: 3,
+      backgroundColor: '#f5f5f5', // خلفية احتياطية إذا كانت الصورة غير موجودة
+    }}>
+      {/* Slides container */}
+      <Box sx={{
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        transition: 'transform 0.5s ease-in-out',
+        transform: `translateX(-${currentSlide * 100}%)`
+      }}>
+        {slides.map((slide, index) => (
+          <Box 
+            key={index}
+            sx={{
+              minWidth: '100%',
+              height: '100%',
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              overflow: 'hidden'
+            }}
+          >
+            {/* Image container with proper scaling */}
+            <Box
+              component="img"
+              src={slide.image}
+              alt={`Slide ${index + 1}`}
+              sx={{
+                width: 'auto',
+                height: 'auto',
+                maxWidth: '100%',
+                maxHeight: '100%',
+                objectFit: 'contain', // تغيير من 'cover' إلى 'contain'
+                position: 'absolute',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)'
+              }}
+            />
+            
+            {/* Caption overlay */}
+            <Box sx={{
+              position: 'absolute',
+              bottom: 0,
+              left: 0,
+              right: 0,
+              bgcolor: 'rgba(0,0,0,0.7)',
+              color: 'white',
+              p: 3,
+              textAlign: 'center',
+              backdropFilter: 'blur(2px)',
+              zIndex: 1
+            }}>
+              <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 1 }}>
+                {slide.title}
+              </Typography>
+              <Typography variant="h6">
+                {slide.description}
+              </Typography>
+            </Box>
+          </Box>
+        ))}
+      </Box>
+
+      {/* Navigation buttons */}
+      <IconButton
+        onClick={handlePrev}
+        sx={{
+          position: 'absolute',
+          left: 20,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          bgcolor: 'rgba(0,0,0,0.5)',
+          color: 'white',
+          '&:hover': {
+            bgcolor: 'rgba(0,0,0,0.8)'
+          },
+          zIndex: 2
+        }}
+      >
+        <ArrowBackIosIcon fontSize="large" />
+      </IconButton>
+      
+      <IconButton
+        onClick={handleNext}
+        sx={{
+          position: 'absolute',
+          right: 20,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          bgcolor: 'rgba(0,0,0,0.5)',
+          color: 'white',
+          '&:hover': {
+            bgcolor: 'rgba(0,0,0,0.8)'
+          },
+          zIndex: 2
+        }}
+      >
+        <ArrowForwardIosIcon fontSize="large" />
+      </IconButton>
+
+      {/* Slide indicators */}
+      <Box sx={{
+        position: 'absolute',
+        bottom: 20,
+        left: 0,
+        right: 0,
+        display: 'flex',
+        justifyContent: 'center',
+        gap: 1.5,
+        zIndex: 2
+      }}>
+        {slides.map((_, index) => (
+          <Box
+            key={index}
+            onClick={() => setCurrentSlide(index)}
+            sx={{
+              width: 12,
+              height: 12,
+              borderRadius: '50%',
+              bgcolor: currentSlide === index ? theme.palette.primary.main : 'rgba(255,255,255,0.5)',
+              cursor: 'pointer',
+              transition: 'all 0.3s',
+              '&:hover': {
+                transform: 'scale(1.2)'
+              }
+            }}
+          />
+        ))}
+      </Box>
+    </Box>
+  );
+};
 
 export default AppSlider;
-// import React from 'react';
-
-// const AppSlider = () => {
-//     return (
-//         <div className="grid md:grid-cols-3 gap-2 h-[600px] px-4 py-4">
-//             {/* الصورة الرئيسية على اليسار */}
-//             <div className="col-span-2 relative">
-//                 <img
-//                     src="https://images.squarespace-cdn.com/content/v1/630f9449e9d3ae151b3599d3/1662513818701-GQABAAV7SUNE1000GRI6/mens-capsule-wardrobe.jpg"
-//                     alt="Main Shopping Visual"
-//                     className="w-full h-full object-cover rounded-xl"
-//                 />
-//                 <div className="absolute top-6 left-6 bg-white/70 p-4 rounded-lg max-w-md">
-//                     <h2 className="text-white font-bold text-xl drop-shadow-md">
-//                         FreshCart brings the supermarket to you, redefining the way you shop for groceries.
-//                     </h2>
-//                     <button className="mt-4 bg-cyan-500 text-white px-6 py-2 rounded-full shadow-md hover:bg-cyan-600 transition">
-//                         Get Started
-//                     </button>
-//                 </div>
-//             </div>
-
-//             {/* عمود الصور الجانبي */}
-//             <div className="flex flex-col gap-2">
-//                 <img
-//                     src="https://www.fashiongonerogue.com/wp-content/uploads/2024/06/Different-Accessories.jpg"
-//                     alt="Cosmetics"
-//                     className="w-full h-1/2 object-cover rounded-xl"
-//                 />
-//                 <img
-//                     src="https://i.etsystatic.com/26262462/r/il/9e44c7/4461937773/il_fullxfull.4461937773_le31.jpg"
-//                     alt="Black Friday"
-//                     className="w-full h-1/2 object-cover rounded-xl"
-//                 />
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default AppSlider;

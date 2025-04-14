@@ -19,6 +19,7 @@ import { CartProvider } from '../Contexts/cartContext';
 import { WishlistProvider } from '../Contexts/wishlistContext';
 import { Toaster } from "react-hot-toast";
 
+
 function App() {
   const [showIntro, setShowIntro] = useState(true);
 
