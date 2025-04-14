@@ -17,7 +17,8 @@ import {
   List,
   ListItem,
   useMediaQuery,
-  useTheme
+  useTheme,
+  Badge
 } from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -29,7 +30,6 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import { Badge } from '@mui/material';
 import { useContext } from 'react';
 import { CartContext } from '../Contexts/cartContext';
 import { WishlistContext } from '../Contexts/wishlistContext';
@@ -46,7 +46,7 @@ const Navbar = () => {
   const { cart } = useContext(CartContext);
   const cartCount = cart.length;
   const { wishlist } = useContext(WishlistContext);
-const wishlistCount = wishlist.length;
+  const wishlistCount = wishlist.length;
 
   const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -78,33 +78,37 @@ const wishlistCount = wishlist.length;
   const renderDesktopNav = () => (
     <>
       <CustomNavButton to="/" icon={<HomeIcon />} text="Home" currentPath={location.pathname} />
- 
-
-      <CustomNavButton to="/dashboard" icon={<DashboardIcon />} text="Dashboard" currentPath={location.pathname} />
       
+      {/* رابط لوحة التحكم متاح للجميع */}
+      <CustomNavButton 
+        to="/admin" 
+        icon={<DashboardIcon />} 
+        text="Dashboard" 
+        currentPath={location.pathname} 
+      />
+
       {isLoggedIn ? (
         <>
-             <CustomNavButton
-  to="/cart"
-  icon={
-    <Badge badgeContent={cartCount} color="error" showZero>
-      <ShoppingCartIcon />
-    </Badge>
-  }
-  text="Cart"
-  currentPath={location.pathname}
-/>
           <CustomNavButton
-  to="/wishlist"
-  icon={
-    <Badge badgeContent={wishlistCount} color="error" showZero>
-      <FavoriteBorderIcon />
-    </Badge>
-  }
-  text="Wishlist"
-  currentPath={location.pathname}
-/>
-
+            to="/cart"
+            icon={
+              <Badge badgeContent={cartCount} color="error" showZero>
+                <ShoppingCartIcon />
+              </Badge>
+            }
+            text="Cart"
+            currentPath={location.pathname}
+          />
+          <CustomNavButton
+            to="/wishlist"
+            icon={
+              <Badge badgeContent={wishlistCount} color="error" showZero>
+                <FavoriteBorderIcon />
+              </Badge>
+            }
+            text="Wishlist"
+            currentPath={location.pathname}
+          />
           
           <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
             <Button
@@ -230,7 +234,6 @@ const wishlistCount = wishlist.length;
           sx={{ width: 280, height: '100%', display: 'flex', flexDirection: 'column' }}
           role="presentation"
         >
-          {/* Header with close button */}
           <Box sx={{ 
             display: 'flex', 
             justifyContent: 'space-between', 
@@ -246,18 +249,18 @@ const wishlistCount = wishlist.length;
             </IconButton>
           </Box>
           
-          {/* Navigation items */}
           <List sx={{ flexGrow: 1 }}>
             <NavItem to="/" icon={<HomeIcon />} text="Home" currentPath={location.pathname} onClick={toggleDrawer(false)} />
-            <NavItem to="/cart" icon={<ShoppingCartIcon />} text="Cart" currentPath={location.pathname} onClick={toggleDrawer(false)} />
-            <NavItem to="/dashboard" icon={<DashboardIcon />} text="Dashboard" currentPath={location.pathname} onClick={toggleDrawer(false)} />
+            <NavItem to="/admin" icon={<DashboardIcon />} text="Dashboard" currentPath={location.pathname} onClick={toggleDrawer(false)} />
             
             {isLoggedIn && (
-              <NavItem to="/wishlist" icon={<FavoriteBorderIcon />} text="Wishlist" currentPath={location.pathname} onClick={toggleDrawer(false)} />
+              <>
+                <NavItem to="/cart" icon={<ShoppingCartIcon />} text="Cart" currentPath={location.pathname} onClick={toggleDrawer(false)} />
+                <NavItem to="/wishlist" icon={<FavoriteBorderIcon />} text="Wishlist" currentPath={location.pathname} onClick={toggleDrawer(false)} />
+              </>
             )}
           </List>
           
-          {/* User section at bottom */}
           <Box sx={{ p: 2, borderTop: '1px solid rgba(255, 255, 255, 0.12)' }}>
             {isLoggedIn ? (
               <>
@@ -303,7 +306,6 @@ const wishlistCount = wishlist.length;
   );
 };
 
-// Component for desktop navigation buttons
 const CustomNavButton = ({ to, icon, text, currentPath }) => {
   const isActive = currentPath === to;
   return (
@@ -334,7 +336,6 @@ const CustomNavButton = ({ to, icon, text, currentPath }) => {
   );
 };
 
-// Component for mobile navigation items
 const NavItem = ({ to, icon, text, currentPath, onClick }) => {
   const isActive = currentPath === to;
   return (

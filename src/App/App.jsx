@@ -3,7 +3,6 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Layout from '../Components/Layout';
 import ProductDetails from '../Pages/ProductDetails';
-import Dashboard from '../Pages/Dashboard';
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import Cart from '../Pages/Cart';
@@ -18,6 +17,15 @@ import Payment from '../Pages/Payment';
 import { CartProvider } from '../Contexts/cartContext';
 import { WishlistProvider } from '../Contexts/wishlistContext';
 import { Toaster } from "react-hot-toast";
+import AdminDashboard from '../adminDashboard/AdminDashboard';
+import Team from '../adminDashboard/pages/team/Team';
+import Contact from '../adminDashboard/pages/contacts/Contacts';
+import Calendar from '../adminDashboard/pages/calendar/Calendar';
+import BarChart from '../adminDashboard/pages/barChart/BarChart';
+import Dashboard from '../adminDashboard/pages/dashboard/Dashboard';
+import PieChart from '../adminDashboard/pages/pieChart/PieChart';
+import LineChart from '../adminDashboard/pages/lineChart/LineChart';
+import Geography from '../adminDashboard/pages/geography/Geography';
 
 function App() {
   const [showIntro, setShowIntro] = useState(true);
@@ -38,8 +46,6 @@ function App() {
     <GoogleOAuthProvider clientId="367520079546-bd85slcaa4p4eerk1ioe0vnpgq9avggb.apps.googleusercontent.com">
       <CartProvider>
         <WishlistProvider>
-
-          {/* Toast Notifications */}
           <Toaster
             position="top-center"
             toastOptions={{
@@ -63,7 +69,6 @@ function App() {
             }}
           />
 
-          {/* App Routes */}
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Layout />}>
@@ -74,16 +79,25 @@ function App() {
                 <Route element={<ProtectedRoute />}>
                   <Route path="cart" element={<Cart />} />
                   <Route path="/payment" element={<Payment />} />
-                  <Route path="dashboard" element={<Dashboard />} />
                   <Route path="wishlist" element={<Wishlist />} />
                   <Route path="profile" element={<Profile />} />
                   <Route path="product/:id" element={<ProductDetails />} />
-                  <Route path="ProductDetails" element={<ProductDetails />} />
                 </Route>
+              </Route>
+
+              {/* Admin Routes - بدون حماية */}
+              <Route path="/admin" element={<AdminDashboard />}>
+                <Route index element={<Dashboard />} />
+                <Route path="team" element={<Team />} />
+                <Route path="contacts" element={<Contact />} />
+                <Route path="calendar" element={<Calendar />} />
+                <Route path="barchart" element={<BarChart />} />
+                <Route path="piechart" element={<PieChart />} />
+                <Route path="linechart" element={<LineChart />} />
+                <Route path="geography" element={<Geography />} />
               </Route>
             </Routes>
           </BrowserRouter>
-          
         </WishlistProvider>
       </CartProvider>
     </GoogleOAuthProvider>
