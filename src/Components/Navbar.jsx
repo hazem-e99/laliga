@@ -1,9 +1,27 @@
 import React, { useContext, useState } from 'react';
-import { AppBar, Toolbar, IconButton, Typography, Button, Avatar, Menu, MenuItem, Divider, List, ListItem, ListItemIcon, ListItemText, Badge, Box, Drawer, useMediaQuery } from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Button,
+  Avatar,
+  Menu,
+  MenuItem,
+  Divider,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Badge,
+  Box,
+  Drawer,
+  useMediaQuery,
+} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { CartContext } from '../../context/CartContext';
-import { WishlistContext } from '../../context/WishlistContext';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { CartContext } from '../Contexts/cartContext';
+import { WishlistContext } from '../Contexts/wishlistContext';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
@@ -16,8 +34,6 @@ import CloseIcon from '@mui/icons-material/Close';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useTranslation } from 'react-i18next';
-import CustomNavButton from './CustomNavButton';
-import NavItem from './NavItem';
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
@@ -62,34 +78,88 @@ const Navbar = () => {
 
   const renderDesktopNav = () => (
     <>
-      <CustomNavButton to="/" icon={<HomeIcon />} text={t('nav.home')} currentPath={location.pathname} />
-      <CustomNavButton to="/admin" icon={<DashboardIcon />} text={t('nav.dashboard')} currentPath={location.pathname} />
+      <Button
+        component={Link}
+        to="/"
+        startIcon={<HomeIcon />}
+        sx={{
+          color: location.pathname === '/' ? 'primary.main' : '#fff',
+          textTransform: 'none',
+          mx: 1,
+        }}
+      >
+        {t('nav.home')}
+      </Button>
+
+      <Button
+        component={Link}
+        to="/admin"
+        startIcon={<DashboardIcon />}
+        sx={{
+          color: location.pathname === '/admin' ? 'primary.main' : '#fff',
+          textTransform: 'none',
+          mx: 1,
+        }}
+      >
+        {t('nav.dashboard')}
+      </Button>
 
       {isLoggedIn ? (
         <>
-          <CustomNavButton
+          <Button
+            component={Link}
             to="/cart"
-            icon={
+            startIcon={
               <Badge badgeContent={cartCount} color="error" showZero>
                 <ShoppingCartIcon />
               </Badge>
             }
-            text={t('nav.cart')}
-            currentPath={location.pathname}
-          />
-          <CustomNavButton
+            sx={{
+              color: location.pathname === '/cart' ? 'primary.main' : '#fff',
+              textTransform: 'none',
+              mx: 1,
+            }}
+          >
+            {t('nav.cart')}
+          </Button>
+
+          <Button
+            component={Link}
             to="/wishlist"
-            icon={
+            startIcon={
               <Badge badgeContent={wishlistCount} color="error" showZero>
                 <FavoriteBorderIcon />
               </Badge>
             }
-            text={t('nav.wishlist')}
-            currentPath={location.pathname}
-          />
+            sx={{
+              color: location.pathname === '/wishlist' ? 'primary.main' : '#fff',
+              textTransform: 'none',
+              mx: 1,
+            }}
+          >
+            {t('nav.wishlist')}
+          </Button>
+
           <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
-            <Button onClick={handleMenuOpen} sx={{ color: '#fff', textTransform: 'none', display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Avatar sx={{ width: 32, height: 32, bgcolor: '#90caf9', color: '#1e1e2f', fontWeight: 'bold' }}>
+            <Button
+              onClick={handleMenuOpen}
+              sx={{
+                color: '#fff',
+                textTransform: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+              }}
+            >
+              <Avatar
+                sx={{
+                  width: 32,
+                  height: 32,
+                  bgcolor: '#90caf9',
+                  color: '#1e1e2f',
+                  fontWeight: 'bold',
+                }}
+              >
                 {user.firstName?.charAt(0)?.toUpperCase() || 'U'}
               </Avatar>
               <Typography variant="body1">{user.firstName || 'User'}</Typography>
@@ -97,21 +167,47 @@ const Navbar = () => {
             </Button>
             <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
               <MenuItem onClick={handleProfileClick}>
-                <ListItemIcon><PersonOutlineIcon fontSize="small" /></ListItemIcon>
+                <ListItemIcon>
+                  <PersonOutlineIcon fontSize="small" />
+                </ListItemIcon>
                 <ListItemText>{t('nav.profile')}</ListItemText>
               </MenuItem>
               <Divider />
               <MenuItem onClick={handleLogout}>
-                <ListItemIcon><ExitToAppIcon fontSize="small" color="error" /></ListItemIcon>
+                <ListItemIcon>
+                  <ExitToAppIcon fontSize="small" color="error" />
+                </ListItemIcon>
                 <ListItemText primaryTypographyProps={{ color: 'error' }}>{t('nav.logout')}</ListItemText>
               </MenuItem>
             </Menu>
           </Box>
         </>
       ) : (
-        <CustomNavButton to="/login" icon={<LoginIcon />} text={t('nav.login')} currentPath={location.pathname} />
+        <Button
+          component={Link}
+          to="/login"
+          startIcon={<LoginIcon />}
+          sx={{
+            color: location.pathname === '/login' ? 'primary.main' : '#fff',
+            textTransform: 'none',
+            mx: 1,
+          }}
+        >
+          {t('nav.login')}
+        </Button>
       )}
-      <Button onClick={toggleLanguage} sx={{ color: '#fff', ml: 2, textTransform: 'none', display: 'flex', alignItems: 'center', gap: 1 }}>
+
+      <Button
+        onClick={toggleLanguage}
+        sx={{
+          color: '#fff',
+          ml: 2,
+          textTransform: 'none',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 1,
+        }}
+      >
         <LanguageIcon fontSize="small" />
         <Typography variant="body1">{isLanguageEnglish ? 'AR' : 'EN'}</Typography>
       </Button>
@@ -123,32 +219,88 @@ const Navbar = () => {
       <IconButton onClick={toggleDrawer(true)} color="inherit">
         {drawerOpen ? <CloseIcon /> : <MenuIcon />}
       </IconButton>
-      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)} sx={{ '& .MuiDrawer-paper': { width: 280, backgroundColor: '#1e1e2f', color: '#fff' } }}>
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={toggleDrawer(false)}
+        sx={{
+          '& .MuiDrawer-paper': {
+            width: 280,
+            backgroundColor: '#1e1e2f',
+            color: '#fff',
+          },
+        }}
+      >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 2 }}>
           <Typography variant="h6">My Shop</Typography>
-          <IconButton onClick={toggleDrawer(false)} color="inherit"><CloseIcon /></IconButton>
+          <IconButton onClick={toggleDrawer(false)} color="inherit">
+            <CloseIcon />
+          </IconButton>
         </Box>
         <List>
-          <NavItem to="/" icon={<HomeIcon />} text={t('nav.home')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
-          <NavItem to="/admin" icon={<DashboardIcon />} text={t('nav.dashboard')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
+          <ListItem button component={Link} to="/" onClick={toggleDrawer(false)}>
+            <ListItemIcon sx={{ color: '#fff' }}>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary={t('nav.home')} />
+          </ListItem>
+
+          <ListItem button component={Link} to="/admin" onClick={toggleDrawer(false)}>
+            <ListItemIcon sx={{ color: '#fff' }}>
+              <DashboardIcon />
+            </ListItemIcon>
+            <ListItemText primary={t('nav.dashboard')} />
+          </ListItem>
+
           {isLoggedIn && (
             <>
-              <NavItem to="/cart" icon={<ShoppingCartIcon />} text={t('nav.cart')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
-              <NavItem to="/wishlist" icon={<FavoriteBorderIcon />} text={t('nav.wishlist')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
+              <ListItem button component={Link} to="/cart" onClick={toggleDrawer(false)}>
+                <ListItemIcon sx={{ color: '#fff' }}>
+                  <ShoppingCartIcon />
+                </ListItemIcon>
+                <ListItemText primary={t('nav.cart')} />
+              </ListItem>
+
+              <ListItem button component={Link} to="/wishlist" onClick={toggleDrawer(false)}>
+                <ListItemIcon sx={{ color: '#fff' }}>
+                  <FavoriteBorderIcon />
+                </ListItemIcon>
+                <ListItemText primary={t('nav.wishlist')} />
+              </ListItem>
             </>
           )}
         </List>
         <Box sx={{ p: 2 }}>
           {isLoggedIn ? (
             <>
-              <NavItem to="/profile" icon={<PersonOutlineIcon />} text={t('nav.profile')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
-              <ListItem button onClick={() => { handleLogout(); toggleDrawer(false)(); }} sx={{ color: '#e57373' }}>
-                <ListItemIcon sx={{ color: 'inherit' }}><ExitToAppIcon /></ListItemIcon>
+              <ListItem button component={Link} to="/profile" onClick={toggleDrawer(false)}>
+                <ListItemIcon sx={{ color: '#fff' }}>
+                  <PersonOutlineIcon />
+                </ListItemIcon>
+                <ListItemText primary={t('nav.profile')} />
+              </ListItem>
+
+              <ListItem
+                button
+                onClick={() => {
+                  handleLogout();
+                  toggleDrawer(false)();
+                }}
+                sx={{ color: '#e57373' }}
+              >
+                <ListItemIcon sx={{ color: 'inherit' }}>
+                  <ExitToAppIcon />
+                </ListItemIcon>
                 <ListItemText primary={t('nav.logout')} />
               </ListItem>
             </>
           ) : (
-            <NavItem to="/login" icon={<LoginIcon />} text={t('nav.login')} currentPath={location.pathname} onClick={toggleDrawer(false)} />
+            <ListItem button component={Link} to="/login" onClick={toggleDrawer(false)}>
+              <ListItemIcon sx={{ color: '#fff' }}>
+                <LoginIcon />
+              </ListItemIcon>
+              <ListItemText primary={t('nav.login')} />
+            </ListItem>
           )}
         </Box>
       </Drawer>
