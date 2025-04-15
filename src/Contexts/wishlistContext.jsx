@@ -29,6 +29,10 @@ export const WishlistProvider = ({ children }) => {
   };
 
   const addToWishlist = (product) => {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      window.location.href = "/login"; 
+      return;
+    }
     const normalized = normalizeProduct(product);
     const exists = wishlist.find((item) => item.id === normalized.id);
 

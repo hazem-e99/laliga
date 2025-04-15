@@ -35,6 +35,10 @@ export const CartProvider = ({ children }) => {
   };
 
   const addProductToCart = (product) => {
+    if (localStorage.getItem("isLoggedIn") !== "true") {
+      window.location.href = "/login"; 
+      return;
+    }
     const normalizedProduct = normalizeProduct(product);
 
     if (isProductInCart(normalizedProduct)) {

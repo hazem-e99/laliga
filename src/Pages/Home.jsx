@@ -7,8 +7,8 @@ import {
   useMediaQuery,
   Container,
 } from '@mui/material';
-import FilterListIcon from '@mui/icons-material/FilterList';
-
+import TuneIcon from '@mui/icons-material/Tune';
+import {  Tooltip } from '@mui/material'
 import AppSlider from '../Components/AppSlider';
 import Filter from '../Components/ProductFilter';
 import BestSellerProduct from '../Components/BestSellerProduct';
@@ -55,18 +55,32 @@ const Home = () => {
     <>
       {/* زر الفلتر */}
       <Box
-        sx={{
-          position: 'fixed',
-          top: '50%',
-          left: 20,
-          transform: 'translateY(-50%)',
-          zIndex: 1300,
-        }}
-      >
-        <IconButton onClick={toggleFilter} color="primary">
-          <FilterListIcon />
-        </IconButton>
-      </Box>
+  sx={{
+    position: 'fixed',
+    bottom: 20,
+    left: 20,
+    zIndex: 1300,
+  }}
+>
+  <Tooltip title="Open Filters">
+    <IconButton
+      onClick={toggleFilter}
+      sx={{
+        backgroundColor: 'primary.main',
+        color: 'white',
+        '&:hover': {
+          backgroundColor: 'primary.dark',
+        },
+        width: 40,
+        height: 40,
+        borderRadius: '50%',
+        boxShadow: 3,
+      }}
+    >
+      <TuneIcon />
+    </IconButton>
+  </Tooltip>
+</Box>
 
       {/* Drawer بتاع الفلتر */}
       <Drawer
