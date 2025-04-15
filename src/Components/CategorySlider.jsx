@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
   console.log('product in card:', product);
 
   return (
-    <div className="w-full max-w-[240px]">
+    <div className="w-full max-w-[220px]">
       <div className="card bg-base-100 shadow-xl h-full">
         <figure className="px-4 pt-4">
           <img src={product.image} alt={product.title} className="h-40 object-contain" />
@@ -64,15 +64,18 @@ const ProductCard = ({ product }) => {
 // ====== CategorySlider Component ======
 const CategorySlider = ({ title, products }) => {
   return (
+    <div>
+
+    
     <section className="mb-16">
-      <h2 className="text-3xl font-bold text-center text-primary mb-6 border-b-2 border-primary pb-2 shadow-sm capitalize">
+      <h2 className="text-3xl font-bold text-center text-info bg-black mb-6 border-b-2 border-primary pb-2 shadow-sm capitalize">
         {title}
       </h2>
 
       <Swiper
-        className="p-5"
+        className="p-5 relative overflow-visible custom-swiper-nav"
         modules={[Navigation, Pagination, Autoplay]}
-        spaceBetween={20}
+        spaceBetween={2}
         slidesPerView={1}
         breakpoints={{
           640: { slidesPerView: 2 },
@@ -90,6 +93,7 @@ const CategorySlider = ({ title, products }) => {
         ))}
       </Swiper>
     </section>
+    </div>
   );
 };
 

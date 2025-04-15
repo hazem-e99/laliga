@@ -18,6 +18,7 @@ import Shorts from '../Components/Shorts';
 import Tshirts from '../Components/Tshirts';
 import Pants from '../Components/Pants';
 import Accessories from '../Components/Accessories';
+import CustomerReviews from '../Components/CustomerReviews';
 
 const Home = () => {
   const refs = {
@@ -155,6 +156,9 @@ const Home = () => {
               ratingFilter={ratingFilter}
               searchTerm={searchTerm}
             />
+          </Box>
+          <Box mb={4}>
+            <CustomerReviews />
           </Box>
         </Container>
       </Box>

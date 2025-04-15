@@ -158,7 +158,7 @@ const AppSlider = () => {
       {/* Slide indicators */}
       <Box sx={{
         position: 'absolute',
-        bottom: 20,
+        bottom: 5,
         left: 0,
         right: 0,
         display: 'flex',

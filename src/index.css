@@ -66,3 +66,26 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.custom-swiper-nav {
+  position: relative;
+  overflow: visible !important; /* مهم جدا */
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #000; /* أو أي لون يناسبك */
+  z-index: 10;
+  top: 40%;
+  transform: translateY(-50%);
+}
+
+.swiper-button-prev {
+  left: 20px; /* أخرج السهم بره الcontainer */
+}
+
+.swiper-button-next {
+  right: 20px;
+}
+
+
