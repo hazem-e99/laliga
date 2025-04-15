@@ -28,7 +28,7 @@ const Intro = () => {
         className="text-3xl md:text-5xl font-extrabold text-center mb-6"
         initial={{ scale: 0.5, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1, ease: "easeOut" }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
       >
         💥  {t("welcome_title")}<span className="text-cyan-400">{t("ultimate_sportswear")}</span> 💥
       </motion.h1>
@@ -38,7 +38,7 @@ const Intro = () => {
         className="text-lg md:text-2xl text-center font-medium text-cyan-300 mb-10 min-h-[100px]"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1.2, duration: 1 }}
+        transition={{ delay: 1.1, duration: 0.5 }}
       >
         <Typewriter
           options={{

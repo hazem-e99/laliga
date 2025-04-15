@@ -47,6 +47,18 @@
       "gender": "female",
       "address": "cairo",
       "acceptTerms": true
+    },
+    {
+      "id": "1869",
+      "firstName": "Hazem",
+      "lastName": "Essam",
+      "phone": "01094575914",
+      "email": "admin2025hazem@gmail.com",
+      "password": "112233",
+      "birthDate": "1999-01-02",
+      "gender": "male",
+      "address": "assuit",
+      "acceptTerms": true
     }
   ],
   "googleUsers": [

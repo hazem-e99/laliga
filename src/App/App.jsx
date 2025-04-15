@@ -34,7 +34,7 @@ function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowIntro(false);
-    }, 5000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -71,32 +71,37 @@ function App() {
           />
 
           <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
-                <Route path="register" element={<Register />} />
-                <Route path="login" element={<Login />} />
-                <Route path="/complete-google-profile" element={<CompleteGoogleProfile />} />
-                <Route element={<ProtectedRoute />}>
-                  <Route path="cart" element={<Cart />} />
-                  <Route path="/payment" element={<Payment />} />
-                  <Route path="wishlist" element={<Wishlist />} />
-                  <Route path="profile" element={<Profile />} />
-                  <Route path="product/:id" element={<ProductDetails />} />
-                </Route>
-              </Route>
+          <Routes>
+  <Route path="/" element={<Layout />}>
+    <Route index element={<Home />} />
+    <Route path="register" element={<Register />} />
+    <Route path="login" element={<Login />} />
+    <Route path="/complete-google-profile" element={<CompleteGoogleProfile />} />
 
-              <Route path="/admin" element={<AdminDashboard />}>
-                <Route index element={<Dashboard />} />
-                <Route path="team" element={<Team />} />
-                <Route path="contacts" element={<Contact />} />
-                <Route path="calendar" element={<Calendar />} />
-                <Route path="barchart" element={<BarChart />} />
-                <Route path="piechart" element={<PieChart />} />
-                <Route path="linechart" element={<LineChart />} />
-                <Route path="geography" element={<Geography />} />
-              </Route>
-            </Routes>
+    {/* متاحة لأي زائر */}
+    <Route path="cart" element={<Cart />} />
+    <Route path="wishlist" element={<Wishlist />} />
+    <Route path="product/:id" element={<ProductDetails />} />
+
+    {/* محمية */}
+    <Route element={<ProtectedRoute />}>
+      <Route path="/payment" element={<Payment />} />
+      <Route path="profile" element={<Profile />} />
+    </Route>
+  </Route>
+
+  {/* لوحة التحكم */}
+  <Route path="/admin" element={<AdminDashboard />}>
+    <Route index element={<Dashboard />} />
+    <Route path="team" element={<Team />} />
+    <Route path="contacts" element={<Contact />} />
+    <Route path="calendar" element={<Calendar />} />
+    <Route path="barchart" element={<BarChart />} />
+    <Route path="piechart" element={<PieChart />} />
+    <Route path="linechart" element={<LineChart />} />
+    <Route path="geography" element={<Geography />} />
+  </Route>
+</Routes>
           </BrowserRouter>
         </WishlistProvider>
       </CartProvider>

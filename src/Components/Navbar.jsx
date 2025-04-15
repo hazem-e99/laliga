@@ -34,8 +34,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import LanguageIcon from '@mui/icons-material/Language';
 import { useTranslation } from 'react-i18next';
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+
 const Navbar = () => {
   const { t, i18n } = useTranslation();
   const location = useLocation();
@@ -44,6 +43,7 @@ const Navbar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const isLoggedIn = localStorage.getItem('isLoggedIn');
   const user = JSON.parse(localStorage.getItem('user')) || {};
+  const isAdmin = user?.email?.startsWith('admin2025'); // ✅ الشرط هنا
   const [anchorEl, setAnchorEl] = useState(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const { cart } = useContext(CartContext);
@@ -105,109 +105,113 @@ const Navbar = () => {
           {t('nav.home')}
         </Button>
 
+        {isAdmin && (
+          <Button
+            component={Link}
+            to="/admin"
+            startIcon={<DashboardIcon />}
+            sx={{
+              color: location.pathname === '/admin' ? 'primary.main' : '#fff',
+              textTransform: 'none',
+              mx: 1,
+            }}
+          >
+            {t('nav.dashboard')}
+          </Button>
+        )}
+
         <Button
-          component={Link}
-          to="/admin"
-          startIcon={<DashboardIcon />}
+          onClick={toggleLanguage}
+          startIcon={<LanguageIcon />}
           sx={{
-            color: location.pathname === '/admin' ? 'primary.main' : '#fff',
+            color: '#fff',
             textTransform: 'none',
             mx: 1,
           }}
         >
-          {t('nav.dashboard')}
+          {isLanguageEnglish ? 'AR' : 'EN'}
         </Button>
       </Box>
 
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Button
+          component={Link}
+          to="/cart"
+          startIcon={
+            <Badge badgeContent={cartCount} color="error" showZero>
+              <ShoppingCartIcon />
+            </Badge>
+          }
+          sx={{
+            color: location.pathname === '/cart' ? 'primary.main' : '#fff',
+            textTransform: 'none',
+            mx: 1,
+          }}
+        >
+          {t('nav.cart')}
+        </Button>
+
+        <Button
+          component={Link}
+          to="/wishlist"
+          startIcon={
+            <Badge badgeContent={wishlistCount} color="error" showZero>
+              <FavoriteBorderIcon />
+            </Badge>
+          }
+          sx={{
+            color: location.pathname === '/wishlist' ? 'primary.main' : '#fff',
+            textTransform: 'none',
+            mx: 1,
+          }}
+        >
+          {t('nav.wishlist')}
+        </Button>
+
         {isLoggedIn ? (
-          <>
+          <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
             <Button
-              component={Link}
-              to="/cart"
-              startIcon={
-                <Badge badgeContent={cartCount} color="error" showZero>
-                  <ShoppingCartIcon />
-                </Badge>
-              }
+              onClick={handleMenuOpen}
               sx={{
-                color: location.pathname === '/cart' ? 'primary.main' : '#fff',
+                color: '#fff',
                 textTransform: 'none',
-                mx: 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
               }}
             >
-              {t('nav.cart')}
-            </Button>
-
-            <Button
-              component={Link}
-              to="/wishlist"
-              startIcon={
-                <Badge badgeContent={wishlistCount} color="error" showZero>
-                  <FavoriteBorderIcon />
-                </Badge>
-              }
-              sx={{
-                color: location.pathname === '/wishlist' ? 'primary.main' : '#fff',
-                textTransform: 'none',
-                mx: 1,
-              }}
-            >
-              {t('nav.wishlist')}
-            </Button>
-
-            <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
-              <Button
-                onClick={handleMenuOpen}
+              <Avatar
                 sx={{
-                  color: '#fff',
-                  textTransform: 'none',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 1,
+                  width: 32,
+                  height: 32,
+                  bgcolor: '#90caf9',
+                  color: '#1e1e2f',
+                  fontWeight: 'bold',
                 }}
               >
-                <Avatar
-                  sx={{
-                    width: 32,
-                    height: 32,
-                    bgcolor: '#90caf9',
-                    color: '#1e1e2f',
-                    fontWeight: 'bold',
-                  }}
-                >
-                  {user.firstName?.charAt(0)?.toUpperCase() || 'U'}
-                </Avatar>
-                <Typography variant="body1">{user.firstName || 'User'}</Typography>
-                <ExpandMoreIcon fontSize="small" />
-              </Button>
-              <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-                <MenuItem onClick={handleProfileClick}>
-                  <ListItemIcon>
-                    <PersonOutlineIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>{t('nav.profile')}</ListItemText>
-                </MenuItem>
-
-                <MenuItem onClick={toggleLanguage}>
-                  <ListItemIcon>
-                    <LanguageIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>{isLanguageEnglish ? 'AR' : 'EN'}</ListItemText>
-                </MenuItem>
-
-                <Divider />
-                <MenuItem onClick={handleLogout}>
-                  <ListItemIcon>
-                    <ExitToAppIcon fontSize="small" color="error" />
-                  </ListItemIcon>
-                  <ListItemText primaryTypographyProps={{ color: 'error' }}>
-                    {t('nav.logout')}
-                  </ListItemText>
-                </MenuItem>
-              </Menu>
-            </Box>
-          </>
+                {user.firstName?.charAt(0)?.toUpperCase() || 'U'}
+              </Avatar>
+              <Typography variant="body1">{user.firstName || 'User'}</Typography>
+              <ExpandMoreIcon fontSize="small" />
+            </Button>
+            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+              <MenuItem onClick={handleProfileClick}>
+                <ListItemIcon>
+                  <PersonOutlineIcon fontSize="small" />
+                </ListItemIcon>
+                <ListItemText>{t('nav.profile')}</ListItemText>
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={handleLogout}>
+                <ListItemIcon>
+                  <ExitToAppIcon fontSize="small" color="error" />
+                </ListItemIcon>
+                <ListItemText primaryTypographyProps={{ color: 'error' }}>
+                  {t('nav.logout')}
+                </ListItemText>
+              </MenuItem>
+            </Menu>
+          </Box>
         ) : (
           <Button
             component={Link}
@@ -257,30 +261,29 @@ const Navbar = () => {
             <ListItemText primary={t('nav.home')} />
           </ListItem>
 
-          <ListItem button component={Link} to="/admin" onClick={toggleDrawer(false)}>
+          {isAdmin && (
+            <ListItem button component={Link} to="/admin" onClick={toggleDrawer(false)}>
+              <ListItemIcon sx={{ color: '#fff' }}>
+                <DashboardIcon />
+              </ListItemIcon>
+              <ListItemText primary={t('nav.dashboard')} />
+            </ListItem>
+          )}
+
+          <ListItem button component={Link} to="/cart" onClick={toggleDrawer(false)}>
             <ListItemIcon sx={{ color: '#fff' }}>
-              <DashboardIcon />
+              <ShoppingCartIcon />
             </ListItemIcon>
-            <ListItemText primary={t('nav.dashboard')} />
+            <ListItemText primary={t('nav.cart')} />
           </ListItem>
 
-          {isLoggedIn && (
-            <>
-              <ListItem button component={Link} to="/cart" onClick={toggleDrawer(false)}>
-                <ListItemIcon sx={{ color: '#fff' }}>
-                  <ShoppingCartIcon />
-                </ListItemIcon>
-                <ListItemText primary={t('nav.cart')} />
-              </ListItem>
+          <ListItem button component={Link} to="/wishlist" onClick={toggleDrawer(false)}>
+            <ListItemIcon sx={{ color: '#fff' }}>
+              <FavoriteBorderIcon />
+            </ListItemIcon>
+            <ListItemText primary={t('nav.wishlist')} />
+          </ListItem>
 
-              <ListItem button component={Link} to="/wishlist" onClick={toggleDrawer(false)}>
-                <ListItemIcon sx={{ color: '#fff' }}>
-                  <FavoriteBorderIcon />
-                </ListItemIcon>
-                <ListItemText primary={t('nav.wishlist')} />
-              </ListItem>
-            </>
-          )}
           <ListItem button onClick={toggleLanguage}>
             <ListItemIcon sx={{ color: '#fff' }}>
               <LanguageIcon />
