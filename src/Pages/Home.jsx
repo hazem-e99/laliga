@@ -6,9 +6,11 @@ import {
   useTheme,
   useMediaQuery,
   Container,
+  Tooltip,
+  Typography,
+  Divider,
 } from '@mui/material';
 import TuneIcon from '@mui/icons-material/Tune';
-import {  Tooltip } from '@mui/material'
 import AppSlider from '../Components/AppSlider';
 import Filter from '../Components/ProductFilter';
 import BestSellerProduct from '../Components/BestSellerProduct';
@@ -54,41 +56,42 @@ const Home = () => {
 
   return (
     <>
-      {/* زر الفلتر */}
+      {/* Filter Button */}
       <Box
-  sx={{
-    position: 'fixed',
-    bottom: 20,
-    left: 20,
-    zIndex: 1300,
-  }}
->
-  <Tooltip title="Open Filters">
-    <IconButton
-      onClick={toggleFilter}
-      sx={{
-        backgroundColor: 'primary.main',
-        color: 'white',
-        '&:hover': {
-          backgroundColor: 'primary.dark',
-        },
-        width: 40,
-        height: 40,
-        borderRadius: '50%',
-        boxShadow: 3,
-      }}
-    >
-      <TuneIcon />
-    </IconButton>
-  </Tooltip>
-</Box>
+        sx={{
+          position: 'fixed',
+          bottom: 20,
+          left: 20,
+          zIndex: 1300,
+        }}
+      >
+        <Tooltip title="Open Filters">
+          <IconButton
+            onClick={toggleFilter}
+            sx={{
+              backgroundColor: 'primary.main',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'primary.dark',
+              },
+              width: 50,
+              height: 50,
+              borderRadius: '50%',
+              boxShadow: 4,
+            }}
+          >
+            <TuneIcon />
+          </IconButton>
+        </Tooltip>
+      </Box>
 
-      {/* Drawer بتاع الفلتر */}
+      {/* Filter Drawer */}
       <Drawer
         anchor="left"
         open={isFilterOpen}
         onClose={toggleFilter}
         variant={isMobile ? 'temporary' : 'persistent'}
+        sx={{ '& .MuiDrawer-paper': { width: 280 } }}
       >
         <Filter
           onCategoryClick={scrollToCategory}
@@ -96,29 +99,49 @@ const Home = () => {
         />
       </Drawer>
 
-      {/* الاسلايدر في مكانه بره الكونتينر */}
-      <Box mb={4}>
+      {/* Slider Section */}
+      <Box mb={6}>
         <AppSlider />
       </Box>
 
-      {/* المحتوى الرئيسي */}
+      {/* Main Content */}
       <Box
         sx={{
           ml: isMobile ? 0 : isFilterOpen ? 35 : 0,
           transition: 'margin 0.3s ease',
-          pt: 2,
+          pt: 4,
+          backgroundColor: '#fafafa',
         }}
       >
-        <Container maxWidth="lg">
-          <Box mb={4}>
+        <Box
+          sx={{
+            maxWidth: '1280px',
+            margin: '0 auto',
+            px: { xs: 2, sm: 3 },
+          }}
+        >
+          <Box mb={6}>
+            <Typography variant="h5" gutterBottom fontWeight="bold">
+              Best Sellers
+            </Typography>
             <BestSellerProduct />
           </Box>
 
-          <Box mb={4}>
+          <Divider sx={{ mb: 4 }} />
+
+          <Box mb={6}>
+            <Typography variant="h5" gutterBottom fontWeight="bold">
+              Trending Now
+            </Typography>
             <TrendingNow />
           </Box>
 
-          <Box mb={4} ref={refs['Sneakers']}>
+          <Divider sx={{ mb: 4 }} />
+
+          <Box mb={6} ref={refs['Sneakers']}>
+            <Typography variant="h5" gutterBottom fontWeight="bold">
+              Sneakers
+            </Typography>
             <Sneakers
               priceFilter={priceFilter}
               ratingFilter={ratingFilter}
@@ -126,7 +149,10 @@ const Home = () => {
             />
           </Box>
 
-          <Box mb={4} ref={refs['Shorts']}>
+          <Box mb={6} ref={refs['Shorts']}>
+            <Typography variant="h5" gutterBottom fontWeight="bold">
+              Shorts
+            </Typography>
             <Shorts
               priceFilter={priceFilter}
               ratingFilter={ratingFilter}
@@ -134,7 +160,10 @@ const Home = () => {
             />
           </Box>
 
-          <Box mb={4} ref={refs['Tshirts']}>
+          <Box mb={6} ref={refs['Tshirts']}>
+            <Typography variant="h5" gutterBottom fontWeight="bold">
+              T-Shirts
+            </Typography>
             <Tshirts
               priceFilter={priceFilter}
               ratingFilter={ratingFilter}
@@ -142,7 +171,10 @@ const Home = () => {
             />
           </Box>
 
-          <Box mb={4} ref={refs['Pants']}>
+          <Box mb={6} ref={refs['Pants']}>
+            <Typography variant="h5" gutterBottom fontWeight="bold">
+              Pants
+            </Typography>
             <Pants
               priceFilter={priceFilter}
               ratingFilter={ratingFilter}
@@ -150,17 +182,26 @@ const Home = () => {
             />
           </Box>
 
-          <Box mb={4} ref={refs['Accessories']}>
+          <Box mb={6} ref={refs['Accessories']}>
+            <Typography variant="h5" gutterBottom fontWeight="bold">
+              Accessories
+            </Typography>
             <Accessories
               priceFilter={priceFilter}
               ratingFilter={ratingFilter}
               searchTerm={searchTerm}
             />
           </Box>
-          <Box mb={4}>
+
+          <Divider sx={{ my: 6 }} />
+
+          <Box mb={6}>
+            <Typography variant="h5" gutterBottom fontWeight="bold">
+              What Our Customers Say
+            </Typography>
             <CustomerReviews />
           </Box>
-        </Container>
+        </Box>
       </Box>
     </>
   );

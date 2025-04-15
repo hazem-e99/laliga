@@ -5,24 +5,22 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import '../Styles/swiperCustom.css'; // 💡 ملف CSS مخصص للتنسيقات
 import { CartContext } from '../Contexts/cartContext';
 import { WishlistContext } from '../Contexts/wishlistContext';
-import { FaHeart, FaShoppingCart, FaStar } from 'react-icons/fa';
+import { FaHeart, FaShoppingCart, FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 
 // ====== ProductCard Component ======
 const ProductCard = ({ product }) => {
-
   const { t, i18n } = useTranslation();
-  const navigate = useNavigate(); 
-  const { addProductToCart } = useContext(CartContext); 
-  const { addToWishlist } = useContext(WishlistContext); 
+  const navigate = useNavigate();
+  const { addProductToCart } = useContext(CartContext);
+  const { addToWishlist } = useContext(WishlistContext);
 
   const handleDetailsClick = () => {
     navigate(`/product/${product.id}`);
   };
-
-  console.log('product in card:', product);
 
   return (
     <div className="w-full max-w-[220px]">
@@ -47,12 +45,8 @@ const ProductCard = ({ product }) => {
             <button className="btn btn-sm btn-outline btn-error" onClick={() => addToWishlist(product)}>
               <FaHeart />
             </button>
-            <button 
-              className="btn btn-sm btn-outline btn-info"
-              onClick={handleDetailsClick}
-            >
-             {t('product.details')}
-
+            <button className="btn btn-sm btn-outline btn-info" onClick={handleDetailsClick}>
+              {t('product.details')}
             </button>
           </div>
         </div>
@@ -64,36 +58,46 @@ const ProductCard = ({ product }) => {
 // ====== CategorySlider Component ======
 const CategorySlider = ({ title, products }) => {
   return (
-    <div>
-
-    
-    <section className="mb-16">
+    <section className="mb-16 relative">
       <h2 className="text-3xl font-bold text-center text-info bg-black mb-6 border-b-2 border-primary pb-2 shadow-sm capitalize">
         {title}
       </h2>
 
-      <Swiper
-        className="p-5 relative overflow-visible custom-swiper-nav"
-        modules={[Navigation, Pagination, Autoplay]}
-        spaceBetween={2}
-        slidesPerView={1}
-        breakpoints={{
-          640: { slidesPerView: 2 },
-          768: { slidesPerView: 3 },
-          1024: { slidesPerView: 4 },
-        }}
-        navigation
-        pagination={{ clickable: true }}
-        autoplay={{ delay: 3000 }}
-      >
-        {products.map((product) => (
-          <SwiperSlide key={product.id}>
-            <ProductCard product={product} />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {/* Arrows Right and Left beside the slider */}
+      <div className="relative">
+        <button className="custom-prev absolute top-1/2 -left-6 transform -translate-y-1/2 z-10 bg-primary text-white p-2 rounded-full shadow hover:bg-primary/80 transition">
+          <FaChevronLeft />
+        </button>
+
+        <Swiper
+          className="p-5 relative overflow-visible"
+          modules={[Navigation, Pagination, Autoplay]}
+          spaceBetween={20}
+          slidesPerView={1}
+          breakpoints={{
+            640: { slidesPerView: 2 },
+            768: { slidesPerView: 3 },
+            1024: { slidesPerView: 4 },
+          }}
+          navigation={{
+            nextEl: '.custom-next',
+            prevEl: '.custom-prev',
+          }}
+          pagination={{ clickable: true }}
+          autoplay={{ delay: 3000 }}
+        >
+          {products.map((product) => (
+            <SwiperSlide key={product.id}>
+              <ProductCard product={product} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+
+        <button className="custom-next absolute top-1/2 -right-6 transform -translate-y-1/2 z-10 bg-primary text-white p-2 rounded-full shadow hover:bg-primary/80 transition">
+          <FaChevronRight />
+        </button>
+      </div>
     </section>
-    </div>
   );
 };
 
