@@ -143,9 +143,11 @@ const Home = () => {
               searchTerm={searchTerm}
             />
           </Box>
+          <Box mb={4}>
+            <CustomerReviews />
+          </Box>
         </Container>
       </Box>
-      <CustomerReviews/>
     </>
   );
 };
