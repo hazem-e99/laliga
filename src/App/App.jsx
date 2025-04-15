@@ -86,7 +86,6 @@ function App() {
                 </Route>
               </Route>
 
-              {/* Admin Routes - بدون حماية */}
               <Route path="/admin" element={<AdminDashboard />}>
                 <Route index element={<Dashboard />} />
                 <Route path="team" element={<Team />} />

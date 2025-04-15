@@ -1,3 +1,5 @@
+// استبدل محتوى الملف AppSlider.js بـ:
+
 import React, { useState, useEffect } from 'react';
 import { Box, IconButton, Typography, useTheme } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -6,7 +8,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 const AppSlider = () => {
   const theme = useTheme();
   const [currentSlide, setCurrentSlide] = useState(0);
-  
+
   const slides = [
     {
       image: './img/slider1.jpg',
@@ -33,7 +35,7 @@ const AppSlider = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       handleNext();
-    }, 5000);
+    }, 6000);
     return () => clearInterval(interval);
   }, [currentSlide]);
 
@@ -49,13 +51,12 @@ const AppSlider = () => {
     <Box sx={{
       position: 'relative',
       width: '100%',
-      height: { xs: '50vh', md: '80vh' },
+      height: { xs: '45vh', md: '75vh' },
       overflow: 'hidden',
-      borderRadius: 2,
-      boxShadow: 3,
-      backgroundColor: '#f5f5f5', // خلفية احتياطية إذا كانت الصورة غير موجودة
+      borderRadius: 3,
+      boxShadow: 4,
+      backgroundColor: '#f5f5f5',
     }}>
-      {/* Slides container */}
       <Box sx={{
         width: '100%',
         height: '100%',
@@ -70,41 +71,29 @@ const AppSlider = () => {
               minWidth: '100%',
               height: '100%',
               position: 'relative',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              overflow: 'hidden'
             }}
           >
-            {/* Image container with proper scaling */}
             <Box
               component="img"
               src={slide.image}
               alt={`Slide ${index + 1}`}
               sx={{
-                width: 'auto',
-                height: 'auto',
-                maxWidth: '100%',
-                maxHeight: '100%',
-                objectFit: 'contain', // تغيير من 'cover' إلى 'contain'
-                position: 'absolute',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%, -50%)'
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
               }}
             />
-            
-            {/* Caption overlay */}
+
             <Box sx={{
               position: 'absolute',
               bottom: 0,
               left: 0,
               right: 0,
-              bgcolor: 'rgba(0,0,0,0.7)',
+              bgcolor: 'rgba(0,0,0,0.5)',
               color: 'white',
               p: 3,
               textAlign: 'center',
-              backdropFilter: 'blur(2px)',
+              backdropFilter: 'blur(3px)',
               zIndex: 1
             }}>
               <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 1 }}>
@@ -118,72 +107,42 @@ const AppSlider = () => {
         ))}
       </Box>
 
-      {/* Navigation buttons */}
+      {/* arrows */}
       <IconButton
         onClick={handlePrev}
         sx={{
           position: 'absolute',
-          left: 20,
+          left: 10,
           top: '50%',
           transform: 'translateY(-50%)',
-          bgcolor: 'rgba(0,0,0,0.5)',
+          bgcolor: 'rgba(0,0,0,0.6)',
           color: 'white',
           '&:hover': {
-            bgcolor: 'rgba(0,0,0,0.8)'
+            bgcolor: 'rgba(0,0,0,0.9)'
           },
           zIndex: 2
         }}
       >
-        <ArrowBackIosIcon fontSize="large" />
+        <ArrowBackIosIcon fontSize="medium" />
       </IconButton>
-      
+
       <IconButton
         onClick={handleNext}
         sx={{
           position: 'absolute',
-          right: 20,
+          right: 10,
           top: '50%',
           transform: 'translateY(-50%)',
-          bgcolor: 'rgba(0,0,0,0.5)',
+          bgcolor: 'rgba(0,0,0,0.6)',
           color: 'white',
           '&:hover': {
-            bgcolor: 'rgba(0,0,0,0.8)'
+            bgcolor: 'rgba(0,0,0,0.9)'
           },
           zIndex: 2
         }}
       >
-        <ArrowForwardIosIcon fontSize="large" />
+        <ArrowForwardIosIcon fontSize="medium" />
       </IconButton>
-
-      {/* Slide indicators */}
-      <Box sx={{
-        position: 'absolute',
-        bottom: 5,
-        left: 0,
-        right: 0,
-        display: 'flex',
-        justifyContent: 'center',
-        gap: 1.5,
-        zIndex: 2
-      }}>
-        {slides.map((_, index) => (
-          <Box
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            sx={{
-              width: 12,
-              height: 12,
-              borderRadius: '50%',
-              bgcolor: currentSlide === index ? theme.palette.primary.main : 'rgba(255,255,255,0.5)',
-              cursor: 'pointer',
-              transition: 'all 0.3s',
-              '&:hover': {
-                transform: 'scale(1.2)'
-              }
-            }}
-          />
-        ))}
-      </Box>
     </Box>
   );
 };

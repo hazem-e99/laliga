@@ -1,0 +1,38 @@
+/* ===== Custom Swiper Styles ===== */
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 9999px;
+  transition: background-color 0.3s ease;
+  top: 40%;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: #0ea5e9; /* اللون الأساسي */
+}
+
+.swiper-pagination-bullet {
+  background-color: #ccc;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin: 0 5px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #0ea5e9;
+  transform: scale(1.3);
+}
+
+.swiper-pagination {
+  bottom: 5px !important;
+}
+
+.swiper {
+  padding-bottom: 40px;
+}

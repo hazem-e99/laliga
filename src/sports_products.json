@@ -311,7 +311,7 @@
         "ar": "زجاجة ماء متينة للحفاظ على رطوبتك أثناء التمرين"
       },
       "price": 12.50,
-      "image": "https://m.media-amazon.com/images/I/61YuSHElgKL._AC_UL480_FMwebp_QL65_.jpg",
+      "image": "https://m.media-amazon.com/images/I/61NuEY-o1aL._AC_UL480_FMwebp_QL65_.jpg",
       "rating": {
         "rate": 4.3,
         "count": 130
@@ -357,7 +357,7 @@
         "ar": "حقيبة جيم واسعة مع جيوب متعددة"
       },
       "price": 39.99,
-      "image": "https://m.media-amazon.com/images/I/61NxZvxNseL._AC_UL480_FMwebp_QL65_.jpg",
+      "image": "https://m.media-amazon.com/images/I/51Kyl2c8OyL._AC_UL480_FMwebp_QL65_.jpg",
       "rating": {
         "rate": 4.4,
         "count": 180
@@ -898,29 +898,7 @@
       "isBestSeller": false,
       "isTrending": false
     },
-    {
-      "id": 40,
-      "title": {
-        "en": "Resistance Bands",
-        "ar": "أشرطة مقاومة"
-      },
-      "description": {
-        "en": "Set of resistance bands for strength training",
-        "ar": "مجموعة أشرطة مقاومة لتدريبات القوة"
-      },
-      "price": 16.99,
-      "image": "https://m.media-amazon.com/images/I/51PHrriNxUL._AC_UL480_FMwebp_QL65_.jpg",
-      "rating": {
-        "rate": 4.0,
-        "count": 220
-      },
-      "category": {
-        "en": "accessories",
-        "ar": "إكسسوارات"
-      },
-      "isBestSeller": false,
-      "isTrending": false
-    },
+    
     {
       "id": 41,
       "title": {
@@ -1507,7 +1485,7 @@
         "ar": "معدل لياقة بدنية ذكي لمتابعة تقدمك"
       },
       "price": 99.99,
-      "image": "https://m.media-amazon.com/images/I/71ZL+Rm3DgL._AC_UL480_FMwebp_QL65_.jpg",
+      "image": "https://m.media-amazon.com/images/I/61NuEY-o1aL._AC_UL480_FMwebp_QL65_.jpg",
       "rating": {
         "rate": 4.7,
         "count": 250
@@ -1530,7 +1508,7 @@
         "ar": "نظارات شمسية واقية للأنشطة الخارجية"
       },
       "price": 45.99,
-      "image": "https://m.media-amazon.com/images/I/81cQUB+j2QL._AC_UL480_FMwebp_QL65_.jpg",
+      "image": "https://m.media-amazon.com/images/I/512L120oYeL._AC_UL480_FMwebp_QL65_.jpg",
       "rating": {
         "rate": 4.6,
         "count": 180
@@ -1553,7 +1531,7 @@
         "ar": "ساعة رياضية ذكية مع ميزات تتبع اللياقة البدنية"
       },
       "price": 129.99,
-      "image": "https://m.media-amazon.com/images/I/61m6qVjJ9tL._AC_UL480_FMwebp_QL65_.jpg",
+      "image": "https://m.media-amazon.com/images/I/61NUGUspvJL._AC_UL480_FMwebp_QL65_.jpg",
       "rating": {
         "rate": 4.8,
         "count": 220
@@ -1576,7 +1554,7 @@
         "ar": "حقيبة جيم واسعة لجميع معدات التمرين الخاصة بك"
       },
       "price": 39.99,
-      "image": "https://m.media-amazon.com/images/I/81kksw-IZjL._AC_UL480_FMwebp_QL65_.jpg",
+      "image": "https://m.media-amazon.com/images/I/51Kyl2c8OyL._AC_UL480_FMwebp_QL65_.jpg",
       "rating": {
         "rate": 4.4,
         "count": 150
@@ -1599,7 +1577,7 @@
         "ar": "أشرطة مقاومة متينة لتدريب القوة"
       },
       "price": 19.99,
-      "image": "https://m.media-amazon.com/images/I/91c9JlXqG8L._AC_UL480_FMwebp_QL65_.jpg",
+      "image": "https://m.media-amazon.com/images/I/61NuEY-o1aL._AC_UL480_FMwebp_QL65_.jpg",
       "rating": {
         "rate": 4.7,
         "count": 200
