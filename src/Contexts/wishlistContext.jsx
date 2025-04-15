@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { useTranslation } from 'react-i18next';
+
 export const WishlistContext = createContext();
 
 const getInitialWishlist = () => {
@@ -11,6 +12,7 @@ const getInitialWishlist = () => {
 export const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState(getInitialWishlist());
   const { t } = useTranslation();
+
   useEffect(() => {
     localStorage.setItem("wishlist", JSON.stringify(wishlist));
   }, [wishlist]);
@@ -29,7 +31,6 @@ export const WishlistProvider = ({ children }) => {
   };
 
   const addToWishlist = (product) => {
-   
     if (localStorage.getItem("isLoggedIn") !== "true") {
       window.location.href = "/login"; 
       return;
