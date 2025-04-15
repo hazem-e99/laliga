@@ -120,10 +120,19 @@ const Home = () => {
             px: { xs: 2, sm: 3 },
           }}
         >
+          <Box mb={6}>
+            <Typography variant="h5" gutterBottom fontWeight="bold">
+            </Typography>
+            <BestSellerProduct />
+          </Box>
 
           <Divider sx={{ mb: 4 }} />
 
-
+          <Box mb={6}>
+            <Typography variant="h5" gutterBottom fontWeight="bold">
+            </Typography>
+            <TrendingNow />
+          </Box>
 
           <Divider sx={{ mb: 4 }} />
 
@@ -184,6 +193,7 @@ const Home = () => {
 
           <Box mb={6}>
             <Typography variant="h5" gutterBottom fontWeight="bold">
+              What Our Customers Say
             </Typography>
             <CustomerReviews />
           </Box>
