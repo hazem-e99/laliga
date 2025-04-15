@@ -120,27 +120,15 @@ const Home = () => {
             px: { xs: 2, sm: 3 },
           }}
         >
-          <Box mb={6}>
-            <Typography variant="h5" gutterBottom fontWeight="bold">
-              Best Sellers
-            </Typography>
-            <BestSellerProduct />
-          </Box>
 
           <Divider sx={{ mb: 4 }} />
 
-          <Box mb={6}>
-            <Typography variant="h5" gutterBottom fontWeight="bold">
-              Trending Now
-            </Typography>
-            <TrendingNow />
-          </Box>
+
 
           <Divider sx={{ mb: 4 }} />
 
           <Box mb={6} ref={refs['Sneakers']}>
             <Typography variant="h5" gutterBottom fontWeight="bold">
-              Sneakers
             </Typography>
             <Sneakers
               priceFilter={priceFilter}
@@ -151,7 +139,7 @@ const Home = () => {
 
           <Box mb={6} ref={refs['Shorts']}>
             <Typography variant="h5" gutterBottom fontWeight="bold">
-              Shorts
+              
             </Typography>
             <Shorts
               priceFilter={priceFilter}
@@ -162,7 +150,6 @@ const Home = () => {
 
           <Box mb={6} ref={refs['Tshirts']}>
             <Typography variant="h5" gutterBottom fontWeight="bold">
-              T-Shirts
             </Typography>
             <Tshirts
               priceFilter={priceFilter}
@@ -173,7 +160,7 @@ const Home = () => {
 
           <Box mb={6} ref={refs['Pants']}>
             <Typography variant="h5" gutterBottom fontWeight="bold">
-              Pants
+              
             </Typography>
             <Pants
               priceFilter={priceFilter}
@@ -197,7 +184,6 @@ const Home = () => {
 
           <Box mb={6}>
             <Typography variant="h5" gutterBottom fontWeight="bold">
-              What Our Customers Say
             </Typography>
             <CustomerReviews />
           </Box>
