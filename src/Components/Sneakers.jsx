@@ -1,12 +1,18 @@
 import React from 'react';
 import productsData from '../sports_products.json';
 import CategorySlider from './CategorySlider';
+import { useTranslation } from 'react-i18next';
 
 const Sneakers = ({ priceFilter, ratingFilter, searchTerm }) => {
+  const { t, i18n } = useTranslation();
+  const currentLang = i18n.language;
+
+  // فلترة حسب الفئة
   const allSneakers = productsData.products.filter(
-    (product) => product.category.toLowerCase() === 'sneakers'
+    (product) => product.category?.en?.toLowerCase() === 'sneakers'
   );
 
+  // فلترة حسب السعر
   const filteredByPrice = priceFilter
     ? allSneakers.filter((product) => {
         const price = product.price;
@@ -18,23 +24,26 @@ const Sneakers = ({ priceFilter, ratingFilter, searchTerm }) => {
       })
     : allSneakers;
 
+  // فلترة حسب التقييم
   const filteredByRating = ratingFilter
     ? filteredByPrice.filter((product) => product.rating.rate >= ratingFilter)
     : filteredByPrice;
 
+  // فلترة حسب البحث
   const filteredBySearchTerm = searchTerm
-    ? filteredByRating.filter((product) =>
-        product.title.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+    ? filteredByRating.filter((product) => {
+        const title = product.title?.[currentLang]?.toLowerCase() || '';
+        return title.includes(searchTerm.toLowerCase());
+      })
     : filteredByRating;
 
   return (
     <div className="sneakers-section">
-      <CategorySlider title="Sneakers" products={filteredBySearchTerm} />
+      <CategorySlider title={t('sneakers')} products={filteredBySearchTerm} />
 
       {filteredBySearchTerm.length === 0 && (
         <div className="no-products-message">
-          No sneakers found matching your filters.
+          {t('no_sneakers_found')}
         </div>
       )}
     </div>

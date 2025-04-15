@@ -4,13 +4,13 @@ import { ShoppingCart, AttachMoney, Delete, MonetizationOn } from '@mui/icons-ma
 import CartItem from '../Components/CartItem';
 import { useContext } from 'react';
 import { CartContext } from '../Contexts/cartContext';
-
+import { useTranslation } from 'react-i18next';
 const Cart = () => {
   // جلب cart و clearCart من الـ Context
   const { cart, clearCart } = useContext(CartContext);
 
   const totalPrice = cart.reduce((acc, item) => acc + item.price * item.count, 0);
-
+  const { t } = useTranslation();
   return (
     <Container sx={{ mt: 4 }}>
       <Stack direction="row" spacing={2} alignItems="center" mb={3}>
@@ -32,7 +32,7 @@ const Cart = () => {
             },
           }}
         >
-          Your Shopping Cart
+           {t('your_shopping_cart')}
         </Typography>
       </Stack>
 
@@ -56,7 +56,7 @@ const Cart = () => {
         >
           <MonetizationOn color="primary" />
           <Typography variant="body1" fontWeight="600">
-            Your Total Price Cart:
+          {t('your_total_price_cart')}
           </Typography>
           <Typography variant="body1" color="primary" fontWeight="bold">
             EGP {totalPrice.toFixed(2)}
@@ -70,7 +70,8 @@ const Cart = () => {
           fullWidth={{ xs: true, md: false }}
           onClick={clearCart} // استدعاء دالة clearCart عند الضغط
         >
-          Delete Cart
+          {t('delete_cart')}
+
         </Button>
       </Stack>
 
@@ -82,7 +83,7 @@ const Cart = () => {
           component={Link}
           to="/payment"
         >
-          Next Step (Payment)
+         {t('next_step_payment')}
         </Button>
       </Box>
     </Container>

@@ -15,11 +15,11 @@ import {
   useMediaQuery,
   TextField
 } from '@mui/material';
-
+import { useTranslation } from 'react-i18next';
 const ProductFilter = ({ onCategoryClick, onFilterChange }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
+  const { t } = useTranslation();
   const categories = [
     { id: 'Sneakers', name: 'Sneakers' },
     { id: 'Shorts', name: 'Shorts' },
@@ -71,14 +71,14 @@ const ProductFilter = ({ onCategoryClick, onFilterChange }) => {
       }}
     >
       <Typography variant="h6" gutterBottom color="primary">
-        Filter Products
+      {t('filter_products')}
       </Typography>
 
       <Divider sx={{ mb: 2 }} />
 
       <Box mb={3}>
         <Typography variant="subtitle1" gutterBottom>
-          Categories
+        {t('categories')}
         </Typography>
         <List dense>
           {categories.map((category) => (
@@ -106,7 +106,7 @@ const ProductFilter = ({ onCategoryClick, onFilterChange }) => {
 
       <Box mb={3}>
         <Typography variant="subtitle1" gutterBottom>
-          Search by Product Name
+        {t('search_by_product_name')}
         </Typography>
         <TextField
           fullWidth
@@ -120,7 +120,7 @@ const ProductFilter = ({ onCategoryClick, onFilterChange }) => {
 
       <Box mb={3}>
         <Typography variant="subtitle1" gutterBottom>
-          Price Range
+        {t('price_range')}
         </Typography>
         <FormControl fullWidth variant="outlined" size="small">
           <InputLabel>Price</InputLabel>
@@ -141,18 +141,18 @@ const ProductFilter = ({ onCategoryClick, onFilterChange }) => {
 
       <Box mb={3}>
         <Typography variant="subtitle1" gutterBottom>
-          Rating
+        {t('rating')}
         </Typography>
         <FormControl fullWidth variant="outlined" size="small">
-          <InputLabel>Rating</InputLabel>
+          <InputLabel>  {t('rating')}</InputLabel>
           <Select
             value={selectedRating}
             onChange={handleRatingChange}
             label="Rating"
           >
-            <MenuItem value="">All Ratings</MenuItem>
-            <MenuItem value="4">4 & above</MenuItem>
-            <MenuItem value="4.5">4.5 & above</MenuItem>
+            <MenuItem value="">{t('all_ratings')}</MenuItem>
+            <MenuItem value="4">{t('4_and_above')}</MenuItem>
+            <MenuItem value="4.5">{t('4_5_and_above')}</MenuItem>
           </Select>
         </FormControl>
       </Box>

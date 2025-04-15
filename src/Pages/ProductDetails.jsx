@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ProductDetailsCard from "../Components/ProductDetailsCard";
-
+import { useTranslation } from 'react-i18next';
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -27,7 +27,7 @@ const ProductPage = () => {
   const [reviews, setReviews] = useState([]);
   const [newReview, setNewReview] = useState('');
   const [error, setError] = useState('');
-
+  const { t } = useTranslation(); 
   useEffect(() => {
     window.scrollTo(0, 0);
     
@@ -74,7 +74,7 @@ const ProductPage = () => {
 
     const hasExistingReview = reviews.some(review => review.name === userName);
     if (hasExistingReview) {
-      setError('You have already submitted your feedback for this product');
+      setError(t("no_reviews"));
       return;
     }
 
@@ -93,13 +93,13 @@ const ProductPage = () => {
 
   if (loading) {
     return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
-      <Typography>Loading...</Typography>
+      <Typography>{t("loading")}</Typography>
     </Box>;
   }
 
   if (!product) {
     return <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '60vh' }}>
-      <Typography>Product not found</Typography>
+      <Typography> {t("product_not_found")}</Typography>
     </Box>;
   }
 
@@ -142,7 +142,7 @@ const ProductPage = () => {
           fontSize: '1.5rem',
           textAlign: 'left'
         }}>
-          CUSTOMER FEEDBACK
+          {t("customer_feedback")}
         </Typography>
 
         {error && (
@@ -200,7 +200,7 @@ const ProductPage = () => {
           width: '100%'
         }}>
           <Typography variant="h6" sx={{ mb: 2, fontWeight: 'bold' }}>
-            SHARE YOUR THOUGHTS
+          {t("share_your_thoughts")}
           </Typography>
           <Box component="form" onSubmit={handleReviewSubmit}>
             <TextField
@@ -220,7 +220,7 @@ const ProductPage = () => {
               disabled={!newReview.trim()}
               sx={{ width: '100%' }}
             >
-              SUBMIT REVIEW
+            {t("submit_review")}
             </Button>
           </Box>
         </Paper>
@@ -231,7 +231,7 @@ const ProductPage = () => {
             py: 4,
             fontStyle: 'italic'
           }}>
-            No reviews yet. Be the first to share your experience!
+             {t("no_reviews")}
           </Typography>
         )}
       </Box>

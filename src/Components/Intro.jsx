@@ -2,8 +2,9 @@ import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import Typewriter from "typewriter-effect";
 import runningAnimation from "../assets/lottie/running.json";
-
+import { useTranslation } from "react-i18next";
 const Intro = () => {
+  const { t } = useTranslation();
   return (
     <motion.div
       className="h-screen w-full flex flex-col items-center justify-center bg-gradient-to-br from-[#0f0c29] via-[#302b63] to-[#24243e] text-white px-4"
@@ -29,7 +30,7 @@ const Intro = () => {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1, ease: "easeOut" }}
       >
-        💥 Welcome to <span className="text-cyan-400">The Ultimate Sportswear Experience</span> 💥
+        💥  {t("welcome_title")}<span className="text-cyan-400">{t("ultimate_sportswear")}</span> 💥
       </motion.h1>
 
       {/* Typewriter Text */}
@@ -42,11 +43,11 @@ const Intro = () => {
         <Typewriter
           options={{
             strings: [
-              "Train harder 🏋️",
-              "Run faster 🏃‍♂️",
-              "Look sharper 😎",
-              "Your style, your game, your world 🌍",
-              "Let’s change the rules together 🚀",
+              t("train_harder"),
+              t("run_faster"),
+              t("look_sharper"),
+              t("your_style"),
+              t("change_rules")
             ],
             autoStart: true,
             loop: true,

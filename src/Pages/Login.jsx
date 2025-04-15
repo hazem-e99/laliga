@@ -22,13 +22,14 @@ import {
   VisibilityOff,
   EmailOutlined
 } from '@mui/icons-material';
-
+import { toast } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   useEffect(() => {
     if (localStorage.getItem('isLoggedIn') === 'true') {
       navigate('/'); 
@@ -46,14 +47,15 @@ const Login = () => {
         localStorage.setItem('isLoggedIn', 'true'); 
         localStorage.setItem('user', JSON.stringify(user));
         console.log('User logged in, localStorage isLoggedIn:', localStorage.getItem('isLoggedIn'));
-        alert('Login successful!');
+        toast.success(t('login_success'));
         navigate('/'); 
       } else {
-        alert('Invalid email or password');
+        toast.error(t('login_invalid'));
       }
     } catch (error) {
       console.error('Login error:', error);
-      alert('Something went wrong');
+      toast.error(t('login_error'));
+
     }
   };
 
@@ -77,7 +79,8 @@ const Login = () => {
         }
       } catch (err) {
         console.error('Google Login Error:', err);
-        alert('Something went wrong with Google login');
+        toast.error(t('google_login_failed'));
+
       }
     } else {
       console.log('Google Login Failed');
@@ -122,13 +125,13 @@ const Login = () => {
               mb: 3
             }}
           >
-            Welcome Back ..
+             {t('welcome_back')}
           </Typography>
 
           <form onSubmit={handleLogin}>
             <Stack spacing={3} sx={{ mt: 2 }}>
               <TextField
-                label="Email"
+                label={t('email')}
                 type="email"
                 fullWidth
                 required
@@ -155,7 +158,7 @@ const Login = () => {
               />
               
               <TextField
-                label="Password"
+                 label={t('password')}
                 type={showPassword ? 'text' : 'password'}
                 fullWidth
                 required
@@ -209,13 +212,13 @@ const Login = () => {
                   }
                 }}
               >
-                Sign In
+               {t('sign_in')}
               </Button>
             </Stack>
           </form>
 
           <Box sx={{ mt: 3, mb: 2 }}>
-            <Divider sx={{ color: '#a0aec0' }}>OR</Divider>
+            <Divider sx={{ color: '#a0aec0' }}>{t('or')}</Divider>
           </Box>
 
           <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
@@ -246,7 +249,7 @@ const Login = () => {
                 }
               }}
             >
-              Don't have an account? Register
+            {t('no_account_register')}
             </Link>
 
           </Box>

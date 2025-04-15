@@ -8,9 +8,12 @@ import 'swiper/css/pagination';
 import { CartContext } from '../Contexts/cartContext';
 import { WishlistContext } from '../Contexts/wishlistContext';
 import { FaHeart, FaShoppingCart, FaStar } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 
 // ====== ProductCard Component ======
 const ProductCard = ({ product }) => {
+
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate(); 
   const { addProductToCart } = useContext(CartContext); 
   const { addToWishlist } = useContext(WishlistContext); 
@@ -28,8 +31,8 @@ const ProductCard = ({ product }) => {
           <img src={product.image} alt={product.title} className="h-40 object-contain" />
         </figure>
         <div className="card-body">
-          <h2 className="card-title text-base line-clamp-2">{product.title}</h2>
-          <p className="text-sm text-gray-500 line-clamp-2">{product.description}</p>
+          <h2 className="card-title text-base line-clamp-2">{product.title[i18n.language]}</h2>
+          <p className="text-sm text-gray-500 line-clamp-2">{product.description[i18n.language]}</p>
           <div className="flex items-center justify-between mt-2">
             <span className="text-lg font-bold text-primary">${product.price.toFixed(2)}</span>
             <div className="flex items-center gap-1 text-yellow-500">
@@ -48,7 +51,8 @@ const ProductCard = ({ product }) => {
               className="btn btn-sm btn-outline btn-info"
               onClick={handleDetailsClick}
             >
-              Details
+             {t('product.details')}
+
             </button>
           </div>
         </div>
