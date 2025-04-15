@@ -24,7 +24,7 @@ const reviews = [
 
 const CustomerReviews = () => {
   return (
-    <Box sx={{ padding: 4 }}>
+    <Box sx={{ padding: 2 }}>
       {/* Title */}
       <h2 class="text-3xl font-bold text-center text-info bg-black mb-6 border-b-2 border-primary pb-2 shadow-sm capitalize">
         CustomerReviews</h2>
