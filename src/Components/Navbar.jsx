@@ -37,7 +37,6 @@ import { useTranslation } from 'react-i18next';
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
-
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -76,142 +75,154 @@ const Navbar = () => {
     setDrawerOpen(open);
   };
 
+  const renderLogo = () => (
+    <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
+      <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
+        <img
+          src="/logo.png"
+          alt="Logo"
+          style={{ height: 40, objectFit: 'contain' }}
+        />
+      </Link>
+    </Box>
+  );
+
   const renderDesktopNav = () => (
-    <>
-      <Button
-        component={Link}
-        to="/"
-        startIcon={<HomeIcon />}
-        sx={{
-          color: location.pathname === '/' ? 'primary.main' : '#fff',
-          textTransform: 'none',
-          mx: 1,
-        }}
-      >
-        {t('nav.home')}
-      </Button>
-
-      <Button
-        component={Link}
-        to="/admin"
-        startIcon={<DashboardIcon />}
-        sx={{
-          color: location.pathname === '/admin' ? 'primary.main' : '#fff',
-          textTransform: 'none',
-          mx: 1,
-        }}
-      >
-        {t('nav.dashboard')}
-      </Button>
-
-      {isLoggedIn ? (
-        <>
-          <Button
-            component={Link}
-            to="/cart"
-            startIcon={
-              <Badge badgeContent={cartCount} color="error" showZero>
-                <ShoppingCartIcon />
-              </Badge>
-            }
-            sx={{
-              color: location.pathname === '/cart' ? 'primary.main' : '#fff',
-              textTransform: 'none',
-              mx: 1,
-            }}
-          >
-            {t('nav.cart')}
-          </Button>
-
-          <Button
-            component={Link}
-            to="/wishlist"
-            startIcon={
-              <Badge badgeContent={wishlistCount} color="error" showZero>
-                <FavoriteBorderIcon />
-              </Badge>
-            }
-            sx={{
-              color: location.pathname === '/wishlist' ? 'primary.main' : '#fff',
-              textTransform: 'none',
-              mx: 1,
-            }}
-          >
-            {t('nav.wishlist')}
-          </Button>
-
-          <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
-            <Button
-              onClick={handleMenuOpen}
-              sx={{
-                color: '#fff',
-                textTransform: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1,
-              }}
-            >
-              <Avatar
-                sx={{
-                  width: 32,
-                  height: 32,
-                  bgcolor: '#90caf9',
-                  color: '#1e1e2f',
-                  fontWeight: 'bold',
-                }}
-              >
-                {user.firstName?.charAt(0)?.toUpperCase() || 'U'}
-              </Avatar>
-              <Typography variant="body1">{user.firstName || 'User'}</Typography>
-              <ExpandMoreIcon fontSize="small" />
-            </Button>
-            <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
-              <MenuItem onClick={handleProfileClick}>
-                <ListItemIcon>
-                  <PersonOutlineIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText>{t('nav.profile')}</ListItemText>
-              </MenuItem>
-              <Divider />
-              <MenuItem onClick={handleLogout}>
-                <ListItemIcon>
-                  <ExitToAppIcon fontSize="small" color="error" />
-                </ListItemIcon>
-                <ListItemText primaryTypographyProps={{ color: 'error' }}>{t('nav.logout')}</ListItemText>
-              </MenuItem>
-            </Menu>
-          </Box>
-        </>
-      ) : (
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        {renderLogo()}
         <Button
           component={Link}
-          to="/login"
-          startIcon={<LoginIcon />}
+          to="/"
+          startIcon={<HomeIcon />}
           sx={{
-            color: location.pathname === '/login' ? 'primary.main' : '#fff',
+            color: location.pathname === '/' ? 'primary.main' : '#fff',
             textTransform: 'none',
             mx: 1,
           }}
         >
-          {t('nav.login')}
+          {t('nav.home')}
         </Button>
-      )}
 
-      <Button
-        onClick={toggleLanguage}
-        sx={{
-          color: '#fff',
-          ml: 2,
-          textTransform: 'none',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 1,
-        }}
-      >
-        <LanguageIcon fontSize="small" />
-        <Typography variant="body1">{isLanguageEnglish ? 'AR' : 'EN'}</Typography>
-      </Button>
-    </>
+        <Button
+          component={Link}
+          to="/admin"
+          startIcon={<DashboardIcon />}
+          sx={{
+            color: location.pathname === '/admin' ? 'primary.main' : '#fff',
+            textTransform: 'none',
+            mx: 1,
+          }}
+        >
+          {t('nav.dashboard')}
+        </Button>
+      </Box>
+
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        {isLoggedIn ? (
+          <>
+            <Button
+              component={Link}
+              to="/cart"
+              startIcon={
+                <Badge badgeContent={cartCount} color="error" showZero>
+                  <ShoppingCartIcon />
+                </Badge>
+              }
+              sx={{
+                color: location.pathname === '/cart' ? 'primary.main' : '#fff',
+                textTransform: 'none',
+                mx: 1,
+              }}
+            >
+              {t('nav.cart')}
+            </Button>
+
+            <Button
+              component={Link}
+              to="/wishlist"
+              startIcon={
+                <Badge badgeContent={wishlistCount} color="error" showZero>
+                  <FavoriteBorderIcon />
+                </Badge>
+              }
+              sx={{
+                color: location.pathname === '/wishlist' ? 'primary.main' : '#fff',
+                textTransform: 'none',
+                mx: 1,
+              }}
+            >
+              {t('nav.wishlist')}
+            </Button>
+
+            <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
+              <Button
+                onClick={handleMenuOpen}
+                sx={{
+                  color: '#fff',
+                  textTransform: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1,
+                }}
+              >
+                <Avatar
+                  sx={{
+                    width: 32,
+                    height: 32,
+                    bgcolor: '#90caf9',
+                    color: '#1e1e2f',
+                    fontWeight: 'bold',
+                  }}
+                >
+                  {user.firstName?.charAt(0)?.toUpperCase() || 'U'}
+                </Avatar>
+                <Typography variant="body1">{user.firstName || 'User'}</Typography>
+                <ExpandMoreIcon fontSize="small" />
+              </Button>
+              <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+                <MenuItem onClick={handleProfileClick}>
+                  <ListItemIcon>
+                    <PersonOutlineIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>{t('nav.profile')}</ListItemText>
+                </MenuItem>
+
+                <MenuItem onClick={toggleLanguage}>
+                  <ListItemIcon>
+                    <LanguageIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>{isLanguageEnglish ? 'AR' : 'EN'}</ListItemText>
+                </MenuItem>
+
+                <Divider />
+                <MenuItem onClick={handleLogout}>
+                  <ListItemIcon>
+                    <ExitToAppIcon fontSize="small" color="error" />
+                  </ListItemIcon>
+                  <ListItemText primaryTypographyProps={{ color: 'error' }}>
+                    {t('nav.logout')}
+                  </ListItemText>
+                </MenuItem>
+              </Menu>
+            </Box>
+          </>
+        ) : (
+          <Button
+            component={Link}
+            to="/login"
+            startIcon={<LoginIcon />}
+            sx={{
+              color: location.pathname === '/login' ? 'primary.main' : '#fff',
+              textTransform: 'none',
+              mx: 1,
+            }}
+          >
+            {t('nav.login')}
+          </Button>
+        )}
+      </Box>
+    </Box>
   );
 
   const renderMobileNav = () => (
@@ -232,7 +243,7 @@ const Navbar = () => {
         }}
       >
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 2 }}>
-          <Typography variant="h6">My Shop</Typography>
+          {renderLogo()}
           <IconButton onClick={toggleDrawer(false)} color="inherit">
             <CloseIcon />
           </IconButton>
@@ -269,6 +280,12 @@ const Navbar = () => {
               </ListItem>
             </>
           )}
+          <ListItem button onClick={toggleLanguage}>
+            <ListItemIcon sx={{ color: '#fff' }}>
+              <LanguageIcon />
+            </ListItemIcon>
+            <ListItemText primary={isLanguageEnglish ? 'AR' : 'EN'} />
+          </ListItem>
         </List>
         <Box sx={{ p: 2 }}>
           {isLoggedIn ? (
@@ -309,7 +326,9 @@ const Navbar = () => {
 
   return (
     <AppBar position="static" sx={{ backgroundColor: '#1e1e2f' }}>
-      <Toolbar>{isMobile ? renderMobileNav() : renderDesktopNav()}</Toolbar>
+      <Toolbar sx={{ justifyContent: 'space-between' }}>
+        {isMobile ? renderMobileNav() : renderDesktopNav()}
+      </Toolbar>
     </AppBar>
   );
 };
