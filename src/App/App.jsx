@@ -77,20 +77,14 @@ function App() {
     <Route path="register" element={<Register />} />
     <Route path="login" element={<Login />} />
     <Route path="/complete-google-profile" element={<CompleteGoogleProfile />} />
-
-    {/* متاحة لأي زائر */}
     <Route path="cart" element={<Cart />} />
     <Route path="wishlist" element={<Wishlist />} />
     <Route path="product/:id" element={<ProductDetails />} />
-
-    {/* محمية */}
     <Route element={<ProtectedRoute />}>
       <Route path="/payment" element={<Payment />} />
       <Route path="profile" element={<Profile />} />
     </Route>
   </Route>
-
-  {/* لوحة التحكم */}
   <Route path="/admin" element={<AdminDashboard />}>
     <Route index element={<Dashboard />} />
     <Route path="team" element={<Team />} />
