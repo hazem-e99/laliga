@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
 import Lottie from "lottie-react";
 import Typewriter from "typewriter-effect";
 import runningAnimation from "../assets/lottie/running.json";
 import { useTranslation } from "react-i18next";
+
 const Intro = () => {
   const { t } = useTranslation();
   return (
@@ -13,7 +13,22 @@ const Intro = () => {
       exit={{ opacity: 0 }}
       transition={{ duration: 1.5 }}
     >
-      {/* Lottie Animation */}
+      <motion.div
+        className="flex items-center mb-6"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.5 }}
+      >
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/LaLiga_logo_2023.svg/1200px-LaLiga_logo_2023.svg.png"
+          alt="La Liga Logo"
+          className="w-16 h-16 mr-3"
+        />
+<h2 className="text-xl md:text-3xl font-bold text-[#fd4742]">
+          LALIGA
+        </h2>
+      </motion.div>
+
       <motion.div
         className="w-40 h-40 mb-6"
         initial={{ scale: 0, rotate: -180 }}
@@ -23,7 +38,6 @@ const Intro = () => {
         <Lottie animationData={runningAnimation} loop={true} />
       </motion.div>
 
-      {/* Title */}
       <motion.h1
         className="text-3xl md:text-5xl font-extrabold text-center mb-6"
         initial={{ scale: 0.5, opacity: 0 }}
@@ -33,7 +47,6 @@ const Intro = () => {
         💥  {t("welcome_title")}<span className="text-cyan-400">{t("ultimate_sportswear")}</span> 💥
       </motion.h1>
 
-      {/* Typewriter Text */}
       <motion.div
         className="text-lg md:text-2xl text-center font-medium text-cyan-300 mb-10 min-h-[100px]"
         initial={{ y: 20, opacity: 0 }}
@@ -51,14 +64,13 @@ const Intro = () => {
             ],
             autoStart: true,
             loop: true,
-            delay: 10,         // 👈 أسرع كتابة
-            deleteSpeed: 10,   // 👈 أسرع حذف
-            pauseFor: 400      // 👈 وقت أقل بين الجمل
+            delay: 10,        
+            deleteSpeed: 10,
+            pauseFor: 400     
           }}
         />
       </motion.div>
 
-      {/* Spinner */}
       <motion.div
         className="w-12 h-12 border-4 border-t-transparent border-cyan-400 rounded-full animate-spin shadow-lg"
         initial={{ opacity: 0 }}

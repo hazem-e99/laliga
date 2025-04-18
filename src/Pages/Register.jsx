@@ -332,11 +332,18 @@ const Register = () => {
               </Divider>
 
               <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-              {t("already_have_account")}{' '}
-                <Link href="/login" underline="hover" fontWeight="500">
-                {t("sign_in")}
-                </Link>
-              </Typography>
+  {t("already_have_account")}{' '}
+  <Link 
+    component="button"
+    onClick={() => navigate('/login')}
+    underline="hover" 
+    fontWeight="500"
+  >
+    {t("sign_in")}
+  </Link>
+</Typography>
+
+
             </Stack>
           </form>
         </Paper>

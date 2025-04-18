@@ -5,13 +5,12 @@ import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import '../Styles/swiperCustom.css'; // 💡 ملف CSS مخصص للتنسيقات
+import '../Styles/swiperCustom.css';
 import { CartContext } from '../Contexts/cartContext';
 import { WishlistContext } from '../Contexts/wishlistContext';
 import { FaHeart, FaShoppingCart, FaStar, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useTranslation } from 'react-i18next';
 
-// ====== ProductCard Component ======
 const ProductCard = ({ product }) => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
@@ -55,7 +54,6 @@ const ProductCard = ({ product }) => {
   );
 };
 
-// ====== CategorySlider Component ======
 const CategorySlider = ({ title, products }) => {
   return (
     <section className="mb-16 relative">
@@ -63,7 +61,6 @@ const CategorySlider = ({ title, products }) => {
         {title}
       </h2>
 
-      {/* Arrows Right and Left beside the slider */}
       <div className="relative">
         <button className="custom-prev absolute top-1/2 -left-6 transform -translate-y-1/2 z-10 bg-primary text-white p-2 rounded-full shadow hover:bg-primary/80 transition">
           <FaChevronLeft />

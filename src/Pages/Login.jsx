@@ -16,6 +16,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { GoogleLogin } from '@react-oauth/google';
+import { Link as RouterLink } from 'react-router-dom'; 
 import {
   LockOutlined,
   Visibility,
@@ -237,20 +238,22 @@ const Login = () => {
             mt: 2,
             color: '#4a5568'
           }}>
-            <Link 
-              href="/register" 
-              underline="hover" 
-              variant="body2"
-              sx={{
-                color: '#4a5568',
-                '&:hover': {
-                  color: '#2d3748',
-                  fontWeight: 500
-                }
-              }}
-            >
-            {t('no_account_register')}
-            </Link>
+
+<Link 
+  component={RouterLink}
+  to="/register"  // ✅ سيتم التعامل معه عبر React Router
+  underline="hover" 
+  variant="body2"
+  sx={{
+    color: '#4a5568',
+    '&:hover': {
+      color: '#2d3748',
+      fontWeight: 500
+    }
+  }}
+>
+  {t('no_account_register')}
+</Link>
 
           </Box>
         </Paper>

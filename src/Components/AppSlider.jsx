@@ -1,32 +1,31 @@
 // استبدل محتوى الملف AppSlider.js بـ:
 
 import React, { useState, useEffect } from 'react';
-import { Box, IconButton, Typography, useTheme } from '@mui/material';
+import { Box, IconButton, Typography, } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const AppSlider = () => {
-  const theme = useTheme();
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slides = [
     {
-      image: './img/slider1.jpg',
+      image: 'https://wayupsports.com/cdn/shop/files/adidas_new_arrivals_main_banner.jpg?v=1744020941&width=1800',
       title: 'Summer Collection',
       description: 'Discover our new summer arrivals with 30% discount'
     },
     {
-      image: './img/slider2.jpg',
+      image: 'https://wayupsports.com/cdn/shop/files/Nike_4_b2d141dc-c24b-4ac9-b6c2-cfcbceb9b925.jpg?v=1743079742&width=1800',
       title: 'Winter Essentials',
       description: 'Stay warm with our premium winter collection'
     },
     {
-      image: './img/slider3.jpg',
+      image: 'https://wayupsports.com/cdn/shop/files/speedo.jpg?v=1743081267&width=1800',
       title: 'Spring Fashion',
       description: 'Fresh styles for the new season'
     },
     {
-      image: './img/slider4.jpg',
+      image: 'https://www.intersport.com.eg/cdn/shop/files/ADIDAS.png?v=1744309761&width=2000',
       title: 'Autumn Specials',
       description: 'Cozy outfits for fall days'
     }
@@ -107,7 +106,6 @@ const AppSlider = () => {
         ))}
       </Box>
 
-      {/* arrows */}
       <IconButton
         onClick={handlePrev}
         sx={{

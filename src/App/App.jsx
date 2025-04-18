@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, } from 'react-router-dom';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import Layout from '../Components/Layout';
 import ProductDetails from '../Pages/ProductDetails';
+import { HashRouter } from "react-router-dom";
+
 import Home from '../Pages/Home';
 import Login from '../Pages/Login';
 import Cart from '../Pages/Cart';
@@ -70,12 +72,12 @@ function App() {
             }}
           />
 
-          <BrowserRouter>
+          <HashRouter>
           <Routes>
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />} />
-    <Route path="register" element={<Register />} />
-    <Route path="login" element={<Login />} />
+    <Route path="/register" element={<Register />} />
+    <Route path="/login" element={<Login />} />
     <Route path="/complete-google-profile" element={<CompleteGoogleProfile />} />
     <Route path="cart" element={<Cart />} />
     <Route path="wishlist" element={<Wishlist />} />
@@ -96,7 +98,7 @@ function App() {
     <Route path="geography" element={<Geography />} />
   </Route>
 </Routes>
-          </BrowserRouter>
+          </HashRouter>
         </WishlistProvider>
       </CartProvider>
     </GoogleOAuthProvider>

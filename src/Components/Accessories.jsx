@@ -7,12 +7,10 @@ const Accessories = ({ priceFilter, ratingFilter, searchTerm }) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
 
-  // فلترة منتجات الإكسسوارات باستخدام category.en
   const allAccessories = productsData.products.filter(
     (product) => product.category?.en?.toLowerCase() === 'accessories'
   );
 
-  // فلترة حسب السعر
   const filteredByPrice = priceFilter
     ? allAccessories.filter((product) => {
         const price = product.price;
@@ -24,12 +22,10 @@ const Accessories = ({ priceFilter, ratingFilter, searchTerm }) => {
       })
     : allAccessories;
 
-  // فلترة حسب التقييم
   const filteredByRating = ratingFilter
     ? filteredByPrice.filter((product) => product.rating.rate >= ratingFilter)
     : filteredByPrice;
 
-  // فلترة حسب البحث، باستخدام الترجمة الحالية
   const filteredBySearchTerm = searchTerm
     ? filteredByRating.filter((product) => {
         const title = product.title?.[currentLang]?.toLowerCase() || '';

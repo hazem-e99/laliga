@@ -80,7 +80,7 @@ const Navbar = () => {
     <Box sx={{ display: 'flex', alignItems: 'center', mr: 3 }}>
       <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
         <img
-          src="/logo.png"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/LaLiga_logo_2023.svg/1200px-LaLiga_logo_2023.svg.png"
           alt="Logo"
           style={{ height: 40, objectFit: 'contain' }}
         />

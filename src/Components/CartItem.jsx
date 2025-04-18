@@ -10,9 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 const CartItem = () => {
   const { cart, removeSpecificItem, updateItem } = useContext(CartContext);
-  const { t, i18n } = useTranslation(); // تفعيل الترجمة واللغة المختارة
-
-  // تحديد اللغة بناءً على i18n
+  const { t, i18n } = useTranslation(); 
   const language = i18n.language;
 
   return (
