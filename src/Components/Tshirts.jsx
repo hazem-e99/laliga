@@ -3,16 +3,18 @@ import productsData from '../sports_products.json';
 import CategorySlider from './CategorySlider';
 import { useTranslation } from 'react-i18next';
 
-const Tshirts = ({ priceFilter, ratingFilter, searchTerm }) => {
+const Tshirts = ({ priceFilter, ratingFilter, searchTerm, categoryFilter }) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
 
-  // فلترة منتجات التيشيرت
+  if (categoryFilter && categoryFilter !== 'Tshirts') {
+    return null;
+  }
+
   const allTshirts = productsData.products.filter(
     (product) => product.category?.en?.toLowerCase() === 't-shirts'
   );
 
-  // فلترة حسب السعر
   const filteredByPrice = priceFilter
     ? allTshirts.filter((product) => {
         const price = product.price;
@@ -24,12 +26,10 @@ const Tshirts = ({ priceFilter, ratingFilter, searchTerm }) => {
       })
     : allTshirts;
 
-  // فلترة حسب التقييم
   const filteredByRating = ratingFilter
     ? filteredByPrice.filter((product) => product.rating.rate >= ratingFilter)
     : filteredByPrice;
 
-  // فلترة حسب البحث، باستخدام الترجمة الحالية
   const filteredBySearchTerm = searchTerm
     ? filteredByRating.filter((product) => {
         const title = product.title?.[currentLang]?.toLowerCase() || '';

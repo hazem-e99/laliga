@@ -153,7 +153,7 @@ const ProductPage = () => {
 
         <Grid container spacing={3} sx={{ mb: 4 }}>
           {reviews.map((review) => (
-            <Grid item xs={12} sm={6} key={review.id}>
+            <Grid  xs={12} sm={6} key={review.id}>
               <Card sx={{ 
                 height: '100%',
                 display: 'flex',

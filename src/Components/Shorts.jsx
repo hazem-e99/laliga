@@ -3,16 +3,19 @@ import productsData from '../sports_products.json';
 import CategorySlider from './CategorySlider';
 import { useTranslation } from 'react-i18next';
 
-const Shorts = ({ priceFilter, ratingFilter, searchTerm }) => {
+const Shorts = ({ priceFilter, ratingFilter, searchTerm, categoryFilter }) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
 
-  // فلترة المنتجات للفئة "شورتات" (باستخدام اللغة الإنجليزية)
+  // ❌ لا تعرض الكاتيجوري دي لو الفلتر مش محددها
+  if (categoryFilter && categoryFilter !== 'Shorts') {
+    return null;
+  }
+
   const allShorts = productsData.products.filter(
     (product) => product.category?.en?.toLowerCase() === 'shorts'
   );
 
-  // فلترة حسب السعر
   const filteredByPrice = priceFilter
     ? allShorts.filter((product) => {
         const price = product.price;
@@ -24,12 +27,10 @@ const Shorts = ({ priceFilter, ratingFilter, searchTerm }) => {
       })
     : allShorts;
 
-  // فلترة حسب التقييم
   const filteredByRating = ratingFilter
     ? filteredByPrice.filter((product) => product.rating.rate >= ratingFilter)
     : filteredByPrice;
 
-  // فلترة حسب البحث، باستخدام الترجمة الحالية
   const filteredBySearchTerm = searchTerm
     ? filteredByRating.filter((product) => {
         const title = product.title?.[currentLang]?.toLowerCase() || '';
@@ -40,11 +41,8 @@ const Shorts = ({ priceFilter, ratingFilter, searchTerm }) => {
   return (
     <div className="shorts-section">
       <CategorySlider title={t('shorts')} products={filteredBySearchTerm} />
-
       {filteredBySearchTerm.length === 0 && (
-        <div className="no-products-message">
-          {t('no_shorts_found')}
-        </div>
+        <div className="no-products-message">{t('no_shorts_found')}</div>
       )}
     </div>
   );

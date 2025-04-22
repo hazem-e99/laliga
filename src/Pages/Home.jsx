@@ -37,6 +37,7 @@ const Home = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [categoryFilter, setCategoryFilter] = useState('');
 
   const toggleFilter = () => {
     setIsFilterOpen(!isFilterOpen);
@@ -48,15 +49,14 @@ const Home = () => {
   };
 
   const handleFilterChange = (filter) => {
+    setCategoryFilter(filter.category);
     setPriceFilter(filter.priceRange);
     setRatingFilter(filter.rating);
     setSearchTerm(filter.searchTerm);
-    console.log('Filter Changed', filter);
   };
 
   return (
     <>
-      {/* Filter Button */}
       <Box
         sx={{
           position: 'fixed',
@@ -143,17 +143,18 @@ const Home = () => {
               priceFilter={priceFilter}
               ratingFilter={ratingFilter}
               searchTerm={searchTerm}
+              categoryFilter={categoryFilter}
             />
           </Box>
 
           <Box mb={6} ref={refs['Shorts']}>
             <Typography variant="h5" gutterBottom fontWeight="bold">
-              
             </Typography>
             <Shorts
               priceFilter={priceFilter}
               ratingFilter={ratingFilter}
               searchTerm={searchTerm}
+              categoryFilter={categoryFilter}
             />
           </Box>
 
@@ -164,28 +165,29 @@ const Home = () => {
               priceFilter={priceFilter}
               ratingFilter={ratingFilter}
               searchTerm={searchTerm}
+              categoryFilter={categoryFilter}
             />
           </Box>
 
           <Box mb={6} ref={refs['Pants']}>
             <Typography variant="h5" gutterBottom fontWeight="bold">
-              
             </Typography>
             <Pants
               priceFilter={priceFilter}
               ratingFilter={ratingFilter}
               searchTerm={searchTerm}
+              categoryFilter={categoryFilter}
             />
           </Box>
 
           <Box mb={6} ref={refs['Accessories']}>
             <Typography variant="h5" gutterBottom fontWeight="bold">
-              Accessories
             </Typography>
             <Accessories
               priceFilter={priceFilter}
               ratingFilter={ratingFilter}
               searchTerm={searchTerm}
+              categoryFilter={categoryFilter}
             />
           </Box>
 
@@ -193,7 +195,6 @@ const Home = () => {
 
           <Box mb={6}>
             <Typography variant="h5" gutterBottom fontWeight="bold">
-              What Our Customers Say
             </Typography>
             <CustomerReviews />
           </Box>

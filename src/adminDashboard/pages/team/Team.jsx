@@ -13,7 +13,6 @@ import Header from "../../components/Header";
 const Team = () => {
   const theme = useTheme();
 
-  // field ==> Reqird
   const columns = [
     {
       field: "id",

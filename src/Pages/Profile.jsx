@@ -365,7 +365,7 @@ const Profile = () => {
         <CardContent sx={{ px: { xs: 3, md: 6 }, pb: 6 }}>
           {passwordEditMode ? (
             <Grid container spacing={3}>
-              <Grid item xs={12}>
+              <Grid  xs={12}>
                 <Typography variant="h5" sx={{ mb: 2, fontWeight: 600 }}>
                   
                   {t('changePassword')}
@@ -373,7 +373,7 @@ const Profile = () => {
                 <Divider sx={{ my: 2 }} />
               </Grid>
               
-              <Grid item xs={12} md={6}>
+              <Grid  xs={12} md={6}>
                 <TextField
                   label=   {t('currentPassword')}
                   name="currentPassword"
@@ -456,7 +456,7 @@ const Profile = () => {
             </Grid>
           ) : (
             <Grid container spacing={3}>
-              <Grid item xs={12}>
+              <Grid  xs={12}>
                 <Typography variant="h5" sx={{ mb: 2, fontWeight: 600 }}>
                  
                   {t('personalInfo')}
@@ -464,7 +464,7 @@ const Profile = () => {
                 <Divider sx={{ my: 2 }} />
               </Grid>
               
-              <Grid item xs={12} md={6}>
+              <Grid  xs={12} md={6}>
                 <TextField
                   label=   {t('firstName')}
                   name="firstName"

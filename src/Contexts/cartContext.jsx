@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { useTranslation } from 'react-i18next';
+import Swal from 'sweetalert2'; // استدعاء sweetalert2
 
 export const CartContext = createContext();
 
@@ -9,7 +10,7 @@ export const CartProvider = ({ children }) => {
     const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : [];
   });
-  
+
   const { t } = useTranslation();
   const [cartCount, setCartCount] = useState(() => {
     const storedCart = localStorage.getItem("cart");
@@ -17,10 +18,8 @@ export const CartProvider = ({ children }) => {
     return parsed.reduce((acc, item) => acc + item.count, 0);
   });
 
-  // تتبع السلة عند التعديل عليها
   useEffect(() => {
-    console.log("السلة المخزنة في localStorage:", localStorage.getItem("cart"));
-    localStorage.setItem("cart", JSON.stringify(cart));  // حفظ السلة في localStorage
+    localStorage.setItem("cart", JSON.stringify(cart));
     const totalCount = cart.reduce((acc, item) => acc + item.count, 0);
     setCartCount(totalCount);
   }, [cart]);
@@ -38,17 +37,27 @@ export const CartProvider = ({ children }) => {
     return cart.some((item) => item.id === product.id);
   };
 
-  const addProductToCart = (product) => {
-    if (localStorage.getItem("isLoggedIn") !== "true") {
-      window.location.href = "/login"; 
-      return;
-    }
-    const normalizedProduct = normalizeProduct(product);
+  const addProductToCart = async (product) => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
-    if (localStorage.getItem("isLoggedIn") !== "true") {
-      window.location.href = "/login";  // إعادة توجيه في حالة عدم تسجيل الدخول
+    if (!isLoggedIn) {
+      const result = await Swal.fire({
+        title: 'Login Required',
+        text: 'You must be logged in to add products to the cart. Do you want to login now?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Login',
+        cancelButtonText: 'Cancel',
+      });
+
+      if (result.isConfirmed) {
+        window.location.href = "/my-ecommerce/#/login";
+      }
+
       return;
     }
+
+    const normalizedProduct = normalizeProduct(product);
 
     if (isProductInCart(normalizedProduct)) {
       setCart((prevCart) =>

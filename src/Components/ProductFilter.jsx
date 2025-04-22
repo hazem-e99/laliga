@@ -1,4 +1,3 @@
-// Components/Filter.js
 import React, { useState } from 'react';
 import {
   Box,
@@ -16,10 +15,12 @@ import {
   TextField
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-const ProductFilter = ({ onCategoryClick, onFilterChange }) => {
+
+const ProductFilter = ({ onFilterChange, onCategoryClick }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const { t } = useTranslation();
+
   const categories = [
     { id: 'Sneakers', name: 'Sneakers' },
     { id: 'Shorts', name: 'Shorts' },
@@ -40,24 +41,42 @@ const ProductFilter = ({ onCategoryClick, onFilterChange }) => {
   const [selectedRating, setSelectedRating] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleCategoryClick = (categoryId) => {
-    setSelectedCategory(categoryId);
-    onCategoryClick(categoryId);
+  const triggerFilterChange = (updated = {}) => {
+    onFilterChange({
+      category: updated.category ?? selectedCategory,
+      priceRange: updated.priceRange ?? selectedPrice,
+      rating: updated.rating ?? selectedRating,
+      searchTerm: updated.searchTerm ?? searchTerm,
+    });
   };
 
+  const handleCategoryClick = (categoryId) => {
+    const newCategory = selectedCategory === categoryId ? null : categoryId;
+    setSelectedCategory(newCategory);
+    triggerFilterChange({ category: newCategory });
+  
+    if (onCategoryClick) {
+      onCategoryClick(newCategory); // even if it's null
+    }
+  };
+  
+
   const handlePriceChange = (e) => {
-    setSelectedPrice(e.target.value);
-    onFilterChange({ priceRange: e.target.value, rating: selectedRating, searchTerm });
+    const value = e.target.value;
+    setSelectedPrice(value);
+    triggerFilterChange({ priceRange: value });
   };
 
   const handleRatingChange = (e) => {
-    setSelectedRating(e.target.value);
-    onFilterChange({ priceRange: selectedPrice, rating: e.target.value, searchTerm });
+    const value = e.target.value;
+    setSelectedRating(value);
+    triggerFilterChange({ rating: value });
   };
 
   const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    onFilterChange({ priceRange: selectedPrice, rating: selectedRating, searchTerm: e.target.value });
+    const value = e.target.value;
+    setSearchTerm(value);
+    triggerFilterChange({ searchTerm: value });
   };
 
   return (
@@ -71,14 +90,15 @@ const ProductFilter = ({ onCategoryClick, onFilterChange }) => {
       }}
     >
       <Typography variant="h6" gutterBottom color="primary">
-      {t('filter_products')}
+        {t('filter_products')}
       </Typography>
 
       <Divider sx={{ mb: 2 }} />
 
+      {/* Categories */}
       <Box mb={3}>
         <Typography variant="subtitle1" gutterBottom>
-        {t('categories')}
+          {t('categories')}
         </Typography>
         <List dense>
           {categories.map((category) => (
@@ -104,9 +124,10 @@ const ProductFilter = ({ onCategoryClick, onFilterChange }) => {
         </List>
       </Box>
 
+      {/* Search */}
       <Box mb={3}>
         <Typography variant="subtitle1" gutterBottom>
-        {t('search_by_product_name')}
+          {t('search_by_product_name')}
         </Typography>
         <TextField
           fullWidth
@@ -118,9 +139,10 @@ const ProductFilter = ({ onCategoryClick, onFilterChange }) => {
         />
       </Box>
 
+      {/* Price */}
       <Box mb={3}>
         <Typography variant="subtitle1" gutterBottom>
-        {t('price_range')}
+          {t('price_range')}
         </Typography>
         <FormControl fullWidth variant="outlined" size="small">
           <InputLabel>Price</InputLabel>
@@ -139,12 +161,13 @@ const ProductFilter = ({ onCategoryClick, onFilterChange }) => {
         </FormControl>
       </Box>
 
+      {/* Rating */}
       <Box mb={3}>
         <Typography variant="subtitle1" gutterBottom>
-        {t('rating')}
+          {t('rating')}
         </Typography>
         <FormControl fullWidth variant="outlined" size="small">
-          <InputLabel>  {t('rating')}</InputLabel>
+          <InputLabel>{t('rating')}</InputLabel>
           <Select
             value={selectedRating}
             onChange={handleRatingChange}

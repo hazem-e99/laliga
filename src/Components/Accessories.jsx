@@ -3,14 +3,21 @@ import productsData from '../sports_products.json';
 import CategorySlider from './CategorySlider';
 import { useTranslation } from 'react-i18next';
 
-const Accessories = ({ priceFilter, ratingFilter, searchTerm }) => {
+const Accessories = ({ priceFilter, ratingFilter, searchTerm, categoryFilter }) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
 
+  // ❌ لا تعرض الكاتيجوري دي لو الفلتر مش محددها
+  if (categoryFilter && categoryFilter !== 'Accessories') {
+    return null;
+  }
+
+  // فلترة منتجات الاكسسوارات
   const allAccessories = productsData.products.filter(
     (product) => product.category?.en?.toLowerCase() === 'accessories'
   );
 
+  // فلترة حسب السعر
   const filteredByPrice = priceFilter
     ? allAccessories.filter((product) => {
         const price = product.price;
@@ -22,10 +29,12 @@ const Accessories = ({ priceFilter, ratingFilter, searchTerm }) => {
       })
     : allAccessories;
 
+  // فلترة حسب التقييم
   const filteredByRating = ratingFilter
     ? filteredByPrice.filter((product) => product.rating.rate >= ratingFilter)
     : filteredByPrice;
 
+  // فلترة حسب البحث
   const filteredBySearchTerm = searchTerm
     ? filteredByRating.filter((product) => {
         const title = product.title?.[currentLang]?.toLowerCase() || '';

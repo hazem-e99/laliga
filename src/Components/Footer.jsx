@@ -22,10 +22,23 @@ const Footer = () => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography variant="body2">
-            © {new Date().getFullYear()} - All rights reserved
-          </Typography>
+          {/* Logo + text */}
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Box
+              component="img"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/LaLiga_logo_2023.svg/1200px-LaLiga_logo_2023.svg.png"
+              alt="La Liga Logo"
+              sx={{
+                height: 30,
+                width: 'auto',
+              }}
+            />
+            <Typography variant="body2">
+              © {new Date().getFullYear()} - All rights reserved
+            </Typography>
+          </Stack>
 
+          {/* Social Icons */}
           <Stack direction="row" spacing={1}>
             <IconButton
               href="https://twitter.com"

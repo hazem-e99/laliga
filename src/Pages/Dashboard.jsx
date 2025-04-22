@@ -341,7 +341,7 @@ const SalesAnalytics = ({ products }) => {
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} md={8}>
+      <Grid  xs={12} md={8}>
         <Paper sx={{ p: 3, height: '100%', borderRadius: 4 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
             <Typography variant="h6" sx={{ fontWeight: 600 }}>Monthly Sales</Typography>
@@ -379,7 +379,7 @@ const SalesAnalytics = ({ products }) => {
           </ResponsiveContainer>
         </Paper>
       </Grid>
-      <Grid item xs={12} md={4}>
+      <Grid  xs={12} md={4}>
         <Paper sx={{ p: 3, height: '100%', borderRadius: 4 }}>
           <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>Sales by Category</Typography>
           <ResponsiveContainer width="100%" height={300}>
@@ -403,7 +403,7 @@ const SalesAnalytics = ({ products }) => {
           </ResponsiveContainer>
         </Paper>
       </Grid>
-      <Grid item xs={12}>
+      <Grid  xs={12}>
         <Paper sx={{ p: 3, borderRadius: 4 }}>
           <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>Top Selling Products</Typography>
           <Grid container spacing={2}>
@@ -411,7 +411,7 @@ const SalesAnalytics = ({ products }) => {
               .sort((a, b) => (b.price * (b.rating.count / 10)) - (a.price * (a.rating.count / 10)))
               .slice(0, 4)
               .map(product => (
-                <Grid item xs={12} sm={6} md={3} key={product.id}>
+                <Grid  xs={12} sm={6} md={3} key={product.id}>
                   <Card sx={{ height: '100%' }}>
                     <CardContent>
                       <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
@@ -469,7 +469,7 @@ const CustomerInsights = ({ products }) => {
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} md={6}>
+      <Grid  xs={12} md={6}>
         <Paper sx={{ p: 3, height: '100%', borderRadius: 4 }}>
           <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>Top Customers</Typography>
           <List>
@@ -489,7 +489,7 @@ const CustomerInsights = ({ products }) => {
           </List>
         </Paper>
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid  xs={12} md={6}>
         <Paper sx={{ p: 3, height: '100%', borderRadius: 4 }}>
           <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>Customer Segments</Typography>
           <ResponsiveContainer width="100%" height={300}>
@@ -517,7 +517,7 @@ const CustomerInsights = ({ products }) => {
           </ResponsiveContainer>
         </Paper>
       </Grid>
-      <Grid item xs={12}>
+      <Grid  xs={12}>
         <Paper sx={{ p: 3, borderRadius: 4 }}>
           <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>Purchase History</Typography>
           <ResponsiveContainer width="100%" height={300}>
@@ -555,12 +555,12 @@ const AdvancedAnalytics = () => {
 
   return (
     <Grid container spacing={3}>
-      <Grid item xs={12} md={6}>
+      <Grid  xs={12} md={6}>
         <Paper sx={{ p: 3, height: '100%', borderRadius: 4 }}>
           <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>Performance Metrics</Typography>
           <Grid container spacing={2}>
             {performanceData.map((metric, index) => (
-              <Grid item xs={12} sm={6} key={index}>
+              <Grid  xs={12} sm={6} key={index}>
                 <Paper sx={{ p: 2, borderRadius: 3 }}>
                   <Typography variant="subtitle2" color="text.secondary">{metric.name}</Typography>
                   <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
@@ -584,7 +584,7 @@ const AdvancedAnalytics = () => {
           </Grid>
         </Paper>
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid  xs={12} md={6}>
         <Paper sx={{ p: 3, height: '100%', borderRadius: 4 }}>
           <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>Conversion Funnel</Typography>
           <ResponsiveContainer width="100%" height={300}>
@@ -605,7 +605,7 @@ const AdvancedAnalytics = () => {
           </ResponsiveContainer>
         </Paper>
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid  xs={12} md={6}>
         <Paper sx={{ p: 3, height: '100%', borderRadius: 4 }}>
           <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>Customer Acquisition</Typography>
           <ResponsiveContainer width="100%" height={300}>
@@ -630,7 +630,7 @@ const AdvancedAnalytics = () => {
           </ResponsiveContainer>
         </Paper>
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid  xs={12} md={6}>
         <Paper sx={{ p: 3, height: '100%', borderRadius: 4 }}>
           <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>Traffic Sources</Typography>
           <ResponsiveContainer width="100%" height={300}>
@@ -799,7 +799,7 @@ const Dashboard = () => {
       {/* Metrics Cards */}
       <Box sx={{ mb: 6, maxWidth: 1200, mx: 'auto' }}>
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={6} md={4} lg={2}>
+          <Grid  xs={12} sm={6} md={4} lg={2}>
             <MetricCard 
               icon={<LocalMall />} 
               value={metrics.totalProducts} 
@@ -808,7 +808,7 @@ const Dashboard = () => {
               theme={theme}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={4} lg={2}>
+          <Grid  xs={12} sm={6} md={4} lg={2}>
             <MetricCard 
               icon={<Star />} 
               value={metrics.bestSellers} 
@@ -817,7 +817,7 @@ const Dashboard = () => {
               theme={theme}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={4} lg={2}>
+          <Grid  xs={12} sm={6} md={4} lg={2}>
             <MetricCard 
               icon={<Whatshot />} 
               value={metrics.trending} 
@@ -826,7 +826,7 @@ const Dashboard = () => {
               theme={theme}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={4} lg={2}>
+          <Grid  xs={12} sm={6} md={4} lg={2}>
             <MetricCard 
               icon={<MonetizationOn />} 
               value={`$${metrics.avgPrice.toFixed(2)}`} 
@@ -835,7 +835,7 @@ const Dashboard = () => {
               theme={theme}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={4} lg={2}>
+          <Grid  xs={12} sm={6} md={4} lg={2}>
             <MetricCard 
               icon={<ThumbUp />} 
               value={metrics.avgRating.toFixed(1)} 
@@ -844,7 +844,7 @@ const Dashboard = () => {
               theme={theme}
             />
           </Grid>
-          <Grid item xs={12} sm={6} md={4} lg={2}>
+          <Grid  xs={12} sm={6} md={4} lg={2}>
             <MetricCard 
               icon={<Category />} 
               value={metrics.categories} 
@@ -877,7 +877,7 @@ const Dashboard = () => {
         {tabValue === 0 && (
           <Grid container spacing={3}>
             {/* First Row */}
-            <Grid item xs={12} md={8}>
+            <Grid  xs={12} md={8}>
               <Paper sx={{ p: 3, height: '100%', borderRadius: 4 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
                   <Typography variant="h6" sx={{ fontWeight: 600 }}>Sales Trend</Typography>
@@ -907,20 +907,20 @@ const Dashboard = () => {
                 </ResponsiveContainer>
               </Paper>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid  xs={12} md={4}>
               <TopProductsTable products={products} />
             </Grid>
 
             {/* Second Row */}
-            <Grid item xs={12} md={6}>
+            <Grid  xs={12} md={6}>
               <CategorySalesChart data={categoryDistribution} />
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid  xs={12} md={6}>
               <PriceRatingScatter products={products} />
             </Grid>
 
             {/* Third Row */}
-            <Grid item xs={12} md={4}>
+            <Grid  xs={12} md={4}>
               <Paper sx={{ p: 3, height: '100%', borderRadius: 4 }}>
                 <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>Category Distribution</Typography>
                 <ResponsiveContainer width="100%" height={300}>
@@ -944,7 +944,7 @@ const Dashboard = () => {
                 </ResponsiveContainer>
               </Paper>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid  xs={12} md={4}>
               <Paper sx={{ p: 3, height: '100%', borderRadius: 4 }}>
                 <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>Rating Distribution</Typography>
                 <ResponsiveContainer width="100%" height={300}>
@@ -972,7 +972,7 @@ const Dashboard = () => {
                 </ResponsiveContainer>
               </Paper>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid  xs={12} md={4}>
               <Paper sx={{ p: 3, height: '100%', borderRadius: 4 }}>
                 <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>Price Distribution</Typography>
                 <ResponsiveContainer width="100%" height={300}>
@@ -996,7 +996,7 @@ const Dashboard = () => {
           <Box>
             <ProductPerformanceTable products={products} />
             <Grid container spacing={3} sx={{ mt: 2 }}>
-              <Grid item xs={12} md={6}>
+              <Grid  xs={12} md={6}>
                 <Paper sx={{ p: 3, height: '100%', borderRadius: 4 }}>
                   <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>Inventory Status</Typography>
                   <ResponsiveContainer width="100%" height={300}>
@@ -1013,7 +1013,7 @@ const Dashboard = () => {
                   </ResponsiveContainer>
                 </Paper>
               </Grid>
-              <Grid item xs={12} md={6}>
+              <Grid  xs={12} md={6}>
                 <Paper sx={{ p: 3, height: '100%', borderRadius: 4 }}>
                   <Typography variant="h6" sx={{ fontWeight: 600, mb: 3 }}>Product Categories</Typography>
                   <ResponsiveContainer width="100%" height={300}>

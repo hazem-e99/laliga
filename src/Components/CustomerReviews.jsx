@@ -26,13 +26,13 @@ const CustomerReviews = () => {
   return (
     <Box sx={{ padding: 2 }}>
       {/* Title */}
-      <h2 class="text-3xl font-bold text-center text-info bg-black mb-6 border-b-2 border-primary pb-2 shadow-sm capitalize">
+      <h2 className="text-3xl font-bold text-center text-info bg-black mb-6 border-b-2 border-primary pb-2 shadow-sm capitalize">
         CustomerReviews</h2>
 
       {/* Reviews Grid */}
       <Grid container spacing={4} justifyContent="center">
         {reviews.map((review, index) => (
-          <Grid item xs={12} sm={6} md={4} key={index}>
+          <Grid  xs={12} sm={6} md={4} key={index}>
             <Card sx={{ maxWidth: 345, boxShadow: 3, borderRadius: 4 }}>
               <CardHeader
                 avatar={<Avatar src={review.avatar} alt={review.name} />}

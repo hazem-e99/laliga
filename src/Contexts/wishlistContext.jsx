@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { useTranslation } from 'react-i18next';
+import Swal from 'sweetalert2'; // استدعاء SweetAlert2
 
 export const WishlistContext = createContext();
 
@@ -30,9 +31,23 @@ export const WishlistProvider = ({ children }) => {
     return wishlist.some((item) => item.id === product.id);
   };
 
-  const addToWishlist = (product) => {
-    if (localStorage.getItem("isLoggedIn") !== "true") {
-      window.location.href = "/login"; 
+  const addToWishlist = async (product) => {
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+
+    if (!isLoggedIn) {
+      const result = await Swal.fire({
+        title: 'Login Required',
+        text: 'You must be logged in to add products to your wishlist. Do you want to login now?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Login',
+        cancelButtonText: 'Cancel',
+      });
+
+      if (result.isConfirmed) {
+        window.location.href = "/my-ecommerce/#/login";
+      }
+
       return;
     }
 

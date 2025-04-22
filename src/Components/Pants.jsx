@@ -3,11 +3,16 @@ import productsData from '../sports_products.json';
 import CategorySlider from './CategorySlider';
 import { useTranslation } from 'react-i18next';
 
-const Pants = ({ priceFilter, ratingFilter, searchTerm }) => {
+const Pants = ({ priceFilter, ratingFilter, searchTerm, categoryFilter }) => {
   const { t, i18n } = useTranslation();
   const currentLang = i18n.language;
 
-  // فلترة منتجات البنطال باستخدام category.en دائماً
+  // ❌ لا تعرض الكاتيجوري دي لو الفلتر مش محددها
+  if (categoryFilter && categoryFilter !== 'Pants') {
+    return null;
+  }
+
+  // فلترة منتجات البنطال باستخدام category.en
   const allPants = productsData.products.filter(
     (product) => product.category?.en?.toLowerCase() === 'pants'
   );
@@ -29,7 +34,7 @@ const Pants = ({ priceFilter, ratingFilter, searchTerm }) => {
     ? filteredByPrice.filter((product) => product.rating.rate >= ratingFilter)
     : filteredByPrice;
 
-  // فلترة حسب البحث، باستخدام الترجمة الحالية
+  // فلترة حسب البحث باستخدام الترجمة الحالية
   const filteredBySearchTerm = searchTerm
     ? filteredByRating.filter((product) => {
         const title = product.title?.[currentLang]?.toLowerCase() || '';
