@@ -28,6 +28,11 @@ const AppSlider = () => {
       image: 'https://www.intersport.com.eg/cdn/shop/files/ADIDAS.png?v=1744309761&width=2000',
       title: 'Autumn Specials',
       description: 'Cozy outfits for fall days'
+    },
+    {
+      image: 'https://www.adidas.com.eg/dw/image/v2/BFNL_PRD/on/demandware.static/-/Library-Sites-AdidasSharedLibrary/default/dwef2abe37/MENA_Local_Activations/MENA-APR-MAY-JUNE/emc-theoriginal_rev-originals-ss25-hp-mh-d.jpg',
+      title: 'Autumn Specials',
+      description: 'Cozy outfits for fall days'
     }
   ];
 
