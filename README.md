@@ -64,8 +64,9 @@ The website is designed to deliver a **smooth** and **user-friendly** shopping e
 
 ---
 
-## 🚀 Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+## 🚀 Team Memmber
+- Hazem Essam (Team Leader)
+- Mina Maged
+- Mayar Mohammed
+- Zinab Mahmmoud
+- Ghaga Fares
