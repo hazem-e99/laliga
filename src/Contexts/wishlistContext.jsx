@@ -45,7 +45,7 @@ export const WishlistProvider = ({ children }) => {
       });
 
       if (result.isConfirmed) {
-        window.location.href = "/my-ecommerce/#/login";
+        window.location.href = "/laliga/#/login";
       }
 
       return;

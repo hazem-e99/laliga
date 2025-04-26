@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://github.com/hazem-e99/my-ecommerce",
+  "homepage": "https://github.com/hazem-e99/laliga",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

@@ -12,7 +12,6 @@
       "address": "abha",
       "acceptTerms": true
     },
-    
     {
       "id": "d74b",
       "firstName": "roqaya",
@@ -60,17 +59,35 @@
       "gender": "male",
       "address": "assuit",
       "acceptTerms": true
+    },
+    {
+      "id": "6c09",
+      "firstName": "Hazem",
+      "lastName": "Essam",
+      "phone": "01448888896",
+      "email": "hazemessam881999@gmail.com",
+      "password": "112233",
+      "birthDate": "1999-08-11",
+      "gender": "male",
+      "address": "..",
+      "acceptTerms": true
+    },
+    {
+      "id": "6b57",
+      "firstName": "Hazem",
+      "lastName": "Essam",
+      "phone": "01094575914",
+      "email": "admin2025hazemm@gmail.com",
+      "password": "112233",
+      "birthDate": "1998-01-11",
+      "gender": "male",
+      "address": "......",
+      "acceptTerms": true
     }
   ],
   "googleUsers": [
     {
-      "id": "b913",
-      "firstName": "Hazem",
-      "lastName": "Essam",
-      "email": "zoka.live2000@gmail.com",
-      "phone": "01094575914",
-      "address": "اسيوط",
-      "isGoogleUser": true
+
     }
   ]
 }

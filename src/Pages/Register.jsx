@@ -298,7 +298,7 @@ const Register = () => {
                 }
                 label={
                   <Typography variant="body2">
-                     {t("accept_terms")} <Link href="/terms" underline="hover">Terms and Conditions</Link>
+                     {t("accept_terms")}
                   </Typography>
                 }
                 sx={{ mt: 1 }}
